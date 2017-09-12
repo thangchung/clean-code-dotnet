@@ -14,7 +14,7 @@
   11. [Comments](#comments)
 
 ## Introduction
-![Humorous image of software quality estimation as a count of how many expletives you shout when reading code (http://www.osnews.com/images/comics/wtfm.jpg)
+![Humorous image of software quality estimation as a count of how many expletives you shout when reading code](http://www.osnews.com/images/comics/wtfm.jpg)
 
 Software engineering principles, from Robert C. Martin's book [*Clean Code*](https://www.amazon.com/Clean-Code-Handbook-Software-Craftsmanship/dp/0132350882), adapted for .NET and .NET Core. This is not a style guide. It's a guide to producing readable, reusable, and refactorable software in .NET and .NET Core.
 
