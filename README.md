@@ -29,13 +29,13 @@ Inspired from [clean-code-javascript](https://github.com/ryanmcdermott/clean-cod
 **Bad:**
 
 ```csharp
-var ymdstr = moment->format('y-m-d');
+var ymdstr = moment.Format('y-m-d');
 ```
 
 **Good:**
 
 ```csharp
-var currentDate = moment->format('y-m-d');
+var currentDate = moment.Format('y-m-d');
 ```
 
 **[⬆ back to top](#table-of-contents)**
@@ -45,16 +45,16 @@ var currentDate = moment->format('y-m-d');
 **Bad:**
 
 ```csharp
-getUserInfo();
-getUserData();
-getUserRecord();
-getUserProfile();
+GetUserInfo();
+GetUserData();
+GetUserRecord();
+GetUserProfile();
 ```
 
 **Good:**
 
 ```csharp
-getUser();
+GetUser();
 ```
 
 **[⬆ back to top](#table-of-contents)**
@@ -70,13 +70,13 @@ Make your names searchable.
 
 ```csharp
 // What the heck is 448 for?
-$result = $serializer->serialize($data, 448);
+var result = serializer.Serialize(data, 448);
 ```
 
 **Good:**
 
 ```csharp
-$json = $serializer->serialize($data, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+var json = serializer.Serialize(data, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
 ```
 
 ### Use searchable names (part 2)
@@ -85,7 +85,7 @@ $json = $serializer->serialize($data, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT
 
 ```csharp
 // What the heck is 4 for?
-if ($user->access & 4) {
+if (user.Access & 4) {
     // ...
 }
 ```
@@ -93,15 +93,15 @@ if ($user->access & 4) {
 **Good:**
 
 ```csharp
-class User
+public enum UserEnum
 {
-    const ACCESS_READ = 1;
-    const ACCESS_CREATE = 2;
-    const ACCESS_UPDATE = 4;
-    const ACCESS_DELETE = 8;
+    const int ACCESS_READ = 1;
+    const int ACCESS_CREATE = 2;
+    const int ACCESS_UPDATE = 4;
+    const int ACCESS_DELETE = 8;
 }
 
-if ($user->access & User::ACCESS_UPDATE) {
+if (user.Access & UserEnum.ACCESS_UPDATE) {
     // do edit ...
 }
 ```
@@ -113,11 +113,11 @@ if ($user->access & User::ACCESS_UPDATE) {
 **Bad:**
 
 ```csharp
-$address = 'One Infinite Loop, Cupertino 95014';
-$cityZipCodeRegex = '/^[^,\\]+[,\\\s]+(.+?)\s*(\d{5})?$/';
-preg_match($cityZipCodeRegex, $address, $matches);
+var address = 'One Infinite Loop, Cupertino 95014';
+var cityZipCodeRegex = '/^[^,\\]+[,\\\s]+(.+?)\s*(\d{5})?$/';
+preg_match(cityZipCodeRegex, address, matches);
 
-saveCityZipCode($matches[1], $matches[2]);
+SaveCityZipCode(matches[1], matches[2]);
 ```
 
 **Not bad:**
@@ -125,12 +125,12 @@ saveCityZipCode($matches[1], $matches[2]);
 It's better, but we are still heavily dependent on regex.
 
 ```csharp
-$address = 'One Infinite Loop, Cupertino 95014';
-$cityZipCodeRegex = '/^[^,\\]+[,\\\s]+(.+?)\s*(\d{5})?$/';
-preg_match($cityZipCodeRegex, $address, $matches);
+var address = 'One Infinite Loop, Cupertino 95014';
+var cityZipCodeRegex = '/^[^,\\]+[,\\\s]+(.+?)\s*(\d{5})?$/';
+preg_match(cityZipCodeRegex, address, matches);
 
-list(, $city, $zipCode) = $matches;
-saveCityZipCode($city, $zipCode);
+list(, city, zipCode) = matches;
+SaveCityZipCode(city, zipCode);
 ```
 
 **Good:**
@@ -138,11 +138,11 @@ saveCityZipCode($city, $zipCode);
 Decrease dependence on regex by naming subpatterns.
 
 ```csharp
-$address = 'One Infinite Loop, Cupertino 95014';
-$cityZipCodeRegex = '/^[^,\\]+[,\\\s]+(?<city>.+?)\s*(?<zipCode>\d{5})?$/';
-preg_match($cityZipCodeRegex, $address, $matches);
+var address = 'One Infinite Loop, Cupertino 95014';
+var cityZipCodeRegex = '/^[^,\\]+[,\\\s]+(?<city>.+?)\s*(?<zipCode>\d{5})?$/';
+preg_match(cityZipCodeRegex, address, matches);
 
-saveCityZipCode($matches['city'], $matches['zipCode']);
+SaveCityZipCode(matches['city'], matches['zipCode']);
 ```
 
 **[⬆ back to top](#table-of-contents)**
@@ -155,16 +155,16 @@ than implicit.
 **Bad:**
 
 ```csharp
-function isShopOpen($day)
+function IsShopOpen(day)
 {
-    if ($day) {
-        if (is_string($day)) {
-            $day = strtolower($day);
-            if ($day === 'friday') {
+    if (day) {
+        if (string.IsNullOrEmpty(day)) {
+            day = strtolower(day);
+            if (day == 'friday') {
                 return true;
-            } elseif ($day === 'saturday') {
+            } elseif (day == 'saturday') {
                 return true;
-            } elseif ($day === 'sunday') {
+            } elseif (day == 'sunday') {
                 return true;
             } else {
                 return false;
@@ -181,29 +181,29 @@ function isShopOpen($day)
 **Good:**
 
 ```csharp
-function isShopOpen($day)
+function IsShopOpen(day)
 {
-    if (empty($day) && ! is_string($day)) {
+    if (empty(day) && ! is_string(day)) {
         return false;
     }
 
-    $openingDays = [
+    var openingDays = [
         'friday', 'saturday', 'sunday'
     ];
 
-    return in_array(strtolower($day), $openingDays);
+    return in_array(strtolower(day), openingDays);
 }
 ```
 
 **Bad:**
 
 ```csharp
-function fibonacci($n)
+function Fibonacci(n)
 {
-    if ($n < 50) {
-        if ($n !== 0) {
-            if ($n !== 1) {
-                return fibonacci($n - 1) + fibonacci($n - 2);
+    if (n < 50) {
+        if (n !== 0) {
+            if (n !== 1) {
+                return Fibonacci(n - 1) + Fibonacci(n - 2);
             } else {
                 return 1;
             }
@@ -219,21 +219,21 @@ function fibonacci($n)
 **Good:**
 
 ```csharp
-function fibonacci($n)
+function Fibonacci(n)
 {
-    if ($n === 0) {
+    if (n === 0) {
         return 0;
     }
 
-    if ($n === 1) {
+    if (n === 1) {
         return 1;
     }
 
-    if ($n > 50) {
+    if (n > 50) {
         return 'Not supported';
     }
 
-    return fibonacci($n - 1) + fibonacci($n - 2);
+    return Fibonacci(n - 1) + Fibonacci(n - 2);
 }
 ```
 
@@ -247,32 +247,34 @@ Explicit is better than implicit.
 **Bad:**
 
 ```csharp
-$l = ['Austin', 'New York', 'San Francisco'];
+var l = ['Austin', 'New York', 'San Francisco'];
 
-for ($i = 0; $i < count($l); $i++) {
-    $li = $l[$i];
-    doStuff();
-    doSomeOtherStuff();
+for (var i = 0; i < l.Count(); i++) {
+    li = l[i];
+    DoStuff();
+    DoSomeOtherStuff();
+
     // ...
     // ...
     // ...
-    // Wait, what is `$li` for again?
-    dispatch($li);
+    // Wait, what is `li` for again?
+    Dispatch(li);
 }
 ```
 
 **Good:**
 
 ```csharp
-$locations = ['Austin', 'New York', 'San Francisco'];
+var locations = ['Austin', 'New York', 'San Francisco'];
 
-foreach ($locations as $location) {
-    doStuff();
-    doSomeOtherStuff();
+foreach (location in locations) {
+    DoStuff();
+    DoSomeOtherStuff();
+
     // ...
     // ...
     // ...
-    dispatch($location);
+    Dispatch(location);
 }
 ```
 
@@ -286,11 +288,11 @@ variable name.
 **Bad:**
 
 ```csharp
-class Car
+public class Car
 {
-    public $carMake;
-    public $carModel;
-    public $carColor;
+    public string carMake;
+    public string carModel;
+    public string carColor;
 
     //...
 }
@@ -299,11 +301,11 @@ class Car
 **Good:**
 
 ```csharp
-class Car
+public class Car
 {
-    public $make;
-    public $model;
-    public $color;
+    public string make;
+    public string model;
+    public string color;
 
     //...
 }
@@ -315,23 +317,14 @@ class Car
 
 **Not good:**
 
-This is not good because `$breweryName` can be `NULL`.
-
-```csharp
-function createMicrobrewery($breweryName = 'Hipster Brew Co.')
-{
-    // ...
-}
-```
-
-**Not bad:**
+This is not good because `breweryName` can be `NULL`.
 
 This opinion is more understandable than the previous version, but it better controls the value of the variable.
 
 ```csharp
-function createMicrobrewery($name = null)
+function CreateMicrobrewery(string name = null)
 {
-    $breweryName = $name ?: 'Hipster Brew Co.';
+    var breweryName = name ?: "Hipster Brew Co.";
     // ...
 }
 ```
@@ -339,7 +332,7 @@ function createMicrobrewery($name = null)
 **Good:**
 
 ```csharp
-function createMicrobrewery(string $breweryName = 'Hipster Brew Co.')
+function CreateMicrobrewery(string breweryName = "Hipster Brew Co.")
 {
     // ...
 }
