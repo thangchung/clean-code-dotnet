@@ -29,13 +29,13 @@ Inspired from [clean-code-javascript](https://github.com/ryanmcdermott/clean-cod
 **Bad:**
 
 ```csharp
-var ymdstr = moment.Format('y-m-d');
+var ymdstr = DateTime.UtcNow.ToString("MMMM dd, yyyy");
 ```
 
 **Good:**
 
 ```csharp
-var currentDate = moment.Format('y-m-d');
+var currentDate = DateTime.UtcNow.ToString("MMMM dd, yyyy");
 ```
 
 **[⬆ back to top](#table-of-contents)**
@@ -2453,6 +2453,4 @@ const actions = function() {
   // ...
 };
 ```
-**[⬆ back to top](#table-of-contents)**
-
 **[⬆ back to top](#table-of-contents)**
