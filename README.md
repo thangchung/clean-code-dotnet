@@ -40,7 +40,7 @@ var currentDate = DateTime.UtcNow.ToString("MMMM dd, yyyy");
 
 **[Source code](https://github.com/thangchung/clean-code-dotnet/blob/master/src/Variables/UseMeaningfulAndPronounceableVariableNames.cs)**
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ Back to top](#table-of-contents)**
 
 ### Use the same vocabulary for the same type of variable
 
@@ -61,7 +61,7 @@ GetUser();
 
 **[Source code](https://github.com/thangchung/clean-code-dotnet/blob/master/src/Variables/UseSameVocabularyForSameTypeVariables.cs)**
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ Back to top](#table-of-contents)**
 
 ### Use searchable names (part 1)
 
@@ -145,7 +145,7 @@ if (person.PersonAccess == PersonAccess.ACCESS_UPDATE)
 
 **[Source code](https://github.com/thangchung/clean-code-dotnet/blob/master/src/Variables/UseSearchableNames.cs)**
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ Back to top](#table-of-contents)**
 
 ### Use explanatory variables
 
