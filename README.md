@@ -38,6 +38,7 @@ var ymdstr = DateTime.UtcNow.ToString("MMMM dd, yyyy");
 var currentDate = DateTime.UtcNow.ToString("MMMM dd, yyyy");
 ```
 
+**[Source code](https://github.com/thangchung/clean-code-dotnet/blob/master/src/Variables/UseMeaningfulAndPronounceableVariableNames.cs)**
 **[⬆ back to top](#table-of-contents)**
 
 ### Use the same vocabulary for the same type of variable
@@ -57,6 +58,7 @@ GetUserProfile();
 GetUser();
 ```
 
+**[Source code](https://github.com/thangchung/clean-code-dotnet/blob/master/src/Variables/UseSameVocabularyForSameTypeVariables.cs)**
 **[⬆ back to top](#table-of-contents)**
 
 ### Use searchable names (part 1)
@@ -69,14 +71,36 @@ Make your names searchable.
 **Bad:**
 
 ```csharp
-// What the heck is 448 for?
-var result = serializer.Serialize(data, 448);
+// What the heck is data for?
+var data = new { Name = "John", Age = 42 };
+
+var stream1 = new MemoryStream();
+DataContractJsonSerializer ser1 = new DataContractJsonSerializer(typeof(object));
+ser1.WriteObject(stream1, data);
+
+stream1.Position = 0;
+var sr1 = new StreamReader(stream1);
+Console.Write("JSON form of Data object: ");
+Console.WriteLine(sr1.ReadToEnd());
 ```
 
 **Good:**
 
 ```csharp
-var json = serializer.Serialize(data, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+var person = new Person
+{
+    Name = "John",
+    Age = 42
+};
+
+var stream2 = new MemoryStream();
+DataContractJsonSerializer ser2 = new DataContractJsonSerializer(typeof(Person));
+ser2.WriteObject(stream2, data);
+
+stream2.Position = 0;
+StreamReader sr2 = new StreamReader(stream2);
+Console.Write("JSON form of Data object: ");
+Console.WriteLine(sr2.ReadToEnd());
 ```
 
 ### Use searchable names (part 2)
@@ -84,28 +108,40 @@ var json = serializer.Serialize(data, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT
 **Bad:**
 
 ```csharp
+var data = new { Name = "John", Age = 42, PersonAccess = 4};
+
 // What the heck is 4 for?
-if (user.Access & 4) {
-    // ...
+if (data.PersonAccess == 4)
+{
+    // do edit ...
 }
 ```
 
 **Good:**
 
 ```csharp
-public enum UserEnum
+public enum PersonAccess : int
 {
-    const int ACCESS_READ = 1;
-    const int ACCESS_CREATE = 2;
-    const int ACCESS_UPDATE = 4;
-    const int ACCESS_DELETE = 8;
+    ACCESS_READ = 1,
+    ACCESS_CREATE = 2,
+    ACCESS_UPDATE = 4,
+    ACCESS_DELETE = 8
 }
 
-if (user.Access & UserEnum.ACCESS_UPDATE) {
+var person = new Person
+{
+    Name = "John",
+    Age = 42,
+    PersonAccess= PersonAccess.ACCESS_CREATE
+};
+
+if (person.PersonAccess == PersonAccess.ACCESS_UPDATE)
+{
     // do edit ...
 }
 ```
 
+**[Source code](https://github.com/thangchung/clean-code-dotnet/blob/master/src/Variables/UseSearchableNames.cs)**
 **[⬆ back to top](#table-of-contents)**
 
 ### Use explanatory variables
