@@ -24,7 +24,7 @@ Inspired from [clean-code-javascript](https://github.com/ryanmcdermott/clean-cod
 
 ## **Variables**
 
-### Use meaningful and pronounceable variable names
+### Use meaningful and pronounceable variable names [:page_facing_up:](https://github.com/thangchung/clean-code-dotnet/blob/master/src/Variables/UseMeaningfulAndPronounceableVariableNames.cs)
 
 **Bad:**
 
@@ -38,11 +38,9 @@ var ymdstr = DateTime.UtcNow.ToString("MMMM dd, yyyy");
 var currentDate = DateTime.UtcNow.ToString("MMMM dd, yyyy");
 ```
 
-**[:link: Source code](https://github.com/thangchung/clean-code-dotnet/blob/master/src/Variables/UseMeaningfulAndPronounceableVariableNames.cs)**
-
 **[⬆ Back to top](#table-of-contents)**
 
-### Use the same vocabulary for the same type of variable
+### Use the same vocabulary for the same type of variable [:page_facing_up:](https://github.com/thangchung/clean-code-dotnet/blob/master/src/Variables/UseSameVocabularyForSameTypeVariables.cs)
 
 **Bad:**
 
@@ -59,11 +57,9 @@ GetUserProfile();
 GetUser();
 ```
 
-**[:link: Source code](https://github.com/thangchung/clean-code-dotnet/blob/master/src/Variables/UseSameVocabularyForSameTypeVariables.cs)**
-
 **[⬆ Back to top](#table-of-contents)**
 
-### Use searchable names (part 1)
+### Use searchable names (part 1) [:page_facing_up:](https://github.com/thangchung/clean-code-dotnet/blob/master/src/Variables/UseSearchableNames.cs)
 
 We will read more code than we will ever write. It's important that the code we do write is 
 readable and searchable. By *not* naming variables that end up being meaningful for 
@@ -105,7 +101,7 @@ Console.Write("JSON form of Data object: ");
 Console.WriteLine(sr2.ReadToEnd());
 ```
 
-### Use searchable names (part 2)
+### Use searchable names (part 2) [:page_facing_up:](https://github.com/thangchung/clean-code-dotnet/blob/master/src/Variables/UseSearchableNames.cs)
 
 **Bad:**
 
@@ -143,11 +139,9 @@ if (person.PersonAccess == PersonAccess.ACCESS_UPDATE)
 }
 ```
 
-**[:link: Source code](https://github.com/thangchung/clean-code-dotnet/blob/master/src/Variables/UseSearchableNames.cs)**
-
 **[⬆ Back to top](#table-of-contents)**
 
-### Use explanatory variables
+### Use explanatory variables [:page_facing_up:](https://github.com/thangchung/clean-code-dotnet/blob/master/src/Variables/UseExplanatoryVariables.cs)
 
 **Bad:**
 
@@ -177,7 +171,6 @@ if(cityGroup.Success == true && zipCodeGroup.Success == true)
 }
 ```
 
-**[:link: Source code](https://github.com/thangchung/clean-code-dotnet/blob/master/src/Variables/UseExplanatoryVariables.cs)**
 **[⬆ back to top](#table-of-contents)**
 
 ### Avoid nesting too deeply and return early
