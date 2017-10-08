@@ -38,7 +38,7 @@ var ymdstr = DateTime.UtcNow.ToString("MMMM dd, yyyy");
 var currentDate = DateTime.UtcNow.ToString("MMMM dd, yyyy");
 ```
 
-**[Source code](https://github.com/thangchung/clean-code-dotnet/blob/master/src/Variables/UseMeaningfulAndPronounceableVariableNames.cs)**
+**[:link: Source code](https://github.com/thangchung/clean-code-dotnet/blob/master/src/Variables/UseMeaningfulAndPronounceableVariableNames.cs)**
 
 **[⬆ Back to top](#table-of-contents)**
 
@@ -59,7 +59,7 @@ GetUserProfile();
 GetUser();
 ```
 
-**[Source code](https://github.com/thangchung/clean-code-dotnet/blob/master/src/Variables/UseSameVocabularyForSameTypeVariables.cs)**
+**[:link: Source code](https://github.com/thangchung/clean-code-dotnet/blob/master/src/Variables/UseSameVocabularyForSameTypeVariables.cs)**
 
 **[⬆ Back to top](#table-of-contents)**
 
@@ -143,7 +143,7 @@ if (person.PersonAccess == PersonAccess.ACCESS_UPDATE)
 }
 ```
 
-**[Source code](https://github.com/thangchung/clean-code-dotnet/blob/master/src/Variables/UseSearchableNames.cs)**
+**[:link: Source code](https://github.com/thangchung/clean-code-dotnet/blob/master/src/Variables/UseSearchableNames.cs)**
 
 **[⬆ Back to top](#table-of-contents)**
 
@@ -152,24 +152,13 @@ if (person.PersonAccess == PersonAccess.ACCESS_UPDATE)
 **Bad:**
 
 ```csharp
-var address = 'One Infinite Loop, Cupertino 95014';
-var cityZipCodeRegex = '/^[^,\\]+[,\\\s]+(.+?)\s*(\d{5})?$/';
-preg_match(cityZipCodeRegex, address, matches);
-
-SaveCityZipCode(matches[1], matches[2]);
-```
-
-**Not bad:**
-
-It's better, but we are still heavily dependent on regex.
-
-```csharp
-var address = 'One Infinite Loop, Cupertino 95014';
-var cityZipCodeRegex = '/^[^,\\]+[,\\\s]+(.+?)\s*(\d{5})?$/';
-preg_match(cityZipCodeRegex, address, matches);
-
-list(, city, zipCode) = matches;
-SaveCityZipCode(city, zipCode);
+const string Address = "One Infinite Loop, Cupertino 95014";
+var cityZipCodeRegex = @"/^[^,\]+[,\\s]+(.+?)\s*(\d{5})?$/";
+var matches = Regex.Matches(Address, cityZipCodeRegex);
+if (matches[0].Success == true && matches[1].Success == true)
+{
+    SaveCityZipCode(matches[0].Value, matches[1].Value);
+}
 ```
 
 **Good:**
@@ -177,13 +166,18 @@ SaveCityZipCode(city, zipCode);
 Decrease dependence on regex by naming subpatterns.
 
 ```csharp
-var address = 'One Infinite Loop, Cupertino 95014';
-var cityZipCodeRegex = '/^[^,\\]+[,\\\s]+(?<city>.+?)\s*(?<zipCode>\d{5})?$/';
-preg_match(cityZipCodeRegex, address, matches);
-
-SaveCityZipCode(matches['city'], matches['zipCode']);
+const string Address = "One Infinite Loop, Cupertino 95014";
+var cityZipCodeWithGroupRegex = @"/^[^,\]+[,\\s]+(?<city>.+?)\s*(?<zipCode>\d{5})?$/";
+var matchesWithGroup = Regex.Match(Address, cityZipCodeWithGroupRegex);
+var cityGroup = matchesWithGroup.Groups["city"];
+var zipCodeGroup = matchesWithGroup.Groups["zipCode"];
+if(cityGroup.Success == true && zipCodeGroup.Success == true)
+{
+    SaveCityZipCode(cityGroup.Value, zipCodeGroup.Value);
+}
 ```
 
+**[:link: Source code](https://github.com/thangchung/clean-code-dotnet/blob/master/src/Variables/UseExplanatoryVariables.cs)**
 **[⬆ back to top](#table-of-contents)**
 
 ### Avoid nesting too deeply and return early
