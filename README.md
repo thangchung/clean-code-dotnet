@@ -361,7 +361,7 @@ public class Car
 
 **[⬆ back to top](#table-of-contents)**
 
-### Use default arguments instead of short circuiting or conditionals
+### Use default arguments instead of short circuiting or conditionals [:page_facing_up:](https://github.com/thangchung/clean-code-dotnet/blob/master/src/Variables/UseDefaultArgumentsInsteadOfShortCircuitingOrConditionals.cs)
 
 **Not good:**
 
@@ -370,9 +370,9 @@ This is not good because `breweryName` can be `NULL`.
 This opinion is more understandable than the previous version, but it better controls the value of the variable.
 
 ```csharp
-function CreateMicrobrewery(string name = null)
+public void CreateMicrobrewery(string name = null)
 {
-    var breweryName = name ?: "Hipster Brew Co.";
+    var breweryName = !string.IsNullOrEmpty(name) ? name : "Hipster Brew Co.";
     // ...
 }
 ```
@@ -380,9 +380,9 @@ function CreateMicrobrewery(string name = null)
 **Good:**
 
 ```csharp
-function CreateMicrobrewery(string breweryName = "Hipster Brew Co.")
+public void CreateMicrobrewery(string breweryName = "Hipster Brew Co.")
 {
-    // ...
+    // ...
 }
 ```
 
