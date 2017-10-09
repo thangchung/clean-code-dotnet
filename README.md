@@ -173,7 +173,7 @@ if(cityGroup.Success == true && zipCodeGroup.Success == true)
 
 **[⬆ back to top](#table-of-contents)**
 
-### Avoid nesting too deeply and return early
+### Avoid nesting too deeply and return early [:page_facing_up:](https://github.com/thangchung/clean-code-dotnet/blob/master/src/Variables/AvoidNestingTooDeeplyReturnEarly.cs)
 
 Too many if else statemetns can make your code hard to follow. Explicit is better
 than implicit.
@@ -181,63 +181,80 @@ than implicit.
 **Bad:**
 
 ```csharp
-function IsShopOpen(day)
+public bool IsShopOpen(string day)
 {
-    if (day) {
-        if (string.IsNullOrEmpty(day)) {
-            day = strtolower(day);
-            if (day == 'friday') {
-                return true;
-            } elseif (day == 'saturday') {
-                return true;
-            } elseif (day == 'sunday') {
-                return true;
-            } else {
-                return false;
-            }
-        } else {
+    if (string.IsNullOrEmpty(day))
+    {
+        day = day.ToLower();
+        if (day == "friday")
+        {
+            return true;
+        }
+        else if (day == "saturday")
+        {
+            return true;
+        }
+        else if (day == "sunday")
+        {
+            return true;
+        }
+        else
+        {
             return false;
         }
-    } else {
+    }
+    else
+    {
         return false;
     }
+
 }
 ```
 
 **Good:**
 
 ```csharp
-function IsShopOpen(day)
+public bool IsShopOpen(string day)
 {
-    if (empty(day) && ! is_string(day)) {
+    if (string.IsNullOrEmpty(day))
+    {
         return false;
     }
 
-    var openingDays = [
-        'friday', 'saturday', 'sunday'
-    ];
+    var openingDays = new string[] {
+        "friday", "saturday", "sunday"
+    };
 
-    return in_array(strtolower(day), openingDays);
+    return openingDays.Any(d => d == day.ToLower());
 }
 ```
 
 **Bad:**
 
 ```csharp
-function Fibonacci(n)
+public long Fibonacci(int n)
 {
-    if (n < 50) {
-        if (n !== 0) {
-            if (n !== 1) {
+    if (n < 50)
+    {
+        if (n != 0)
+        {
+            if (n != 1)
+            {
                 return Fibonacci(n - 1) + Fibonacci(n - 2);
-            } else {
+            }
+            else
+            {
                 return 1;
             }
-        } else {
+        }
+        else
+        {
             return 0;
         }
-    } else {
-        return 'Not supported';
+    }
+    else
+    {
+        throw new System.Exception("Not supported");
     }
 }
 ```
@@ -245,18 +262,21 @@ function Fibonacci(n)
 **Good:**
 
 ```csharp
-function Fibonacci(n)
+public long Fibonacci(int n)
 {
-    if (n === 0) {
+    if (n == 0)
+    {
         return 0;
     }
 
-    if (n === 1) {
+    if (n == 1)
+    {
         return 1;
     }
 
-    if (n > 50) {
-        return 'Not supported';
+    if (n > 50)
+    {
+        throw new System.Exception("Not supported");
     }
 
     return Fibonacci(n - 1) + Fibonacci(n - 2);
@@ -265,7 +285,7 @@ function Fibonacci(n)
 
 **[⬆ back to top](#table-of-contents)**
 
-### Avoid Mental Mapping
+### Avoid Mental Mapping [:page_facing_up:](https://github.com/thangchung/clean-code-dotnet/blob/master/src/Variables/AvoidMentalMapping.cs)
 
 Don’t force the reader of your code to translate what the variable means.
 Explicit is better than implicit.
@@ -273,10 +293,11 @@ Explicit is better than implicit.
 **Bad:**
 
 ```csharp
-var l = ['Austin', 'New York', 'San Francisco'];
+var l = new[] { "Austin", "New York", "San Francisco" };
 
-for (var i = 0; i < l.Count(); i++) {
-    li = l[i];
+for (var i = 0; i < l.Count(); i++)
+{
+    var li = l[i];
     DoStuff();
     DoSomeOtherStuff();
 
@@ -291,9 +312,10 @@ for (var i = 0; i < l.Count(); i++) {
 **Good:**
 
 ```csharp
-var locations = ['Austin', 'New York', 'San Francisco'];
+var locations = new[] { "Austin", "New York", "San Francisco" };
 
-foreach (location in locations) {
+foreach (var location in locations)
+{
     DoStuff();
     DoSomeOtherStuff();
 
@@ -306,7 +328,7 @@ foreach (location in locations) {
 
 **[⬆ back to top](#table-of-contents)**
 
-### Don't add unneeded context
+### Don't add unneeded context [:page_facing_up:](https://github.com/thangchung/clean-code-dotnet/blob/master/src/Variables/DontAddUnNeededContext.cs)
 
 If your class/object name tells you something, don't repeat that in your
 variable name.
@@ -316,9 +338,9 @@ variable name.
 ```csharp
 public class Car
 {
-    public string carMake;
-    public string carModel;
-    public string carColor;
+    public string CarMake { get; set; }
+    public string CarModel { get; set; }
+    public string CarColor { get; set; }
 
     //...
 }
@@ -329,9 +351,9 @@ public class Car
 ```csharp
 public class Car
 {
-    public string make;
-    public string model;
-    public string color;
+    public string Make { get; set; }
+    public string Model { get; set; }
+    public string Color { get; set; }
 
     //...
 }
