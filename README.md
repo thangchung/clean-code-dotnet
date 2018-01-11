@@ -2,7 +2,7 @@
 
 ## Table of Contents
   1. [Introduction](#introduction)
-  2. [Naming](#Naming)
+  2. [Naming](#naming)
   3. [Variables](#variables)
   4. [Functions](#functions)
   5. [Objects and Data Structures](#objects-and-data-structures)
