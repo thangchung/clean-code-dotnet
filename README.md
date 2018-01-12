@@ -54,6 +54,20 @@ var ymdstr = DateTime.UtcNow.ToString("MMMM dd, yyyy");
 var currentDate = DateTime.UtcNow.ToString("MMMM dd, yyyy");
 ```
 
+### Avoid Disinformation name
+Programmers must avoid naming with disinformation name and we should name variable to reflect what we want to do with it.
+
+**Bad:**
+
+```csharp
+var dataFromDb = db.GetFromService().Tolist();
+```
+
+**Good:**
+
+```csharp
+var listOfEmployee = db.GetFromService().Tolist();
+```
 **[⬆ Back to top](#table-of-contents)**
 
 ### Use the same vocabulary for the same type of variable [:page_facing_up:](https://github.com/thangchung/clean-code-dotnet/blob/master/src/Variables/UseSameVocabularyForSameTypeVariables.cs)
