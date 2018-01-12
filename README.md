@@ -24,8 +24,7 @@ Not every principle herein has to be strictly followed, and even fewer will be u
 Inspired from [clean-code-javascript](https://github.com/ryanmcdermott/clean-code-javascript) and [clean-code-php](https://github.com/jupeter/clean-code-php)
 
 ## **Naming**
-Naming it hard and it take time but worth it. Choosing good names takes time but saves more than it takes and it will help everyone who reads your code (including you) will be happier if you do.
-Naming should reflect about what is does, what is the context.
+Naming it hard and it takes time but worth it. Choosing good names takes time but saves more than it takes and it will help everyone who reads your code (including you) will be happier if you do. Naming should reflect about what it does, what is the context.
 
 **Bad:**
 
