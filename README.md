@@ -99,6 +99,43 @@ public double CalculateSalary(int workingDays, int workingHours)
     // some logic
 }
 ```
+
+### Use domain name
+People who read your code is also programmers. So naming right will help everyone on the same page because we dont want to take time to explain for everyone what that variable for, what the function for. We can name the variable or function to reflect the pattern, algorithm names and so forth.
+
+**Good**
+```csharp
+public class SingleObject {
+   //create an object of SingleObject
+   private static SingleObject instance = new SingleObject();
+
+   //make the constructor private so that this class cannot be
+   //instantiated
+   private SingleObject(){}
+
+   //Get the only object available
+   public static SingleObject GetInstance(){
+      return instance;
+   }
+
+   public string ShowMessage(){
+      return "Hello World!";
+   }
+}
+
+public static void main(String[] args) {
+
+      //illegal construct
+      //SingleObject object = new SingleObject();
+
+      //Get the only object available
+      SingleObject singletonObject = SingleObject.GetInstance();
+
+      //show the message
+      singletonObject.ShowMessage();
+}
+```
+
 ## **Variables**
 
 ### Use meaningful and pronounceable variable names [:page_facing_up:](https://github.com/thangchung/clean-code-dotnet/blob/master/src/Variables/UseMeaningfulAndPronounceableVariableNames.cs)
