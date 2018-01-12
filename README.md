@@ -66,8 +66,30 @@ var dataFromDb = db.GetFromService().Tolist();
 **Good:**
 
 ```csharp
-var listOfEmployee = db.GetFromService().Tolist();
+var listOfEmployee = _employeeService.GetEmployeeListFromDb().Tolist();
 ```
+
+### Use Pronounceable Names
+What happends if we cant pronoun variables, function, etc... It will take us a lot of time (some time make us like an idiot to discuss about it) to investigate what meaning of that variables, what is use.
+
+**Bad:**
+
+```csharp
+public class Employee {
+    public Datetime sWorkDate { get; set; } // what the heck is this
+    public Datetime modTime { get; set; } // same here
+}
+```
+
+**Good:**
+```csharp
+public class Employee {
+    public Datetime startWorkingDate { get; set; }
+    public Datetime modificationTime { get; set; } 
+}
+```
+
+
 **[⬆ Back to top](#table-of-contents)**
 
 ### Use the same vocabulary for the same type of variable [:page_facing_up:](https://github.com/thangchung/clean-code-dotnet/blob/master/src/Variables/UseSameVocabularyForSameTypeVariables.cs)
