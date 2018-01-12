@@ -38,21 +38,6 @@ int d;
 int daySinceModification;
 ```
 
-## **Variables**
-
-### Use meaningful and pronounceable variable names [:page_facing_up:](https://github.com/thangchung/clean-code-dotnet/blob/master/src/Variables/UseMeaningfulAndPronounceableVariableNames.cs)
-
-**Bad:**
-
-```csharp
-var ymdstr = DateTime.UtcNow.ToString("MMMM dd, yyyy");
-```
-
-**Good:**
-
-```csharp
-var currentDate = DateTime.UtcNow.ToString("MMMM dd, yyyy");
-```
 
 ### Avoid Disinformation name
 Programmers must avoid naming with disinformation name and we should name variable to reflect what we want to do with it.
@@ -89,6 +74,46 @@ public class Employee {
 }
 ```
 
+### Use Hungarian Notation
+Use Hungarian Notation for variable and parms function
+
+
+**Bad:**
+
+```csharp
+var employeephone // or var employee-phone
+
+public double CalculateSalary(int workingdays, int workinghours)
+{
+    // some logic
+}
+
+```
+
+**Good:**
+```csharp
+var employeePhone // or var employee-phone
+
+public double CalculateSalary(int workingDays, int workingHours)
+{
+    // some logic
+}
+```
+## **Variables**
+
+### Use meaningful and pronounceable variable names [:page_facing_up:](https://github.com/thangchung/clean-code-dotnet/blob/master/src/Variables/UseMeaningfulAndPronounceableVariableNames.cs)
+
+**Bad:**
+
+```csharp
+var ymdstr = DateTime.UtcNow.ToString("MMMM dd, yyyy");
+```
+
+**Good:**
+
+```csharp
+var currentDate = DateTime.UtcNow.ToString("MMMM dd, yyyy");
+```
 
 **[⬆ Back to top](#table-of-contents)**
 
