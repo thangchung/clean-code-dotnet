@@ -2,16 +2,17 @@
 
 ## Table of Contents
   1. [Introduction](#introduction)
-  2. [Variables](#variables)
-  3. [Functions](#functions)
-  4. [Objects and Data Structures](#objects-and-data-structures)
-  5. [Classes](#classes)
-  6. [SOLID](#solid)
-  7. [Testing](#testing)
-  8. [Concurrency](#concurrency)
-  9. [Error Handling](#error-handling)
-  10. [Formatting](#formatting)
-  11. [Comments](#comments)
+  2. [Naming](#naming)
+  3. [Variables](#variables)
+  4. [Functions](#functions)
+  5. [Objects and Data Structures](#objects-and-data-structures)
+  6. [Classes](#classes)
+  7. [SOLID](#solid)
+  8. [Testing](#testing)
+  9. [Concurrency](#concurrency)
+  10. [Error Handling](#error-handling)
+  11. [Formatting](#formatting)
+  12. [Comments](#comments)
 
 ## Introduction
 ![Humorous image of software quality estimation as a count of how many expletives you shout when reading code](http://www.osnews.com/images/comics/wtfm.jpg)
@@ -21,6 +22,21 @@ Software engineering principles, from Robert C. Martin's book [*Clean Code*](htt
 Not every principle herein has to be strictly followed, and even fewer will be universally agreed upon. These are guidelines and nothing more, but they are ones codified over many years of collective experience by the authors of *Clean Code*.
 
 Inspired from [clean-code-javascript](https://github.com/ryanmcdermott/clean-code-javascript) and [clean-code-php](https://github.com/jupeter/clean-code-php)
+
+## **Naming**
+Naming it hard and it take time but worth it. Choosing good names takes time but saves more than it takes and it will help everyone who reads your code (including you) will be happier if you do.
+Naming should reflect about what is does, what is the context.
+
+**Bad:**
+
+```csharp
+int d;
+```
+
+**Good:**
+```csharp
+int daySinceModification;
+```
 
 ## **Variables**
 
