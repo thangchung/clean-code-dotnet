@@ -37,6 +37,104 @@ int d;
 int daySinceModification;
 ```
 
+
+### Avoid Disinformation name
+Programmers must avoid naming with disinformation name and we should name variable to reflect what we want to do with it.
+
+**Bad:**
+
+```csharp
+var dataFromDb = db.GetFromService().Tolist();
+```
+
+**Good:**
+
+```csharp
+var listOfEmployee = _employeeService.GetEmployeeListFromDb().Tolist();
+```
+
+### Use Pronounceable Names
+What happends if we cant pronoun variables, function, etc... It will take us a lot of time (some time make us like an idiot to discuss about it) to investigate what meaning of that variables, what is use.
+
+**Bad:**
+
+```csharp
+public class Employee {
+    public Datetime sWorkDate { get; set; } // what the heck is this
+    public Datetime modTime { get; set; } // same here
+}
+```
+
+**Good:**
+```csharp
+public class Employee {
+    public Datetime startWorkingDate { get; set; }
+    public Datetime modificationTime { get; set; } 
+}
+```
+
+### Use Hungarian Notation
+Use Hungarian Notation for variable and parms function
+
+
+**Bad:**
+
+```csharp
+var employeephone // or var employee-phone
+
+public double CalculateSalary(int workingdays, int workinghours)
+{
+    // some logic
+}
+
+```
+
+**Good:**
+```csharp
+var employeePhone // or var employee-phone
+
+public double CalculateSalary(int workingDays, int workingHours)
+{
+    // some logic
+}
+```
+
+### Use domain name
+People who read your code is also programmers. So naming right will help everyone on the same page because we dont want to take time to explain for everyone what that variable for, what the function for. We can name the variable or function to reflect the pattern, algorithm names and so forth.
+
+**Good**
+```csharp
+public class SingleObject {
+   //create an object of SingleObject
+   private static SingleObject instance = new SingleObject();
+
+   //make the constructor private so that this class cannot be
+   //instantiated
+   private SingleObject(){}
+
+   //Get the only object available
+   public static SingleObject GetInstance(){
+      return instance;
+   }
+
+   public string ShowMessage(){
+      return "Hello World!";
+   }
+}
+
+public static void main(String[] args) {
+
+      //illegal construct
+      //SingleObject object = new SingleObject();
+
+      //Get the only object available
+      SingleObject singletonObject = SingleObject.GetInstance();
+
+      //show the message
+      singletonObject.ShowMessage();
+}
+```
+
 ## **Variables**
 
 ### Use meaningful and pronounceable variable names [:page_facing_up:](https://github.com/thangchung/clean-code-dotnet/blob/master/src/Variables/UseMeaningfulAndPronounceableVariableNames.cs)
