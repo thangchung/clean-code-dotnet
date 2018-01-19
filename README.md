@@ -849,11 +849,11 @@ than the vast majority of other programmers.
 ```csharp
 // Global variable referenced by following function.
 // If we had another function that used this name, now it'd be an array and it could break it.
-var name = 'Ryan McDermott';
+string name = 'Ryan McDermott';
 
-function SplitIntoFirstAndLastName()
+public string SplitIntoFirstAndLastName()
 {
-    name = explode(" ", name);
+   return name.Split(" ");
 }
 
 SplitIntoFirstAndLastName();
@@ -864,13 +864,13 @@ Console.PrintLine(name); // ['Ryan', 'McDermott'];
 **Good:**
 
 ```csharp
-function SplitIntoFirstAndLastName(string name)
+public string SplitIntoFirstAndLastName(string name)
 {
-    return explode(" ", name);
+    return name.Split(" ");
 }
 
-var name = 'Ryan McDermott';
-var newName = SplitIntoFirstAndLastName(name);
+string name = 'Ryan McDermott';
+string newName = SplitIntoFirstAndLastName(name);
 
 Console.PrintLine(name); // 'Ryan McDermott';
 Console.PrintLine(newName); // ['Ryan', 'McDermott'];
@@ -889,7 +889,7 @@ that tried to do the same thing.
 **Bad:**
 
 ```csharp
-function Config()
+public string[] Config()
 {
     return  [
         "foo" => "bar",
@@ -909,9 +909,9 @@ class Configuration
         _configuration = configuration;
     }
 
-    public function Get(string key)
+    public string[] Get(string key)
     {
-        return isset(_configuration[key]) ? _configuration[key] : null;
+        return (_configuration[key]!= null) ? _configuration[key] : null;
     }
 }
 ```
