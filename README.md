@@ -950,7 +950,7 @@ class DBConnection
         // ...
     }
 
-    public static function GetInstance()
+    public static GetInstance()
     {
         if (_instance == null) {
             _instance = new DBConnection();
@@ -1014,7 +1014,7 @@ if (article.IsPublished()) {
 **Bad:**
 
 ```csharp
-function IsDOMNodeNotPresent(string node)
+public bool IsDOMNodeNotPresent(string node)
 {
     // ...
 }
@@ -1028,7 +1028,7 @@ if (!IsDOMNodeNotPresent(node))
 **Good:**
 
 ```csharp
-function IsDOMNodePresent(string node)
+public bool IsDOMNodePresent(string node)
 {
     // ...
 }
@@ -1058,7 +1058,7 @@ class Airplane
 {
     // ...
 
-    public function GetCruisingAltitude()
+    public double GetCruisingAltitude()
     {
         switch (_type) {
             case '777':
@@ -1079,14 +1079,14 @@ interface IAirplane
 {
     // ...
 
-    public function GetCruisingAltitude();
+    public double GetCruisingAltitude();
 }
 
 class Boeing777 : IAirplane
 {
     // ...
 
-    public function GetCruisingAltitude()
+    public double GetCruisingAltitude()
     {
         return GetMaxAltitude() - GetPassengerCount();
     }
@@ -1096,7 +1096,7 @@ class AirForceOne : IAirplane
 {
     // ...
 
-    public function GetCruisingAltitude()
+    public double GetCruisingAltitude()
     {
         return GetMaxAltitude();
     }
@@ -1106,7 +1106,7 @@ class Cessna : IAirplane
 {
     // ...
 
-    public function GetCruisingAltitude()
+    public double GetCruisingAltitude()
     {
         return GetMaxAltitude() - GetFuelExpenditure();
     }
