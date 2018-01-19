@@ -721,7 +721,7 @@ public string Lexer(string[] tokens)
     return ast;
 }
 
-public void ParseBetterJSAlternative(string code)
+public string ParseBetterJSAlternative(string code)
 {
     var tokens = Tokenize(code);
     var ast = Lexer(tokens);
@@ -780,7 +780,7 @@ class BetterJSAlternative
         _lexer = lexer;
     }
 
-    public void Parse(string code)
+    public string Parse(string code)
     {
         var tokens = _tokenizer->Tokenize(code);
         var ast = _lexer.Lexify(tokens);
@@ -802,7 +802,7 @@ based on a boolean.
 **Bad:**
 
 ```csharp
-function CreateFile(string name, bool temp = false)
+public void CreateFile(string name, bool temp = false)
 {
     if (temp) {
         Touch("./temp/" + name);
@@ -815,12 +815,12 @@ function CreateFile(string name, bool temp = false)
 **Good:**
 
 ```csharp
-function CreateFile(string name)
+public void CreateFile(string name)
 {
     Touch(name);
 }
 
-function CreateTempFile(string name)
+public void CreateTempFile(string name)
 {
     Touch("./temp/"  + name);
 }
