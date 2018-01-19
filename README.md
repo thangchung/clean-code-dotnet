@@ -624,9 +624,9 @@ public class Email
 {
     //...
 
-    public function Handle()
+    public void Handle()
     {
-        Mail(this._to, this._subject, this._body);
+        SendMail(this._to, this._subject, this._body);
     }
 }
 
@@ -642,9 +642,9 @@ public class Email
 {
     //...
 
-    public function Send()
+    public void Send()
     {
-        Mail(this._to, this._subject, this._body);
+        SendMail(this._to, this._subject, this._body);
     }
 }
 
@@ -664,7 +664,7 @@ testing.
 **Bad:**
 
 ```csharp
-function ParseBetterJSAlternative(string code)
+public string ParseBetterJSAlternative(string code)
 {
     var regexes = [
         // ...
@@ -694,7 +694,7 @@ function ParseBetterJSAlternative(string code)
 We have carried out some of the functionality, but the `ParseBetterJSAlternative()` function is still very complex and not testable.
 
 ```csharp
-function Tokenize(string code)
+public string Tokenize(string code)
 {
     var regexes = [
         // ...
@@ -711,7 +711,7 @@ function Tokenize(string code)
     return tokens;
 }
 
-function Lexer(string[] tokens)
+public string Lexer(string[] tokens)
 {
     var ast = [];
     foreach (var token in tokens) {
@@ -721,7 +721,7 @@ function Lexer(string[] tokens)
     return ast;
 }
 
-function ParseBetterJSAlternative(string code)
+public void ParseBetterJSAlternative(string code)
 {
     var tokens = Tokenize(code);
     var ast = Lexer(tokens);
@@ -738,7 +738,7 @@ The best solution is move out the dependencies of `ParseBetterJSAlternative()` f
 ```csharp
 class Tokenizer
 {
-    public function Tokenize(string code)
+    public string Tokenize(string code)
     {
         var regexes = [
             // ...
@@ -758,7 +758,7 @@ class Tokenizer
 
 class Lexer
 {
-    public function Lexify(string[] tokens)
+    public string Lexify(string[] tokens)
     {
         var ast = [];
         foreach (var token in tokens) {
@@ -780,7 +780,7 @@ class BetterJSAlternative
         _lexer = lexer;
     }
 
-    public function Parse(string code)
+    public void Parse(string code)
     {
         var tokens = _tokenizer->Tokenize(code);
         var ast = _lexer.Lexify(tokens);
