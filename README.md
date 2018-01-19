@@ -539,7 +539,7 @@ of the time a higher-level object will suffice as an argument.
 **Bad:**
 
 ```csharp
-function CreateMenu(string title, string body, string buttonText, bool cancellable)
+public void CreateMenu(string title, string body, string buttonText, bool cancellable)
 {
     // ...
 }
@@ -562,7 +562,7 @@ config.Body = "Bar";
 config.ButtonText = "Baz";
 config.Cancellable = true;
 
-function CreateMenu(MenuConfig config)
+public void CreateMenu(MenuConfig config)
 {
     // ...
 }
@@ -580,7 +580,7 @@ of many developers.
 
 **Bad:**
 ```csharp
-function EmailClients(string[] clients)
+public void SendEmailToListOfClients(string[] clients)
 {
     foreach (var string client in clients) {
         clientRecord = db.Find(client);
@@ -594,22 +594,22 @@ function EmailClients(string[] clients)
 **Good:**
 
 ```csharp
-function EmailClients(string[] clients)
+public void SendEmailToListOfClients(string[] clients)
 {
     var activeClients = ActiveClients(clients);
-    array_walk(activeClients, "email");
+    // Do some logic
 }
 
-function ActiveClients(string[] clients)
+public List<Client> ActiveClients(string[] clients)
 {
-    return array_filter(clients, 'IsClientActive');
+    return IsClientActive(clients);
 }
 
-function IsClientActive(string client)
+public List<Client> IsClientActive(string client)
 {
-    var clientRecord = db.Find(client);
+    var clientRecord = db.Find(client).Where(s => s.Status = "Active");
 
-    return clientRecord.IsActive();
+    return clientRecord;
 }
 ```
 
