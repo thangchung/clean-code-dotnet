@@ -539,7 +539,7 @@ of the time a higher-level object will suffice as an argument.
 **Bad:**
 
 ```csharp
-function CreateMenu(string title, string body, string buttonText, bool cancellable)
+public void CreateMenu(string title, string body, string buttonText, bool cancellable)
 {
     // ...
 }
@@ -562,7 +562,7 @@ config.Body = "Bar";
 config.ButtonText = "Baz";
 config.Cancellable = true;
 
-function CreateMenu(MenuConfig config)
+public void CreateMenu(MenuConfig config)
 {
     // ...
 }
@@ -580,7 +580,7 @@ of many developers.
 
 **Bad:**
 ```csharp
-function EmailClients(string[] clients)
+public void SendEmailToListOfClients(string[] clients)
 {
     foreach (var string client in clients) {
         clientRecord = db.Find(client);
@@ -594,22 +594,22 @@ function EmailClients(string[] clients)
 **Good:**
 
 ```csharp
-function EmailClients(string[] clients)
+public void SendEmailToListOfClients(string[] clients)
 {
     var activeClients = ActiveClients(clients);
-    array_walk(activeClients, "email");
+    // Do some logic
 }
 
-function ActiveClients(string[] clients)
+public List<Client> ActiveClients(string[] clients)
 {
-    return array_filter(clients, 'IsClientActive');
+    return IsClientActive(clients);
 }
 
-function IsClientActive(string client)
+public List<Client> IsClientActive(string client)
 {
-    var clientRecord = db.Find(client);
+    var clientRecord = db.Find(client).Where(s => s.Status = "Active");
 
-    return clientRecord.IsActive();
+    return clientRecord;
 }
 ```
 
@@ -624,9 +624,9 @@ public class Email
 {
     //...
 
-    public function Handle()
+    public void Handle()
     {
-        Mail(this._to, this._subject, this._body);
+        SendMail(this._to, this._subject, this._body);
     }
 }
 
@@ -642,9 +642,9 @@ public class Email
 {
     //...
 
-    public function Send()
+    public void Send()
     {
-        Mail(this._to, this._subject, this._body);
+        SendMail(this._to, this._subject, this._body);
     }
 }
 
@@ -664,7 +664,7 @@ testing.
 **Bad:**
 
 ```csharp
-function ParseBetterJSAlternative(string code)
+public string ParseBetterJSAlternative(string code)
 {
     var regexes = [
         // ...
@@ -694,7 +694,7 @@ function ParseBetterJSAlternative(string code)
 We have carried out some of the functionality, but the `ParseBetterJSAlternative()` function is still very complex and not testable.
 
 ```csharp
-function Tokenize(string code)
+public string Tokenize(string code)
 {
     var regexes = [
         // ...
@@ -711,7 +711,7 @@ function Tokenize(string code)
     return tokens;
 }
 
-function Lexer(string[] tokens)
+public string Lexer(string[] tokens)
 {
     var ast = [];
     foreach (var token in tokens) {
@@ -721,7 +721,7 @@ function Lexer(string[] tokens)
     return ast;
 }
 
-function ParseBetterJSAlternative(string code)
+public string ParseBetterJSAlternative(string code)
 {
     var tokens = Tokenize(code);
     var ast = Lexer(tokens);
@@ -738,7 +738,7 @@ The best solution is move out the dependencies of `ParseBetterJSAlternative()` f
 ```csharp
 class Tokenizer
 {
-    public function Tokenize(string code)
+    public string Tokenize(string code)
     {
         var regexes = [
             // ...
@@ -758,7 +758,7 @@ class Tokenizer
 
 class Lexer
 {
-    public function Lexify(string[] tokens)
+    public string Lexify(string[] tokens)
     {
         var ast = [];
         foreach (var token in tokens) {
@@ -780,7 +780,7 @@ class BetterJSAlternative
         _lexer = lexer;
     }
 
-    public function Parse(string code)
+    public string Parse(string code)
     {
         var tokens = _tokenizer->Tokenize(code);
         var ast = _lexer.Lexify(tokens);
@@ -802,7 +802,7 @@ based on a boolean.
 **Bad:**
 
 ```csharp
-function CreateFile(string name, bool temp = false)
+public void CreateFile(string name, bool temp = false)
 {
     if (temp) {
         Touch("./temp/" + name);
@@ -815,12 +815,12 @@ function CreateFile(string name, bool temp = false)
 **Good:**
 
 ```csharp
-function CreateFile(string name)
+public void CreateFile(string name)
 {
     Touch(name);
 }
 
-function CreateTempFile(string name)
+public void CreateTempFile(string name)
 {
     Touch("./temp/"  + name);
 }
@@ -849,11 +849,11 @@ than the vast majority of other programmers.
 ```csharp
 // Global variable referenced by following function.
 // If we had another function that used this name, now it'd be an array and it could break it.
-var name = 'Ryan McDermott';
+string name = 'Ryan McDermott';
 
-function SplitIntoFirstAndLastName()
+public string SplitIntoFirstAndLastName()
 {
-    name = explode(" ", name);
+   return name.Split(" ");
 }
 
 SplitIntoFirstAndLastName();
@@ -864,13 +864,13 @@ Console.PrintLine(name); // ['Ryan', 'McDermott'];
 **Good:**
 
 ```csharp
-function SplitIntoFirstAndLastName(string name)
+public string SplitIntoFirstAndLastName(string name)
 {
-    return explode(" ", name);
+    return name.Split(" ");
 }
 
-var name = 'Ryan McDermott';
-var newName = SplitIntoFirstAndLastName(name);
+string name = 'Ryan McDermott';
+string newName = SplitIntoFirstAndLastName(name);
 
 Console.PrintLine(name); // 'Ryan McDermott';
 Console.PrintLine(newName); // ['Ryan', 'McDermott'];
@@ -889,7 +889,7 @@ that tried to do the same thing.
 **Bad:**
 
 ```csharp
-function Config()
+public string[] Config()
 {
     return  [
         "foo" => "bar",
@@ -909,9 +909,9 @@ class Configuration
         _configuration = configuration;
     }
 
-    public function Get(string key)
+    public string[] Get(string key)
     {
-        return isset(_configuration[key]) ? _configuration[key] : null;
+        return (_configuration[key]!= null) ? _configuration[key] : null;
     }
 }
 ```
@@ -950,7 +950,7 @@ class DBConnection
         // ...
     }
 
-    public static function GetInstance()
+    public static GetInstance()
     {
         if (_instance == null) {
             _instance = new DBConnection();
@@ -1014,7 +1014,7 @@ if (article.IsPublished()) {
 **Bad:**
 
 ```csharp
-function IsDOMNodeNotPresent(string node)
+public bool IsDOMNodeNotPresent(string node)
 {
     // ...
 }
@@ -1028,7 +1028,7 @@ if (!IsDOMNodeNotPresent(node))
 **Good:**
 
 ```csharp
-function IsDOMNodePresent(string node)
+public bool IsDOMNodePresent(string node)
 {
     // ...
 }
@@ -1058,7 +1058,7 @@ class Airplane
 {
     // ...
 
-    public function GetCruisingAltitude()
+    public double GetCruisingAltitude()
     {
         switch (_type) {
             case '777':
@@ -1079,14 +1079,14 @@ interface IAirplane
 {
     // ...
 
-    public function GetCruisingAltitude();
+    public double GetCruisingAltitude();
 }
 
 class Boeing777 : IAirplane
 {
     // ...
 
-    public function GetCruisingAltitude()
+    public double GetCruisingAltitude()
     {
         return GetMaxAltitude() - GetPassengerCount();
     }
@@ -1096,7 +1096,7 @@ class AirForceOne : IAirplane
 {
     // ...
 
-    public function GetCruisingAltitude()
+    public double GetCruisingAltitude()
     {
         return GetMaxAltitude();
     }
@@ -1106,7 +1106,7 @@ class Cessna : IAirplane
 {
     // ...
 
-    public function GetCruisingAltitude()
+    public double GetCruisingAltitude()
     {
         return GetMaxAltitude() - GetFuelExpenditure();
     }
