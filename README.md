@@ -1256,7 +1256,7 @@ bankAccount.Balance -= 100;
 ```csharp
 class BankAccount
 {
-    private doulbe Balance{get;set;};
+    private doulbe Balance{ get; set;};
 
     public BankAccount(balance = 1000)
     {
@@ -1424,13 +1424,13 @@ makes more sense than composition:
 ```csharp
 class Employee
 {
-    private $name;
-    private $email;
+    private string Name { get; set; };
+    private string Email { get; set; };
 
-    public function __construct($name, $email)
+    public Employee(name, email)
     {
-        $this->name = $name;
-        $this->email = $email;
+        Name = name;
+        Email = email;
     }
 
     // ...
@@ -1441,15 +1441,13 @@ class Employee
 
 class EmployeeTaxData extends Employee
 {
-    private $ssn;
-    private $salary;
+    private string Ssn { get; set; };
+    private string Salary { get; set; };
 
-    public function __construct($name, $email, $ssn, $salary)
+    public EmployeeTaxData(name, email, ssn, salary)
     {
-        parent::__construct($name, $email);
-
-        $this->ssn = $ssn;
-        $this->salary = $salary;
+        Ssn = ssn;
+        Salary = salary;
     }
 
     // ...
@@ -1461,13 +1459,13 @@ class EmployeeTaxData extends Employee
 ```csharp
 class EmployeeTaxData
 {
-    private $ssn;
-    private $salary;
+    private string Ssn { get; set; };
+    private string Salary { get; set; };
 
-    public function __construct($ssn, $salary)
+    public EmployeeTaxData(ssn, salary)
     {
-        $this->ssn = $ssn;
-        $this->salary = $salary;
+        Ssn = ssn;
+        Salary = salary;
     }
 
     // ...
@@ -1475,19 +1473,19 @@ class EmployeeTaxData
 
 class Employee
 {
-    private $name;
-    private $email;
-    private $taxData;
+    private string Name { get; set; };
+    private string Email { get; set; };
+    private string TaxData { get; set; };
 
-    public function __construct($name, $email)
+    public Employee(name, email)
     {
-        $this->name = $name;
-        $this->email = $email;
+        Name = name;
+        Email = email;
     }
 
-    public function setTaxData($ssn, $salary)
+    public void SetTax(ssn, salary)
     {
-        $this->taxData = new EmployeeTaxData($ssn, $salary);
+        taxData = new EmployeeTaxData(ssn, salary);
     }
 
     // ...
