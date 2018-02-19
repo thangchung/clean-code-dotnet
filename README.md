@@ -1263,7 +1263,7 @@ class BankAccount
        Balance = balance;
     }
 
-    public double WithdrawBalance(amount)
+    public double WithdrawBalance(int amount)
     {
         if (amount > Balance) {
             throw new \Exception('Amount greater than available balance.');
@@ -1272,7 +1272,7 @@ class BankAccount
         Balance -= amount;
     }
 
-    public void DepositBalance(amount)
+    public void DepositBalance(int amount)
     {
         Balance += amount;
     }
@@ -1320,7 +1320,7 @@ class Employee
 {
     private string Name { get; set; };
 
-    public Employee(name)
+    public Employee(string name)
     {
         Name = name;
     }
@@ -1427,7 +1427,7 @@ class Employee
     private string Name { get; set; };
     private string Email { get; set; };
 
-    public Employee(name, email)
+    public Employee(string name, string email)
     {
         Name = name;
         Email = email;
@@ -1444,10 +1444,9 @@ class EmployeeTaxData extends Employee
     private string Ssn { get; set; };
     private string Salary { get; set; };
 
-    public EmployeeTaxData(name, email, ssn, salary)
+    public EmployeeTaxData(string name, string email, string ssn, string salary)
     {
-        Ssn = ssn;
-        Salary = salary;
+         // ...
     }
 
     // ...
@@ -1462,7 +1461,7 @@ class EmployeeTaxData
     private string Ssn { get; set; };
     private string Salary { get; set; };
 
-    public EmployeeTaxData(ssn, salary)
+    public EmployeeTaxData(string ssn, string salary)
     {
         Ssn = ssn;
         Salary = salary;
@@ -1477,13 +1476,13 @@ class Employee
     private string Email { get; set; };
     private string TaxData { get; set; };
 
-    public Employee(name, email)
+    public Employee(string name, string email)
     {
         Name = name;
         Email = email;
     }
 
-    public void SetTax(ssn, salary)
+    public void SetTax(string ssn, double salary)
     {
         taxData = new EmployeeTaxData(ssn, salary);
     }
@@ -1621,12 +1620,12 @@ class HttpRequester extends Adapter
 {
     private Adapter Adapter;
 
-    public HttpRequester(adapter)
+    public HttpRequester(Adapter adapter)
     {
         Adapter = adapter;
     }
 
-    public void Fetch(url)
+    public void Fetch(string url)
     {
         var adapterName = Adapter.GetName();
 
@@ -1637,12 +1636,12 @@ class HttpRequester extends Adapter
         }
     }
 
-    private bool MakeAjaxCall(url)
+    private bool MakeAjaxCall(string url)
     {
         // request and return promise
     }
 
-    private bool MakeHttpCall(url)
+    private bool MakeHttpCall(string url)
     {
         // request and return promise
     }
@@ -1654,12 +1653,12 @@ class HttpRequester extends Adapter
 ```csharp
 interface Idapter
 {
-    bool Request($url);
+    bool Request(string url);
 }
 
 class AjaxAdapter implements Idapter
 {
-    public bool Request($url)
+    public bool Request(string url)
     {
         // request and return promise
     }
@@ -1667,7 +1666,7 @@ class AjaxAdapter implements Idapter
 
 class NodeAdapter implements Idapter
 {
-    public bool Request($url)
+    public bool Request(string url)
     {
         // request and return promise
     }
@@ -1682,7 +1681,7 @@ class HttpRequester
         Adapter = adapter;
     }
 
-    public bool Fetch(url)
+    public bool Fetch(string url)
     {
         return Adapter.Request(url);
     }
@@ -1711,55 +1710,55 @@ get into trouble.
 ```csharp
 class Rectangle
 {
-    protected $width = 0;
-    protected $height = 0;
+    protected double Width = 0;
+    protected double Height = 0;
 
-    public function render($area)
+    public Drawable Render(double area)
     {
         // ...
     }
 
-    public function setWidth($width)
+    public void SetWidth(double width)
     {
-        $this->width = $width;
+        Width = width;
     }
 
-    public function setHeight($height)
+    public void SetHeight(double height)
     {
-        $this->height = $height;
+        Height = height;
     }
 
-    public function getArea()
+    public double GetArea()
     {
-        return $this->width * $this->height;
+        return Width * Height;
     }
 }
 
 class Square extends Rectangle
 {
-    public function setWidth($width)
+    public double SetWidth(double width)
     {
-        $this->width = $this->height = $width;
+        Width = Height = Width;
     }
 
-    public function setHeight(height)
+    public double SetHeight(double height)
     {
-        $this->width = $this->height = $height;
+        Width = Height = Height;
     }
 }
 
-function renderLargeRectangles($rectangles)
+Drawable RenderLargeRectangles(Rectangle rectangles)
 {
-    foreach ($rectangles as $rectangle) {
-        $rectangle->setWidth(4);
-        $rectangle->setHeight(5);
-        $area = $rectangle->getArea(); // BAD: Will return 25 for Square. Should be 20.
-        $rectangle->render($area);
+    foreach (rectangle in rectangles) {
+        rectangle.SetWidth(4);
+        rectangle.SetHeight(5);
+        var area = rectangle.GetArea(); // BAD: Will return 25 for Square. Should be 20.
+        rectangle.Render(area);
     }
 }
 
-$rectangles = [new Rectangle(), new Rectangle(), new Square()];
-renderLargeRectangles($rectangles);
+rectangles = [new Rectangle(), new Rectangle(), new Square()];
+RenderLargeRectangles($rectangles);
 ```
 
 **Good:**
@@ -1767,12 +1766,12 @@ renderLargeRectangles($rectangles);
 ```csharp
 abstract class Shape
 {
-    protected $width = 0;
-    protected $height = 0;
+    protected double Width = 0;
+    protected double Height = 0;
 
     abstract public function getArea();
 
-    public function render($area)
+    public Drawable Render(double area)
     {
         // ...
     }
@@ -1780,54 +1779,54 @@ abstract class Shape
 
 class Rectangle extends Shape
 {
-    public function setWidth($width)
+    public void SetWidth(double width)
     {
-        $this->width = $width;
+        Width = width;
     }
 
-    public function setHeight($height)
+    public void SetHeight(double height)
     {
-        $this->height = $height;
+        Height = height;
     }
 
-    public function getArea()
+    public double GetArea()
     {
-        return $this->width * $this->height;
+        return Width * Height;
     }
 }
 
 class Square extends Shape
 {
-    private $length = 0;
+    private double Length = 0;
 
-    public function setLength($length)
+    public double SetLength($length)
     {
         $this->length = $length;
     }
 
-    public function getArea()
+    public double GetArea()
     {
-        return pow($this->length, 2);
+        return Math.Pow(Length, 2);
     }
 }
 
-function renderLargeRectangles($rectangles)
+Drawable RenderLargeRectangles(Rectangle rectangles)
 {
-    foreach ($rectangles as $rectangle) {
-        if ($rectangle instanceof Square) {
-            $rectangle->setLength(5);
-        } elseif ($rectangle instanceof Rectangle) {
-            $rectangle->setWidth(4);
-            $rectangle->setHeight(5);
+    foreach (rectangle in rectangles) {
+        if (rectangle instanceof Square) {
+            rectangle.SetLength(5);
+        } elseif (rectangle instanceof Rectangle) {
+            rectangle.SetWidth(4);
+            rectangle.SetHeight(5);
         }
 
-        $area = $rectangle->getArea();
-        $rectangle->render($area);
+        var area = rectangle.GetArea();
+        rectangle.Render(area);
     }
 }
 
-$shapes = [new Rectangle(), new Rectangle(), new Square()];
-renderLargeRectangles($shapes);
+var shapes = [new Rectangle(), new Rectangle(), new Square()];
+RenderLargeRectangles(shapes);
 ```
 
 **[⬆ back to top](#table-of-contents)**
