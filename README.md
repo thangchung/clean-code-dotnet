@@ -1,29 +1,32 @@
 # clean-code-dotnet
 
 ## Table of Contents
-  1. [Introduction](#introduction)
-  2. [Naming](#naming)
-  3. [Variables](#variables)
-  4. [Functions](#functions)
-  5. [Objects and Data Structures](#objects-and-data-structures)
-  6. [Classes](#classes)
-  7. [SOLID](#solid)
-  8. [Testing](#testing)
-  9. [Concurrency](#concurrency)
-  10. [Error Handling](#error-handling)
-  11. [Formatting](#formatting)
-  12. [Comments](#comments)
+
+1. [Introduction](#introduction)
+2. [Naming](#naming)
+3. [Variables](#variables)
+4. [Functions](#functions)
+5. [Objects and Data Structures](#objects-and-data-structures)
+6. [Classes](#classes)
+7. [SOLID](#solid)
+8. [Testing](#testing)
+9. [Concurrency](#concurrency)
+10. [Error Handling](#error-handling)
+11. [Formatting](#formatting)
+12. [Comments](#comments)
 
 ## Introduction
+
 ![Humorous image of software quality estimation as a count of how many expletives you shout when reading code](http://www.osnews.com/images/comics/wtfm.jpg)
 
-Software engineering principles, from Robert C. Martin's book [*Clean Code*](https://www.amazon.com/Clean-Code-Handbook-Software-Craftsmanship/dp/0132350882), adapted for .NET and .NET Core. This is not a style guide. It's a guide to producing readable, reusable, and refactorable software in .NET and .NET Core.
+Software engineering principles, from Robert C. Martin's book [_Clean Code_](https://www.amazon.com/Clean-Code-Handbook-Software-Craftsmanship/dp/0132350882), adapted for .NET and .NET Core. This is not a style guide. It's a guide to producing readable, reusable, and refactorable software in .NET and .NET Core.
 
-Not every principle herein has to be strictly followed, and even fewer will be universally agreed upon. These are guidelines and nothing more, but they are ones codified over many years of collective experience by the authors of *Clean Code*.
+Not every principle herein has to be strictly followed, and even fewer will be universally agreed upon. These are guidelines and nothing more, but they are ones codified over many years of collective experience by the authors of _Clean Code_.
 
 Inspired from [clean-code-javascript](https://github.com/ryanmcdermott/clean-code-javascript) and [clean-code-php](https://github.com/jupeter/clean-code-php)
 
 ## **Naming**
+
 Naming it hard and it takes time but worth it. Choosing good names takes time but saves more than it takes and it will help everyone who reads your code (including you) will be happier if you do. Naming should reflect about what it does, what is the context.
 
 **Bad:**
@@ -33,12 +36,13 @@ int d;
 ```
 
 **Good:**
+
 ```csharp
 int daySinceModification;
 ```
 
-
 ### Avoid Disinformation name
+
 Programmers must avoid naming with disinformation name and we should name variable to reflect what we want to do with it.
 
 **Bad:**
@@ -54,6 +58,7 @@ var listOfEmployee = _employeeService.GetEmployeeListFromDb().Tolist();
 ```
 
 ### Use Pronounceable Names
+
 What happends if we cant pronoun variables, function, etc... It will take us a lot of time (some time make us like an idiot to discuss about it) to investigate what meaning of that variables, what is use.
 
 **Bad:**
@@ -66,16 +71,17 @@ public class Employee {
 ```
 
 **Good:**
+
 ```csharp
 public class Employee {
     public Datetime startWorkingDate { get; set; }
-    public Datetime modificationTime { get; set; } 
+    public Datetime modificationTime { get; set; }
 }
 ```
 
 ### Use Hungarian Notation
-Use Hungarian Notation for variable and parms function
 
+Use Hungarian Notation for variable and parms function
 
 **Bad:**
 
@@ -86,10 +92,10 @@ public double CalculateSalary(int workingdays, int workinghours)
 {
     // some logic
 }
-
 ```
 
 **Good:**
+
 ```csharp
 var employeePhone // or var employee-phone
 
@@ -100,9 +106,11 @@ public double CalculateSalary(int workingDays, int workingHours)
 ```
 
 ### Use domain name
+
 People who read your code is also programmers. So naming right will help everyone on the same page because we dont want to take time to explain for everyone what that variable for, what the function for. We can name the variable or function to reflect the pattern, algorithm names and so forth.
 
 **Good**
+
 ```csharp
 public class SingleObject {
    //create an object of SingleObject
@@ -174,8 +182,8 @@ GetUser();
 
 ### Use searchable names (part 1) [:page_facing_up:](https://github.com/thangchung/clean-code-dotnet/blob/master/src/Variables/UseSearchableNames.cs)
 
-We will read more code than we will ever write. It's important that the code we do write is 
-readable and searchable. By *not* naming variables that end up being meaningful for 
+We will read more code than we will ever write. It's important that the code we do write is
+readable and searchable. By _not_ naming variables that end up being meaningful for
 understanding our program, we hurt our readers.
 Make your names searchable.
 
@@ -500,20 +508,23 @@ public void CreateMicrobrewery(string breweryName = "Hipster Brew Co.")
 ```
 
 ### Avoid magic string
+
 Magic strings are string values that are specified directly within application code that have an impact on the application’s behavior. Frequently, such strings will end up being duplicated within the system, and since they cannot automatically be updated using refactoring tools, they become a common source of bugs when changes are made to some strings but not others.
 
 **Bad**
+
 ```csharp
-if(userRole == "Admin") 
+if(userRole == "Admin")
 {
     // logic in here
 }
 ```
+
 **Good**
 
 ```csharp
 string ADMIN_ROLE = "Admin"
-if(userRole == ADMIN_ROLE) 
+if(userRole == ADMIN_ROLE)
 {
     // logic in here
 }
@@ -527,13 +538,13 @@ Using this we only have to change in centralize place and others will adapt it.
 
 ### Function arguments (2 or fewer ideally)
 
-Limiting the amount of function parameters is incredibly important because it makes 
-testing your function easier. Having more than three leads to a combinatorial explosion 
+Limiting the amount of function parameters is incredibly important because it makes
+testing your function easier. Having more than three leads to a combinatorial explosion
 where you have to test tons of different cases with each separate argument.
 
-Zero arguments is the ideal case. One or two arguments is ok, and three should be avoided. 
-Anything more than that should be consolidated. Usually, if you have more than two 
-arguments then your function is trying to do too much. In cases where it's not, most 
+Zero arguments is the ideal case. One or two arguments is ok, and three should be avoided.
+Anything more than that should be consolidated. Usually, if you have more than two
+arguments then your function is trying to do too much. In cases where it's not, most
 of the time a higher-level object will suffice as an argument.
 
 **Bad:**
@@ -572,13 +583,14 @@ public void CreateMenu(MenuConfig config)
 
 ### Functions should do one thing
 
-This is by far the most important rule in software engineering. When functions do more 
-than one thing, they are harder to compose, test, and reason about. When you can isolate 
-a function to just one action, they can be refactored easily and your code will read much 
-cleaner. If you take nothing else away from this guide other than this, you'll be ahead 
+This is by far the most important rule in software engineering. When functions do more
+than one thing, they are harder to compose, test, and reason about. When you can isolate
+a function to just one action, they can be refactored easily and your code will read much
+cleaner. If you take nothing else away from this guide other than this, you'll be ahead
 of many developers.
 
 **Bad:**
+
 ```csharp
 public void SendEmailToListOfClients(string[] clients)
 {
@@ -638,7 +650,7 @@ message.Handle();
 **Good:**
 
 ```csharp
-public class Email 
+public class Email
 {
     //...
 
@@ -795,8 +807,8 @@ class BetterJSAlternative
 
 ### Don't use flags as function parameters
 
-Flags tell your user that this function does more than one thing. Functions should 
-do one thing. Split out your functions if they are following different code paths 
+Flags tell your user that this function does more than one thing. Functions should
+do one thing. Split out your functions if they are following different code paths
 based on a boolean.
 
 **Bad:**
@@ -830,18 +842,18 @@ public void CreateTempFile(string name)
 
 ### Avoid Side Effects
 
-A function produces a side effect if it does anything other than take a value in and 
-return another value or values. A side effect could be writing to a file, modifying 
+A function produces a side effect if it does anything other than take a value in and
+return another value or values. A side effect could be writing to a file, modifying
 some global variable, or accidentally wiring all your money to a stranger.
 
-Now, you do need to have side effects in a program on occasion. Like the previous 
-example, you might need to write to a file. What you want to do is to centralize where 
-you are doing this. Don't have several functions and classes that write to a particular 
+Now, you do need to have side effects in a program on occasion. Like the previous
+example, you might need to write to a file. What you want to do is to centralize where
+you are doing this. Don't have several functions and classes that write to a particular
 file. Have one service that does it. One and only one.
 
 The main point is to avoid common pitfalls like sharing state between objects without
-any structure, using mutable data types that can be written to by anything, and not 
-centralizing where your side effects occur. If you can do this, you will be happier 
+any structure, using mutable data types that can be written to by anything, and not
+centralizing where your side effects occur. If you can do this, you will be happier
 than the vast majority of other programmers.
 
 **Bad:**
@@ -880,10 +892,10 @@ Console.PrintLine(newName); // ['Ryan', 'McDermott'];
 
 ### Don't write to global functions
 
-Polluting globals is a bad practice in many languages because you could clash with another 
-library and the user of your API would be none-the-wiser until they get an exception in 
-production. Let's think about an example: what if you wanted to have configuration array. 
-You could write global function like `Config()`, but it could clash with another library 
+Polluting globals is a bad practice in many languages because you could clash with another
+library and the user of your API would be none-the-wiser until they get an exception in
+production. Let's think about an example: what if you wanted to have configuration array.
+You could write global function like `Config()`, but it could clash with another library
 that tried to do the same thing.
 
 **Bad:**
@@ -916,7 +928,7 @@ class Configuration
 }
 ```
 
-Load configuration and create instance of `Configuration` class 
+Load configuration and create instance of `Configuration` class
 
 ```csharp
 var configuration = new Configuration([
@@ -931,10 +943,11 @@ And now you must use instance of `Configuration` in your application.
 ### Don't use a Singleton pattern
 
 Singleton is an [anti-pattern](https://en.wikipedia.org/wiki/Singleton_pattern). Paraphrased from Brian Button:
- 1. They are generally used as a **global instance**, why is that so bad? Because **you hide the dependencies** of your application in your code, instead of exposing them through the interfaces. Making something global to avoid passing it around is a [code smell](https://en.wikipedia.org/wiki/Code_smell).
- 2. They violate the [single responsibility principle](#single-responsibility-principle-srp): by virtue of the fact that **they control their own creation and lifecycle**.
- 3. They inherently cause code to be tightly [coupled](https://en.wikipedia.org/wiki/Coupling_%28computer_programming%29). This makes faking them out under **test rather difficult** in many cases.
- 4. They carry state around for the lifetime of the application. Another hit to testing since **you can end up with a situation where tests need to be ordered** which is a big no for unit tests. Why? Because each unit test should be independent from the other.
+
+1. They are generally used as a **global instance**, why is that so bad? Because **you hide the dependencies** of your application in your code, instead of exposing them through the interfaces. Making something global to avoid passing it around is a [code smell](https://en.wikipedia.org/wiki/Code_smell).
+2. They violate the [single responsibility principle](#single-responsibility-principle-srp): by virtue of the fact that **they control their own creation and lifecycle**.
+3. They inherently cause code to be tightly [coupled](https://en.wikipedia.org/wiki/Coupling_%28computer_programming%29). This makes faking them out under **test rather difficult** in many cases.
+4. They carry state around for the lifetime of the application. Another hit to testing since **you can end up with a situation where tests need to be ordered** which is a big no for unit tests. Why? Because each unit test should be independent from the other.
 
 There is also very good thoughts by [Misko Hevery](http://misko.hevery.com/about/) about the [root of problem](http://misko.hevery.com/2008/08/25/root-cause-of-singletons/).
 
@@ -1117,15 +1130,10 @@ class Cessna : IAirplane
 
 ### Avoid type-checking (part 1)
 
-PHP is untyped, which means your functions can take any type of argument.
-Sometimes you are bitten by this freedom and it becomes tempting to do
-type-checking in your functions. There are many ways to avoid having to do this.
-The first thing to consider is consistent APIs.
-
 **Bad:**
 
 ```csharp
-function TravelToTexas(object vehicle)
+public Path TravelToTexas(object vehicle)
 {
     if (vehicle instanceof Bicycle) {
         vehicle.PeddleTo(new Location("texas"));
@@ -1138,7 +1146,7 @@ function TravelToTexas(object vehicle)
 **Good:**
 
 ```csharp
-function TravelToTexas(Traveler vehicle)
+public Path TravelToTexas(Traveler vehicle)
 {
     vehicle.TravelTo(new Location("texas"));
 }
@@ -1148,22 +1156,13 @@ function TravelToTexas(Traveler vehicle)
 
 ### Avoid type-checking (part 2)
 
-If you are working with basic primitive values like strings, integers, and arrays,
-and you use PHP 7+ and you can't use polymorphism but you still feel the need to
-type-check, you should consider
-[type declaration](http://php.net/manual/en/functions.arguments.php#functions.arguments.type-declaration)
-or strict mode. It provides you with static typing on top of standard PHP syntax.
-The problem with manually type-checking is that doing it will require so much
-extra verbiage that the faux "type-safety" you get doesn't make up for the lost
-readability. Keep your PHP clean, write good tests, and have good code reviews.
-Otherwise, do all of that but with PHP strict type declaration or strict mode.
-
 **Bad:**
 
 ```csharp
-function Combine(dynamic val1, dynamic val2)
+public int Combine(dynamic val1, dynamic val2)
 {
-    if (!is_numeric(val1) || !is_numeric(val2)) {
+    int value;
+    if (!int.TryParse(val1, out value) || !int.TryParse(val2, out value)) {
         throw new Exception('Must be of type Number');
     }
 
@@ -1174,7 +1173,7 @@ function Combine(dynamic val1, dynamic val2)
 **Good:**
 
 ```csharp
-function Combine(int val1, int val2)
+public int Combine(int val1, int val2)
 {
     return val1 + val2;
 }
@@ -1191,12 +1190,12 @@ in your version history if you still need it.
 **Bad:**
 
 ```csharp
-function OldRequestModule(string url)
+public void OldRequestModule(string url)
 {
     // ...
 }
 
-function NewRequestModule(string url)
+public void NewRequestModule(string url)
 {
     // ...
 }
@@ -1208,7 +1207,7 @@ InventoryTracker("apples", request, "www.inventory-awesome.io");
 **Good:**
 
 ```csharp
-function RequestModule(string url)
+public void RequestModule(string url)
 {
     // ...
 }
@@ -1223,19 +1222,19 @@ InventoryTracker("apples", request, "www.inventory-awesome.io");
 
 ### Use getters and setters
 
-In C# / VB.NET you can set `public`, `protected` and `private` keywords for methods. 
-Using it, you can control properties modification on an object. 
+In C# / VB.NET you can set `public`, `protected` and `private` keywords for methods.
+Using it, you can control properties modification on an object.
 
 * When you want to do more beyond getting an object property, you don't have
-to look up and change every accessor in your codebase.
+  to look up and change every accessor in your codebase.
 * Makes adding validation simple when doing a `set`.
 * Encapsulates the internal representation.
 * Easy to add logging and error handling when getting and setting.
 * Inheriting this class, you can override default functionality.
 * You can lazy load your object's properties, let's say getting it from a
-server.
+  server.
 
-Additionally, this is part of Open/Closed principle, from object-oriented 
+Additionally, this is part of Open/Closed principle, from object-oriented
 design principles.
 
 **Bad:**
@@ -1243,13 +1242,13 @@ design principles.
 ```csharp
 class BankAccount
 {
-    public $balance = 1000;
+    public double Balance = 1000;
 }
 
-$bankAccount = new BankAccount();
+var bankAccount = new BankAccount();
 
-// Buy shoes...
-$bankAccount->balance -= 100;
+// Fake buy shoes...
+bankAccount.Balance -= 100;
 ```
 
 **Good:**
@@ -1257,40 +1256,40 @@ $bankAccount->balance -= 100;
 ```csharp
 class BankAccount
 {
-    private $balance;
+    private doulbe Balance{get;set;};
 
-    public function __construct($balance = 1000)
+    public BankAccount(balance = 1000)
     {
-      $this->balance = $balance;
+       Balance = balance;
     }
 
-    public function withdrawBalance($amount)
+    public double WithdrawBalance(amount)
     {
-        if ($amount > $this->balance) {
+        if (amount > Balance) {
             throw new \Exception('Amount greater than available balance.');
         }
 
-        $this->balance -= $amount;
+        Balance -= amount;
     }
 
-    public function depositBalance($amount)
+    public void DepositBalance(amount)
     {
-        $this->balance += $amount;
+        Balance += amount;
     }
 
-    public function getBalance()
+    public double getBalance()
     {
-        return $this->balance;
+        return Balance;
     }
 }
 
-$bankAccount = new BankAccount();
+var bankAccount = new BankAccount();
 
 // Buy shoes...
-$bankAccount->withdrawBalance($shoesPrice);
+bankAccount.WithdrawBalance(price);
 
 // Get balance
-$balance = $bankAccount->getBalance();
+balance = bankAccount.GetBalance();
 ```
 
 **[⬆ back to top](#table-of-contents)**
@@ -1302,16 +1301,16 @@ $balance = $bankAccount->getBalance();
 ```csharp
 class Employee
 {
-    public $name;
+    public string Name { get; set; };
 
-    public function __construct($name)
+    public Employee(name)
     {
-        $this->name = $name;
+        Name = name;
     }
 }
 
-$employee = new Employee('John Doe');
-echo 'Employee name: '.$employee->name; // Employee name: John Doe
+var employee = new Employee('John Doe');
+Console.WriteLine(employee.Name) // Employee name: John Doe
 ```
 
 **Good:**
@@ -1319,21 +1318,21 @@ echo 'Employee name: '.$employee->name; // Employee name: John Doe
 ```csharp
 class Employee
 {
-    private $name;
+    private string Name { get; set; };
 
-    public function __construct($name)
+    public Employee(name)
     {
-        $this->name = $name;
+        Name = name;
     }
 
-    public function getName()
+    public string GetName()
     {
-        return $this->name;
+        return Name;
     }
 }
 
-$employee = new Employee('John Doe');
-echo 'Employee name: '.$employee->getName(); // Employee name: John Doe
+var employee = new Employee('John Doe');
+Console.WriteLine(employee.GetName());// Employee name: John Doe
 ```
 
 **[⬆ back to top](#table-of-contents)**
@@ -1351,7 +1350,7 @@ and you can chain further class methods onto it.
 **Bad:**
 
 ```csharp
-class Car 
+class Car
 {
     private $make = 'Honda';
     private $model = 'Accord';
@@ -1388,7 +1387,7 @@ $car->dump();
 **Good:**
 
 ```csharp
-class Car 
+class Car
 {
     private $make = 'Honda';
     private $model = 'Accord';
@@ -1397,7 +1396,7 @@ class Car
     public function setMake($make)
     {
         $this->make = $make;
-        
+
         // NOTE: Returning this for chaining
         return $this;
     }
@@ -1435,7 +1434,7 @@ $car = (new Car())
 
 ### Prefer composition over inheritance
 
-As stated famously in [*Design Patterns*](https://en.wikipedia.org/wiki/Design_Patterns) by the Gang of Four,
+As stated famously in [_Design Patterns_](https://en.wikipedia.org/wiki/Design_Patterns) by the Gang of Four,
 you should prefer composition over inheritance where you can. There are lots of
 good reasons to use inheritance and lots of good reasons to use composition.
 The main point for this maxim is that if your mind instinctively goes for
@@ -1447,15 +1446,15 @@ depends on your problem at hand, but this is a decent list of when inheritance
 makes more sense than composition:
 
 1. Your inheritance represents an "is-a" relationship and not a "has-a"
-relationship (Human->Animal vs. User->UserDetails).
+   relationship (Human->Animal vs. User->UserDetails).
 2. You can reuse code from the base classes (Humans can move like all animals).
 3. You want to make global changes to derived classes by changing a base class.
-(Change the caloric expenditure of all animals when they move).
+   (Change the caloric expenditure of all animals when they move).
 
 **Bad:**
 
 ```csharp
-class Employee 
+class Employee
 {
     private $name;
     private $email;
@@ -1469,14 +1468,14 @@ class Employee
     // ...
 }
 
-// Bad because Employees "have" tax data. 
+// Bad because Employees "have" tax data.
 // EmployeeTaxData is not a type of Employee
 
-class EmployeeTaxData extends Employee 
+class EmployeeTaxData extends Employee
 {
     private $ssn;
     private $salary;
-    
+
     public function __construct($name, $email, $ssn, $salary)
     {
         parent::__construct($name, $email);
@@ -1492,7 +1491,7 @@ class EmployeeTaxData extends Employee
 **Good:**
 
 ```csharp
-class EmployeeTaxData 
+class EmployeeTaxData
 {
     private $ssn;
     private $salary;
@@ -1506,7 +1505,7 @@ class EmployeeTaxData
     // ...
 }
 
-class Employee 
+class Employee
 {
     private $name;
     private $email;
@@ -1533,11 +1532,11 @@ class Employee
 
 **SOLID** is the mnemonic acronym introduced by Michael Feathers for the first five principles named by Robert Martin, which meant five basic principles of object-oriented programming and design.
 
- * [S: Single Responsibility Principle (SRP)](#single-responsibility-principle-srp)
- * [O: Open/Closed Principle (OCP)](#openclosed-principle-ocp)
- * [L: Liskov Substitution Principle (LSP)](#liskov-substitution-principle-lsp)
- * [I: Interface Segregation Principle (ISP)](#interface-segregation-principle-isp)
- * [D: Dependency Inversion Principle (DIP)](#dependency-inversion-principle-dip)
+* [S: Single Responsibility Principle (SRP)](#single-responsibility-principle-srp)
+* [O: Open/Closed Principle (OCP)](#openclosed-principle-ocp)
+* [L: Liskov Substitution Principle (LSP)](#liskov-substitution-principle-lsp)
+* [I: Interface Segregation Principle (ISP)](#interface-segregation-principle-isp)
+* [D: Dependency Inversion Principle (DIP)](#dependency-inversion-principle-dip)
 
 ### Single Responsibility Principle (SRP)
 
@@ -1579,7 +1578,7 @@ class UserSettings
 **Good:**
 
 ```csharp
-class UserAuth 
+class UserAuth
 {
     private $user;
 
@@ -1587,19 +1586,19 @@ class UserAuth
     {
         $this->user = $user;
     }
-    
+
     public function verifyCredentials()
     {
         // ...
     }
 }
 
-class UserSettings 
+class UserSettings
 {
     private $user;
     private $auth;
 
-    public function __construct($user) 
+    public function __construct($user)
     {
         $this->user = $user;
         $this->auth = new UserAuth($user);
@@ -1860,7 +1859,7 @@ function renderLargeRectangles($rectangles)
             $rectangle->setHeight(5);
         }
 
-        $area = $rectangle->getArea(); 
+        $area = $rectangle->getArea();
         $rectangle->render($area);
     }
 }
@@ -1874,7 +1873,7 @@ renderLargeRectangles($shapes);
 ### Interface Segregation Principle (ISP)
 
 ISP states that "Clients should not be forced to depend upon interfaces that
-they do not use." 
+they do not use."
 
 A good example to look at that demonstrates this principle is for
 classes that require large settings objects. Not requiring clients to setup
@@ -1965,10 +1964,11 @@ class Robot implements Workable
 ### Dependency Inversion Principle (DIP)
 
 This principle states two essential things:
+
 1. High-level modules should not depend on low-level modules. Both should
-depend on abstractions.
+   depend on abstractions.
 2. Abstractions should not depend upon details. Details should depend on
-abstractions.
+   abstractions.
 
 This can be hard to understand at first, but if you've worked with PHP frameworks (like Symfony), you've seen an implementation of this principle in the form of Dependency
 Injection (DI). While they are not identical concepts, DIP keeps high-level
@@ -2058,25 +2058,25 @@ class Manager
 
 Try to observe the [DRY](https://en.wikipedia.org/wiki/Don%27t_repeat_yourself) principle.
 
-Do your absolute best to avoid duplicate code. Duplicate code is bad because 
-it means that there's more than one place to alter something if you need to 
+Do your absolute best to avoid duplicate code. Duplicate code is bad because
+it means that there's more than one place to alter something if you need to
 change some logic.
 
-Imagine if you run a restaurant and you keep track of your inventory: all your 
+Imagine if you run a restaurant and you keep track of your inventory: all your
 tomatoes, onions, garlic, spices, etc. If you have multiple lists that
 you keep this on, then all have to be updated when you serve a dish with
 tomatoes in them. If you only have one list, there's only one place to update!
 
 Oftentimes you have duplicate code because you have two or more slightly
 different things, that share a lot in common, but their differences force you
-to have two or more separate functions that do much of the same things. Removing 
-duplicate code means creating an abstraction that can handle this set of different 
+to have two or more separate functions that do much of the same things. Removing
+duplicate code means creating an abstraction that can handle this set of different
 things with just one function/module/class.
 
 Getting the abstraction right is critical, that's why you should follow the
 SOLID principles laid out in the [Classes](#classes) section. Bad abstractions can be
 worse than duplicate code, so be careful! Having said this, if you can make
-a good abstraction, do it! Don't repeat yourself, otherwise you'll find yourself 
+a good abstraction, do it! Don't repeat yourself, otherwise you'll find yourself
 updating multiple places anytime you want to change one thing.
 
 **Bad:**
@@ -2174,6 +2174,7 @@ or refactoring an existing one.
 ### Single concept per test
 
 **Bad:**
+
 ```csharp
 import assert from 'assert';
 
@@ -2197,6 +2198,7 @@ describe('MakeMomentJSGreatAgain', () => {
 ```
 
 **Good:**
+
 ```csharp
 import assert from 'assert';
 
@@ -2220,15 +2222,18 @@ describe('MakeMomentJSGreatAgain', () => {
   });
 });
 ```
+
 **[⬆ back to top](#table-of-contents)**
 
 ## **Concurrency**
 
 ### Use Promises, not callbacks
+
 Callbacks aren't clean, and they cause excessive amounts of nesting. With ES2015/ES6,
 Promises are a built-in global type. Use them!
 
 **Bad:**
+
 ```csharp
 import { get } from 'request';
 import { writeFile } from 'fs';
@@ -2246,10 +2251,10 @@ get('https://en.wikipedia.org/wiki/Robert_Cecil_Martin', (requestErr, response) 
     });
   }
 });
-
 ```
 
 **Good:**
+
 ```csharp
 import { get } from 'request';
 import { writeFile } from 'fs';
@@ -2264,11 +2269,12 @@ get('https://en.wikipedia.org/wiki/Robert_Cecil_Martin')
   .catch((err) => {
     console.error(err);
   });
-
 ```
+
 **[⬆ back to top](#table-of-contents)**
 
 ### Async/Await are even cleaner than Promises
+
 Promises are a very clean alternative to callbacks, but ES2017/ES8 brings async and await
 which offer an even cleaner solution. All you need is a function that is prefixed
 in an `async` keyword, and then you can write your logic imperatively without
@@ -2276,6 +2282,7 @@ a `then` chain of functions. Use this if you can take advantage of ES2017/ES8 fe
 today!
 
 **Bad:**
+
 ```csharp
 import { get } from 'request-promise';
 import { writeFile } from 'fs-promise';
@@ -2290,10 +2297,10 @@ get('https://en.wikipedia.org/wiki/Robert_Cecil_Martin')
   .catch((err) => {
     console.error(err);
   });
-
 ```
 
 **Good:**
+
 ```csharp
 import { get } from 'request-promise';
 import { writeFile } from 'fs-promise';
@@ -2308,6 +2315,7 @@ async function getCleanCodeArticle() {
   }
 }
 ```
+
 **[⬆ back to top](#table-of-contents)**
 
 ## **Error Handling**
@@ -2318,6 +2326,7 @@ you know by stopping function execution on the current stack, killing the
 process (in Node), and notifying you in the console with a stack trace.
 
 ### Don't ignore caught errors
+
 Doing nothing with a caught error doesn't give you the ability to ever fix
 or react to said error. Logging the error to the console (`console.log`)
 isn't much better as often times it can get lost in a sea of things printed
@@ -2326,6 +2335,7 @@ think an error may occur there and therefore you should have a plan,
 or create a code path, for when it occurs.
 
 **Bad:**
+
 ```csharp
 try {
   functionThatMightThrow();
@@ -2335,6 +2345,7 @@ try {
 ```
 
 **Good:**
+
 ```csharp
 try {
   functionThatMightThrow();
@@ -2350,10 +2361,12 @@ try {
 ```
 
 ### Don't ignore rejected promises
+
 For the same reason you shouldn't ignore caught errors
 from `try/catch`.
 
 **Bad:**
+
 ```csharp
 getdata()
   .then((data) => {
@@ -2365,6 +2378,7 @@ getdata()
 ```
 
 **Good:**
+
 ```csharp
 getdata()
   .then((data) => {
@@ -2395,11 +2409,13 @@ For things that don't fall under the purview of automatic formatting
 for some guidance.
 
 ### Use consistent capitalization
+
 JavaScript is untyped, so capitalization tells you a lot about your variables,
 functions, etc. These rules are subjective, so your team can choose whatever
 they want. The point is, no matter what you all choose, just be consistent.
 
 **Bad:**
+
 ```csharp
 const DAYS_IN_WEEK = 7;
 const daysInMonth = 30;
@@ -2415,6 +2431,7 @@ class Alpaca {}
 ```
 
 **Good:**
+
 ```csharp
 const DAYS_IN_WEEK = 7;
 const DAYS_IN_MONTH = 30;
@@ -2428,15 +2445,17 @@ function restoreDatabase() {}
 class Animal {}
 class Alpaca {}
 ```
+
 **[⬆ back to top](#table-of-contents)**
 
-
 ### Function callers and callees should be close
+
 If a function calls another, keep those functions vertically close in the source
 file. Ideally, keep the caller right above the callee. We tend to read code from
 top-to-bottom, like a newspaper. Because of this, make your code read that way.
 
 **Bad:**
+
 ```csharp
 class PerformanceReview {
   constructor(employee) {
@@ -2476,6 +2495,7 @@ review.perfReview();
 ```
 
 **Good:**
+
 ```csharp
 class PerformanceReview {
   constructor(employee) {
@@ -2519,9 +2539,11 @@ review.perfReview();
 ## **Comments**
 
 ### Only comment things that have business logic complexity.
-Comments are an apology, not a requirement. Good code *mostly* documents itself.
+
+Comments are an apology, not a requirement. Good code _mostly_ documents itself.
 
 **Bad:**
+
 ```csharp
 function hashIt(data) {
   // The hash
@@ -2543,8 +2565,8 @@ function hashIt(data) {
 ```
 
 **Good:**
-```csharp
 
+```csharp
 function hashIt(data) {
   let hash = 0;
   const length = data.length;
@@ -2557,14 +2579,16 @@ function hashIt(data) {
     hash &= hash;
   }
 }
-
 ```
+
 **[⬆ back to top](#table-of-contents)**
 
 ### Don't leave commented out code in your codebase
+
 Version control exists for a reason. Leave old code in your history.
 
 **Bad:**
+
 ```csharp
 doStuff();
 // doOtherStuff();
@@ -2573,16 +2597,20 @@ doStuff();
 ```
 
 **Good:**
+
 ```csharp
 doStuff();
 ```
+
 **[⬆ back to top](#table-of-contents)**
 
 ### Don't have journal comments
+
 Remember, use version control! There's no need for dead code, commented code,
 and especially journal comments. Use `git log` to get history!
 
 **Bad:**
+
 ```csharp
 /**
  * 2016-12-20: Removed monads, didn't understand them (RM)
@@ -2596,18 +2624,22 @@ function combine(a, b) {
 ```
 
 **Good:**
+
 ```csharp
 function combine(a, b) {
   return a + b;
 }
 ```
+
 **[⬆ back to top](#table-of-contents)**
 
 ### Avoid positional markers
+
 They usually just add noise. Let the functions and variable names along with the
 proper indentation and formatting give the visual structure to your code.
 
 **Bad:**
+
 ```csharp
 ////////////////////////////////////////////////////////////////////////////////
 // Scope Model Instantiation
@@ -2626,6 +2658,7 @@ const actions = function() {
 ```
 
 **Good:**
+
 ```csharp
 $scope.model = {
   menu: 'foo',
@@ -2636,4 +2669,5 @@ const actions = function() {
   // ...
 };
 ```
+
 **[⬆ back to top](#table-of-contents)**
