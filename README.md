@@ -1301,16 +1301,16 @@ balance = bankAccount.GetBalance();
 ```csharp
 class Employee
 {
-    public $name;
+    public string Name { get; set; };
 
-    public function __construct($name)
+    public Employee(name)
     {
-        $this->name = $name;
+        Name = name;
     }
 }
 
-$employee = new Employee('John Doe');
-echo 'Employee name: '.$employee->name; // Employee name: John Doe
+var employee = new Employee('John Doe');
+Console.WriteLine(employee.Name) // Employee name: John Doe
 ```
 
 **Good:**
@@ -1318,21 +1318,21 @@ echo 'Employee name: '.$employee->name; // Employee name: John Doe
 ```csharp
 class Employee
 {
-    private $name;
+    private string Name { get; set; };
 
-    public function __construct($name)
+    public Employee(name)
     {
-        $this->name = $name;
+        Name = name;
     }
 
-    public function getName()
+    public string GetName()
     {
-        return $this->name;
+        return Name;
     }
 }
 
-$employee = new Employee('John Doe');
-echo 'Employee name: '.$employee->getName(); // Employee name: John Doe
+var employee = new Employee('John Doe');
+Console.WriteLine(employee.GetName());// Employee name: John Doe
 ```
 
 **[⬆ back to top](#table-of-contents)**
