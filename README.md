@@ -1757,8 +1757,8 @@ Drawable RenderLargeRectangles(Rectangle rectangles)
     }
 }
 
-rectangles = [new Rectangle(), new Rectangle(), new Square()];
-RenderLargeRectangles($rectangles);
+var rectangles = [new Rectangle(), new Rectangle(), new Square()];
+RenderLargeRectangles(rectangles);
 ```
 
 **Good:**
@@ -1799,9 +1799,9 @@ class Square extends Shape
 {
     private double Length = 0;
 
-    public double SetLength($length)
+    public double SetLength(double length)
     {
-        $this->length = $length;
+        Length = length;
     }
 
     public double GetArea()
