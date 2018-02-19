@@ -1242,13 +1242,13 @@ design principles.
 ```csharp
 class BankAccount
 {
-    public $balance = 1000;
+    public double Balance = 1000;
 }
 
-$bankAccount = new BankAccount();
+var bankAccount = new BankAccount();
 
-// Buy shoes...
-$bankAccount->balance -= 100;
+// Fake buy shoes...
+bankAccount.Balance -= 100;
 ```
 
 **Good:**
@@ -1256,40 +1256,40 @@ $bankAccount->balance -= 100;
 ```csharp
 class BankAccount
 {
-    private $balance;
+    private doulbe Balance{get;set;};
 
-    public function __construct($balance = 1000)
+    public BankAccount(balance = 1000)
     {
-      $this->balance = $balance;
+       Balance = balance;
     }
 
-    public function withdrawBalance($amount)
+    public double WithdrawBalance(amount)
     {
-        if ($amount > $this->balance) {
+        if (amount > Balance) {
             throw new \Exception('Amount greater than available balance.');
         }
 
-        $this->balance -= $amount;
+        Balance -= amount;
     }
 
-    public function depositBalance($amount)
+    public void DepositBalance(amount)
     {
-        $this->balance += $amount;
+        Balance += amount;
     }
 
-    public function getBalance()
+    public double getBalance()
     {
-        return $this->balance;
+        return Balance;
     }
 }
 
-$bankAccount = new BankAccount();
+var bankAccount = new BankAccount();
 
 // Buy shoes...
-$bankAccount->withdrawBalance($shoesPrice);
+bankAccount.WithdrawBalance(price);
 
 // Get balance
-$balance = $bankAccount->getBalance();
+balance = bankAccount.GetBalance();
 ```
 
 **[⬆ back to top](#table-of-contents)**
