@@ -1654,12 +1654,12 @@ class HttpRequester extends Adapter
 ```csharp
 interface Idapter
 {
-    public bool request($url);
+    bool Request($url);
 }
 
 class AjaxAdapter implements Idapter
 {
-    public bool request($url)
+    public bool Request($url)
     {
         // request and return promise
     }
@@ -1667,7 +1667,7 @@ class AjaxAdapter implements Idapter
 
 class NodeAdapter implements Idapter
 {
-    public bool request($url)
+    public bool Request($url)
     {
         // request and return promise
     }
@@ -1682,9 +1682,9 @@ class HttpRequester
         Adapter = adapter;
     }
 
-    public bool fetch(url)
+    public bool Fetch(url)
     {
-        return Adapter.request(url);
+        return Adapter.Request(url);
     }
 }
 ```
