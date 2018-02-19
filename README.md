@@ -1593,60 +1593,56 @@ add new functionalities without changing existing code.
 ```csharp
 abstract class Adapter
 {
-    protected $name;
+    protected string Name;
 
-    public function getName()
+    public string GetName()
     {
-        return $this->name;
+        return Name;
     }
 }
 
 class AjaxAdapter extends Adapter
 {
-    public function __construct()
+    public AjaxAdapter()
     {
-        parent::__construct();
-
-        $this->name = 'ajaxAdapter';
+        Name = 'ajaxAdapter';
     }
 }
 
 class NodeAdapter extends Adapter
 {
-    public function __construct()
+    public NodeAdapter()
     {
-        parent::__construct();
-
-        $this->name = 'nodeAdapter';
+        Name = 'nodeAdapter';
     }
 }
 
-class HttpRequester
+class HttpRequester extends Adapter
 {
-    private $adapter;
+    private Adapter Adapter;
 
-    public function __construct($adapter)
+    public HttpRequester(adapter)
     {
-        $this->adapter = $adapter;
+        Adapter = adapter;
     }
 
-    public function fetch($url)
+    public void Fetch(url)
     {
-        $adapterName = $this->adapter->getName();
+        var adapterName = Adapter.GetName();
 
-        if ($adapterName === 'ajaxAdapter') {
-            return $this->makeAjaxCall($url);
-        } elseif ($adapterName === 'httpNodeAdapter') {
-            return $this->makeHttpCall($url);
+        if (adapterName === 'ajaxAdapter') {
+            return MakeAjaxCall(url);
+        } elseif (adapterName === 'httpNodeAdapter') {
+            return MakeHttpCall(url);
         }
     }
 
-    private function makeAjaxCall($url)
+    private bool MakeAjaxCall(url)
     {
         // request and return promise
     }
 
-    private function makeHttpCall($url)
+    private bool MakeHttpCall(url)
     {
         // request and return promise
     }
@@ -1656,22 +1652,22 @@ class HttpRequester
 **Good:**
 
 ```csharp
-interface Adapter
+interface Idapter
 {
-    public function request($url);
+    public bool request($url);
 }
 
-class AjaxAdapter implements Adapter
+class AjaxAdapter implements Idapter
 {
-    public function request($url)
+    public bool request($url)
     {
         // request and return promise
     }
 }
 
-class NodeAdapter implements Adapter
+class NodeAdapter implements Idapter
 {
-    public function request($url)
+    public bool request($url)
     {
         // request and return promise
     }
@@ -1679,16 +1675,16 @@ class NodeAdapter implements Adapter
 
 class HttpRequester
 {
-    private $adapter;
+    private Idapter Adapter;
 
-    public function __construct(Adapter $adapter)
+    public HttpRequester(IAdapter adapter)
     {
-        $this->adapter = $adapter;
+        Adapter = adapter;
     }
 
-    public function fetch($url)
+    public bool fetch(url)
     {
-        return $this->adapter->request($url);
+        return Adapter.request(url);
     }
 }
 ```
