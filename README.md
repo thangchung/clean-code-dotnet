@@ -1117,15 +1117,10 @@ class Cessna : IAirplane
 
 ### Avoid type-checking (part 1)
 
-PHP is untyped, which means your functions can take any type of argument.
-Sometimes you are bitten by this freedom and it becomes tempting to do
-type-checking in your functions. There are many ways to avoid having to do this.
-The first thing to consider is consistent APIs.
-
 **Bad:**
 
 ```csharp
-function TravelToTexas(object vehicle)
+public Path TravelToTexas(object vehicle)
 {
     if (vehicle instanceof Bicycle) {
         vehicle.PeddleTo(new Location("texas"));
@@ -1138,7 +1133,7 @@ function TravelToTexas(object vehicle)
 **Good:**
 
 ```csharp
-function TravelToTexas(Traveler vehicle)
+public Path TravelToTexas(Traveler vehicle)
 {
     vehicle.TravelTo(new Location("texas"));
 }
@@ -1148,22 +1143,13 @@ function TravelToTexas(Traveler vehicle)
 
 ### Avoid type-checking (part 2)
 
-If you are working with basic primitive values like strings, integers, and arrays,
-and you use PHP 7+ and you can't use polymorphism but you still feel the need to
-type-check, you should consider
-[type declaration](http://php.net/manual/en/functions.arguments.php#functions.arguments.type-declaration)
-or strict mode. It provides you with static typing on top of standard PHP syntax.
-The problem with manually type-checking is that doing it will require so much
-extra verbiage that the faux "type-safety" you get doesn't make up for the lost
-readability. Keep your PHP clean, write good tests, and have good code reviews.
-Otherwise, do all of that but with PHP strict type declaration or strict mode.
-
 **Bad:**
 
 ```csharp
-function Combine(dynamic val1, dynamic val2)
+public int Combine(dynamic val1, dynamic val2)
 {
-    if (!is_numeric(val1) || !is_numeric(val2)) {
+    int value;
+    if (!int.TryParse(val1, out value) || !int.TryParse(val2, out value)) {
         throw new Exception('Must be of type Number');
     }
 
@@ -1174,7 +1160,7 @@ function Combine(dynamic val1, dynamic val2)
 **Good:**
 
 ```csharp
-function Combine(int val1, int val2)
+public int Combine(int val1, int val2)
 {
     return val1 + val2;
 }
