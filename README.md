@@ -1341,93 +1341,61 @@ Console.WriteLine(employee.GetName());// Employee name: John Doe
 
 ### Use method chaining
 
-This pattern is very useful and commonly used in many libraries such
-as PHPUnit and Doctrine. It allows your code to be expressive, and less verbose.
-For that reason, use method chaining and take a look at how clean your code
-will be. In your class functions, simply use `return this` at the end of every `set` function,
-and you can chain further class methods onto it.
-
-**Bad:**
-
-```csharp
-class Car
-{
-    private $make = 'Honda';
-    private $model = 'Accord';
-    private $color = 'white';
-
-    public function setMake($make)
-    {
-        $this->make = $make;
-    }
-
-    public function setModel($model)
-    {
-        $this->model = $model;
-    }
-
-    public function setColor($color)
-    {
-        $this->color = $color;
-    }
-
-    public function dump()
-    {
-        var_dump($this->make, $this->model, $this->color);
-    }
-}
-
-$car = new Car();
-$car->setColor('pink');
-$car->setMake('Ford');
-$car->setModel('F-150');
-$car->dump();
-```
+This pattern is very useful and commonly used in many libraries. It allows your code to be expressive, and less verbose.
+For that reason, use method chaining and take a look at how clean your code will be.
 
 **Good:**
 
 ```csharp
-class Car
+public static class ListExtensions
 {
-    private $make = 'Honda';
-    private $model = 'Accord';
-    private $color = 'white';
-
-    public function setMake($make)
+    public static List<T> FluentAdd<T>(this List<T> list, T item)
     {
-        $this->make = $make;
-
-        // NOTE: Returning this for chaining
-        return $this;
+        list.Add(item);
+        return list;
     }
 
-    public function setModel($model)
+    public static List<T> FluentClear<T>(this List<T> list)
     {
-        $this->model = $model;
-
-        // NOTE: Returning this for chaining
-        return $this;
+        list.Clear();
+        return list;
     }
 
-    public function setColor($color)
+    public static List<T> FluentForEach<T>(this List<T> list, Action<T> action)
     {
-        $this->color = $color;
-
-        // NOTE: Returning this for chaining
-        return $this;
+        list.ForEach(action);
+        return list;
     }
 
-    public function dump()
+    public static List<T> FluentInsert<T>(this List<T> list, int index, T item)
     {
-        var_dump($this->make, $this->model, $this->color);
+        list.Insert(index, item);
+        return list;
+    }
+
+    public static List<T> FluentRemoveAt<T>(this List<T> list, int index)
+    {
+        list.RemoveAt(index);
+        return list;
+    }
+
+    public static List<T> FluentReverse<T>(this List<T> list)
+    {
+        list.Reverse();
+        return list;
     }
 }
 
-$car = (new Car())
-  ->setColor('pink')
-  ->setMake('Ford')
-  ->setModel('F-150')
-  ->dump();
+internal static void ListFluentExtensions()
+{
+    List<int> list = new List<int>() { 1, 2, 3, 4, 5 }
+        .FluentAdd(1)
+        .FluentInsert(0, 0)
+        .FluentRemoveAt(1)
+        .FluentReverse()
+        .FluentForEach(value => value.WriteLine())
+        .FluentClear();
+}
 ```
 
 **[⬆ back to top](#table-of-contents)**
