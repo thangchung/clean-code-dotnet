@@ -1520,21 +1520,21 @@ your codebase.
 ```csharp
 class UserSettings
 {
-    private $user;
+    private User User;
 
-    public function __construct($user)
+    public UserSettings (User user)
     {
-        $this->user = $user;
+        User = user;
     }
 
-    public function changeSettings($settings)
+    public void ChangeSettings(Settings settings)
     {
-        if ($this->verifyCredentials()) {
+        if (verifyCredentials()) {
             // ...
         }
     }
 
-    private function verifyCredentials()
+    private bool VerifyCredentials()
     {
         // ...
     }
@@ -1546,14 +1546,14 @@ class UserSettings
 ```csharp
 class UserAuth
 {
-    private $user;
+    private User User;
 
-    public function __construct($user)
+    public UserSettings (User user)
     {
-        $this->user = $user;
+        User = user;
     }
 
-    public function verifyCredentials()
+    public bool VerifyCredentials()
     {
         // ...
     }
@@ -1561,18 +1561,18 @@ class UserAuth
 
 class UserSettings
 {
-    private $user;
-    private $auth;
+    private User User;
+    private UserAuth Auth;
 
-    public function __construct($user)
+    public UserSettings(User user)
     {
-        $this->user = $user;
-        $this->auth = new UserAuth($user);
+        User = user;
+        Auth = new UserAuth(user);
     }
 
-    public function changeSettings($settings)
+    public function changeSettings(Settings settings)
     {
-        if ($this->auth->verifyCredentials()) {
+        if (Auth.VerifyCredentials()) {
             // ...
         }
     }
