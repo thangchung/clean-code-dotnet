@@ -2205,80 +2205,84 @@ top-to-bottom, like a newspaper. Because of this, make your code read that way.
 
 ```csharp
 class PerformanceReview {
-  constructor(employee) {
-    this.employee = employee;
+  private Employee Employee;
+
+  public PerformanceReview(Employee employee) {
+    Employee = employee;
   }
 
-  lookupPeers() {
-    return db.lookup(this.employee, 'peers');
+  List<PeersData> LookupPeers() {
+    return db.lookup(Employee, 'peers');
   }
 
-  lookupManager() {
-    return db.lookup(this.employee, 'manager');
+  List<ManagerData> LookupManager() {
+    return db.lookup(Employee, 'manager');
   }
 
-  getPeerReviews() {
-    const peers = this.lookupPeers();
+  GetPeerReviews() {
+    var peers = LookupPeers();
     // ...
   }
 
-  perfReview() {
-    this.getPeerReviews();
-    this.getManagerReview();
-    this.getSelfReview();
+  PerfReview() {
+    GetPeerReviews();
+    GetManagerReview();
+    GetSelfReview();
   }
 
-  getManagerReview() {
-    const manager = this.lookupManager();
+  GetManagerReview() {
+    var manager = LookupManager();
   }
 
-  getSelfReview() {
+  GetSelfReview() {
     // ...
   }
 }
 
-const review = new PerformanceReview(employee);
-review.perfReview();
+var  review = new PerformanceReview(employee);
+review.PerfReview();
 ```
 
 **Good:**
 
 ```csharp
 class PerformanceReview {
-  constructor(employee) {
-    this.employee = employee;
+  private Employee Employee;
+
+  public PerformanceReview(Employee employee) {
+    Employee = employee;
   }
 
-  perfReview() {
-    this.getPeerReviews();
-    this.getManagerReview();
-    this.getSelfReview();
+  PerfReview() {
+    GetPeerReviews();
+    GetManagerReview();
+    GetSelfReview();
   }
 
-  getPeerReviews() {
-    const peers = this.lookupPeers();
+  GetPeerReviews() {
+    vonst peers = LookupPeers();
     // ...
   }
 
-  lookupPeers() {
-    return db.lookup(this.employee, 'peers');
+  LookupPeers() {
+    return db.lookup(Employee, 'peers');
   }
 
-  getManagerReview() {
-    const manager = this.lookupManager();
+  GetManagerReview() {
+    var manager = LookupManager();
   }
 
-  lookupManager() {
-    return db.lookup(this.employee, 'manager');
+  LookupManager() {
+    return db.lookup(Employee, 'manager');
   }
 
-  getSelfReview() {
+  GetSelfReview() {
     // ...
   }
 }
 
-const review = new PerformanceReview(employee);
-review.perfReview();
+var review = new PerformanceReview(employee);
+review.PerfReview();
 ```
 
 **[⬆ back to top](#table-of-contents)**
@@ -2292,15 +2296,15 @@ Comments are an apology, not a requirement. Good code _mostly_ documents itself.
 **Bad:**
 
 ```csharp
-function hashIt(data) {
+public string HashIt(string inputData) {
   // The hash
-  let hash = 0;
+  var hash = 0;
 
   // Length of string
   const length = data.length;
 
   // Loop through every character in data
-  for (let i = 0; i < length; i++) {
+  for (var i = 0; i < length; i++) {
     // Get character code.
     const char = data.charCodeAt(i);
     // Make the hash
@@ -2314,11 +2318,11 @@ function hashIt(data) {
 **Good:**
 
 ```csharp
-function hashIt(data) {
-  let hash = 0;
+public string hashIt(string inputData) {
+  var hash = 0;
   const length = data.length;
 
-  for (let i = 0; i < length; i++) {
+  for (var i = 0; i < length; i++) {
     const char = data.charCodeAt(i);
     hash = ((hash << 5) - hash) + char;
 
@@ -2365,7 +2369,7 @@ and especially journal comments. Use `git log` to get history!
  * 2016-02-03: Removed type-checking (LI)
  * 2015-03-14: Added combine with type-checking (JR)
  */
-function combine(a, b) {
+public int Combine(int a,int b) {
   return a + b;
 }
 ```
@@ -2373,7 +2377,7 @@ function combine(a, b) {
 **Good:**
 
 ```csharp
-function combine(a, b) {
+public int Combine(int a,int b) {
   return a + b;
 }
 ```
@@ -2391,7 +2395,7 @@ proper indentation and formatting give the visual structure to your code.
 ////////////////////////////////////////////////////////////////////////////////
 // Scope Model Instantiation
 ////////////////////////////////////////////////////////////////////////////////
-$scope.model = {
+var model = {
   menu: 'foo',
   nav: 'bar'
 };
@@ -2399,7 +2403,7 @@ $scope.model = {
 ////////////////////////////////////////////////////////////////////////////////
 // Action setup
 ////////////////////////////////////////////////////////////////////////////////
-const actions = function() {
+void Actions() {
   // ...
 };
 ```
@@ -2407,12 +2411,12 @@ const actions = function() {
 **Good:**
 
 ```csharp
-$scope.model = {
+var model = {
   menu: 'foo',
   nav: 'bar'
 };
 
-const actions = function() {
+void Actions() {
   // ...
 };
 ```
