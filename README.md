@@ -2155,34 +2155,23 @@ try {
 
 **[⬆ back to top](#table-of-contents)**
 
-## **Formatting**
-
-Formatting is subjective. Like many rules herein, there is no hard and fast
-rule that you must follow. The main point is DO NOT ARGUE over formatting.
-There are [tons of tools](http://standardjs.com/rules.html) to automate this.
-Use one! It's a waste of time and money for engineers to argue over formatting.
-
-For things that don't fall under the purview of automatic formatting
-(indentation, tabs vs. spaces, double vs. single quotes, etc.) look here
-for some guidance.
-
 ### Use consistent capitalization
 
-JavaScript is untyped, so capitalization tells you a lot about your variables,
+Capitalization tells you a lot about your variables,
 functions, etc. These rules are subjective, so your team can choose whatever
 they want. The point is, no matter what you all choose, just be consistent.
 
 **Bad:**
 
 ```csharp
-const DAYS_IN_WEEK = 7;
-const daysInMonth = 30;
+int DAYS_IN_WEEK = 7;
+int daysInMonth = 30;
 
-const songs = ['Back In Black', 'Stairway to Heaven', 'Hey Jude'];
-const Artists = ['ACDC', 'Led Zeppelin', 'The Beatles'];
+List<string> songs = ['Back In Black', 'Stairway to Heaven', 'Hey Jude'];
+List<string> Artists = ['ACDC', 'Led Zeppelin', 'The Beatles'];
 
-function eraseDatabase() {}
-function restore_database() {}
+bool EraseDatabase() {}
+bool Restore_database() {}
 
 class animal {}
 class Alpaca {}
@@ -2191,14 +2180,14 @@ class Alpaca {}
 **Good:**
 
 ```csharp
-const DAYS_IN_WEEK = 7;
-const DAYS_IN_MONTH = 30;
+int DAYS_IN_WEEK = 7;
+int DAYS_IN_MONTH = 30;
 
-const SONGS = ['Back In Black', 'Stairway to Heaven', 'Hey Jude'];
-const ARTISTS = ['ACDC', 'Led Zeppelin', 'The Beatles'];
+List<string> SONGS = ['Back In Black', 'Stairway to Heaven', 'Hey Jude'];
+List<string> ARTISTS = ['ACDC', 'Led Zeppelin', 'The Beatles'];
 
-function eraseDatabase() {}
-function restoreDatabase() {}
+bool EraseDatabase() {}
+bool Restore_database() {}
 
 class Animal {}
 class Alpaca {}
