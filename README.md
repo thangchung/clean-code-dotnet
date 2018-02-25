@@ -1846,19 +1846,19 @@ all of the settings. Making them optional helps prevent having a "fat interface"
 ```csharp
 public interface Employee
 {
-    void work();
+    void Work();
 
-    void eat();
+    void Eat();
 }
 
 public class Human implements Employee
 {
-    public void work()
+    public void Work()
     {
         // ....working
     }
 
-    public void eat()
+    public void Eat()
     {
         // ...... eating in lunch break
     }
@@ -1866,12 +1866,12 @@ public class Human implements Employee
 
 public class Robot implements Employee
 {
-    public void work()
+    public void Work()
     {
         //.... working much more
     }
 
-    public void eat()
+    public void Eat()
     {
         //.... robot can't eat, but it must implement this method
     }
@@ -1885,12 +1885,12 @@ Not every worker is an employee, but every employee is an worker.
 ```csharp
 public interface Workable
 {
-    void work();
+    void Work();
 }
 
 public interface Feedable
 {
-    void eat();
+    void Eat();
 }
 
 public interface Employee extends Feedable, Workable
@@ -1899,12 +1899,12 @@ public interface Employee extends Feedable, Workable
 
 public class Human implements Employee
 {
-    public void work()
+    public void Work()
     {
         // ....working
     }
 
-    public void eat()
+    public void Eat()
     {
         //.... eating in lunch break
     }
@@ -1913,7 +1913,7 @@ public class Human implements Employee
 // robot can only work
 public class Robot implements Workable
 {
-    public void work()
+    public void Work()
     {
         // ....working
     }
@@ -1941,34 +1941,34 @@ it makes your code hard to refactor.
 **Bad:**
 
 ```csharp
-class Employee
+public abstract class Employee
 {
-    public function work()
+    public void Work()
     {
         // ....working
     }
 }
 
-class Robot extends Employee
+public class Robot extends Employee
 {
-    public function work()
+    public void Work()
     {
         //.... working much more
     }
 }
 
-class Manager
+public class Manager
 {
-    private $employee;
+    private Employee Employee;
 
-    public function __construct(Employee $employee)
+    public Manager(Employee employee)
     {
-        $this->employee = $employee;
+        Employee = employee;
     }
 
-    public function manage()
+    public void Manage()
     {
-        $this->employee->work();
+        Employee.Work();
     }
 }
 ```
@@ -1976,39 +1976,39 @@ class Manager
 **Good:**
 
 ```csharp
-interface Employee
+public interface Employee
 {
-    public function work();
+    void Work();
 }
 
-class Human implements Employee
+public class Human implements Employee
 {
-    public function work()
+    public void Work()
     {
         // ....working
     }
 }
 
-class Robot implements Employee
+public class Robot implements Employee
 {
-    public function work()
+    public void Work()
     {
         //.... working much more
     }
 }
 
-class Manager
+public class Manager
 {
-    private $employee;
+    private Employee Employee;
 
-    public function __construct(Employee $employee)
+     public Manager(Employee employee)
     {
-        $this->employee = $employee;
+        Employee = employee;
     }
 
-    public function manage()
+    public void Manage()
     {
-        $this->employee->work();
+        Employee.Work();
     }
 }
 ```
