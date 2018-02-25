@@ -1256,14 +1256,14 @@ bankAccount.Balance -= 100;
 ```csharp
 class BankAccount
 {
-    private doulbe Balance{get;set;};
+    private doulbe Balance{ get; set;};
 
     public BankAccount(balance = 1000)
     {
        Balance = balance;
     }
 
-    public double WithdrawBalance(amount)
+    public double WithdrawBalance(int amount)
     {
         if (amount > Balance) {
             throw new \Exception('Amount greater than available balance.');
@@ -1272,7 +1272,7 @@ class BankAccount
         Balance -= amount;
     }
 
-    public void DepositBalance(amount)
+    public void DepositBalance(int amount)
     {
         Balance += amount;
     }
@@ -1320,7 +1320,7 @@ class Employee
 {
     private string Name { get; set; };
 
-    public Employee(name)
+    public Employee(string name)
     {
         Name = name;
     }
@@ -1341,93 +1341,61 @@ Console.WriteLine(employee.GetName());// Employee name: John Doe
 
 ### Use method chaining
 
-This pattern is very useful and commonly used in many libraries such
-as PHPUnit and Doctrine. It allows your code to be expressive, and less verbose.
-For that reason, use method chaining and take a look at how clean your code
-will be. In your class functions, simply use `return this` at the end of every `set` function,
-and you can chain further class methods onto it.
-
-**Bad:**
-
-```csharp
-class Car
-{
-    private $make = 'Honda';
-    private $model = 'Accord';
-    private $color = 'white';
-
-    public function setMake($make)
-    {
-        $this->make = $make;
-    }
-
-    public function setModel($model)
-    {
-        $this->model = $model;
-    }
-
-    public function setColor($color)
-    {
-        $this->color = $color;
-    }
-
-    public function dump()
-    {
-        var_dump($this->make, $this->model, $this->color);
-    }
-}
-
-$car = new Car();
-$car->setColor('pink');
-$car->setMake('Ford');
-$car->setModel('F-150');
-$car->dump();
-```
+This pattern is very useful and commonly used in many libraries. It allows your code to be expressive, and less verbose.
+For that reason, use method chaining and take a look at how clean your code will be.
 
 **Good:**
 
 ```csharp
-class Car
+public static class ListExtensions
 {
-    private $make = 'Honda';
-    private $model = 'Accord';
-    private $color = 'white';
-
-    public function setMake($make)
+    public static List<T> FluentAdd<T>(this List<T> list, T item)
     {
-        $this->make = $make;
-
-        // NOTE: Returning this for chaining
-        return $this;
+        list.Add(item);
+        return list;
     }
 
-    public function setModel($model)
+    public static List<T> FluentClear<T>(this List<T> list)
     {
-        $this->model = $model;
-
-        // NOTE: Returning this for chaining
-        return $this;
+        list.Clear();
+        return list;
     }
 
-    public function setColor($color)
+    public static List<T> FluentForEach<T>(this List<T> list, Action<T> action)
     {
-        $this->color = $color;
-
-        // NOTE: Returning this for chaining
-        return $this;
+        list.ForEach(action);
+        return list;
     }
 
-    public function dump()
+    public static List<T> FluentInsert<T>(this List<T> list, int index, T item)
     {
-        var_dump($this->make, $this->model, $this->color);
+        list.Insert(index, item);
+        return list;
+    }
+
+    public static List<T> FluentRemoveAt<T>(this List<T> list, int index)
+    {
+        list.RemoveAt(index);
+        return list;
+    }
+
+    public static List<T> FluentReverse<T>(this List<T> list)
+    {
+        list.Reverse();
+        return list;
     }
 }
 
-$car = (new Car())
-  ->setColor('pink')
-  ->setMake('Ford')
-  ->setModel('F-150')
-  ->dump();
+internal static void ListFluentExtensions()
+{
+    List<int> list = new List<int>() { 1, 2, 3, 4, 5 }
+        .FluentAdd(1)
+        .FluentInsert(0, 0)
+        .FluentRemoveAt(1)
+        .FluentReverse()
+        .FluentForEach(value => value.WriteLine())
+        .FluentClear();
+}
 ```
 
 **[⬆ back to top](#table-of-contents)**
@@ -1456,13 +1424,13 @@ makes more sense than composition:
 ```csharp
 class Employee
 {
-    private $name;
-    private $email;
+    private string Name { get; set; };
+    private string Email { get; set; };
 
-    public function __construct($name, $email)
+    public Employee(string name, string email)
     {
-        $this->name = $name;
-        $this->email = $email;
+        Name = name;
+        Email = email;
     }
 
     // ...
@@ -1473,15 +1441,12 @@ class Employee
 
 class EmployeeTaxData extends Employee
 {
-    private $ssn;
-    private $salary;
+    private string Ssn { get; set; };
+    private string Salary { get; set; };
 
-    public function __construct($name, $email, $ssn, $salary)
+    public EmployeeTaxData(string name, string email, string ssn, string salary)
     {
-        parent::__construct($name, $email);
-
-        $this->ssn = $ssn;
-        $this->salary = $salary;
+         // ...
     }
 
     // ...
@@ -1493,13 +1458,13 @@ class EmployeeTaxData extends Employee
 ```csharp
 class EmployeeTaxData
 {
-    private $ssn;
-    private $salary;
+    private string Ssn { get; set; };
+    private string Salary { get; set; };
 
-    public function __construct($ssn, $salary)
+    public EmployeeTaxData(string ssn, string salary)
     {
-        $this->ssn = $ssn;
-        $this->salary = $salary;
+        Ssn = ssn;
+        Salary = salary;
     }
 
     // ...
@@ -1507,19 +1472,19 @@ class EmployeeTaxData
 
 class Employee
 {
-    private $name;
-    private $email;
-    private $taxData;
+    private string Name { get; set; };
+    private string Email { get; set; };
+    private string TaxData { get; set; };
 
-    public function __construct($name, $email)
+    public Employee(string name, string email)
     {
-        $this->name = $name;
-        $this->email = $email;
+        Name = name;
+        Email = email;
     }
 
-    public function setTaxData($ssn, $salary)
+    public void SetTax(string ssn, double salary)
     {
-        $this->taxData = new EmployeeTaxData($ssn, $salary);
+        taxData = new EmployeeTaxData(ssn, salary);
     }
 
     // ...
@@ -1554,21 +1519,21 @@ your codebase.
 ```csharp
 class UserSettings
 {
-    private $user;
+    private User User;
 
-    public function __construct($user)
+    public UserSettings (User user)
     {
-        $this->user = $user;
+        User = user;
     }
 
-    public function changeSettings($settings)
+    public void ChangeSettings(Settings settings)
     {
-        if ($this->verifyCredentials()) {
+        if (verifyCredentials()) {
             // ...
         }
     }
 
-    private function verifyCredentials()
+    private bool VerifyCredentials()
     {
         // ...
     }
@@ -1580,14 +1545,14 @@ class UserSettings
 ```csharp
 class UserAuth
 {
-    private $user;
+    private User User;
 
-    public function __construct($user)
+    public UserSettings (User user)
     {
-        $this->user = $user;
+        User = user;
     }
 
-    public function verifyCredentials()
+    public bool VerifyCredentials()
     {
         // ...
     }
@@ -1595,18 +1560,18 @@ class UserAuth
 
 class UserSettings
 {
-    private $user;
-    private $auth;
+    private User User;
+    private UserAuth Auth;
 
-    public function __construct($user)
+    public UserSettings(User user)
     {
-        $this->user = $user;
-        $this->auth = new UserAuth($user);
+        User = user;
+        Auth = new UserAuth(user);
     }
 
-    public function changeSettings($settings)
+    public function changeSettings(Settings settings)
     {
-        if ($this->auth->verifyCredentials()) {
+        if (Auth.VerifyCredentials()) {
             // ...
         }
     }
@@ -1627,60 +1592,56 @@ add new functionalities without changing existing code.
 ```csharp
 abstract class Adapter
 {
-    protected $name;
+    protected string Name;
 
-    public function getName()
+    public string GetName()
     {
-        return $this->name;
+        return Name;
     }
 }
 
 class AjaxAdapter extends Adapter
 {
-    public function __construct()
+    public AjaxAdapter()
     {
-        parent::__construct();
-
-        $this->name = 'ajaxAdapter';
+        Name = 'ajaxAdapter';
     }
 }
 
 class NodeAdapter extends Adapter
 {
-    public function __construct()
+    public NodeAdapter()
     {
-        parent::__construct();
-
-        $this->name = 'nodeAdapter';
+        Name = 'nodeAdapter';
     }
 }
 
-class HttpRequester
+class HttpRequester extends Adapter
 {
-    private $adapter;
+    private Adapter Adapter;
 
-    public function __construct($adapter)
+    public HttpRequester(Adapter adapter)
     {
-        $this->adapter = $adapter;
+        Adapter = adapter;
     }
 
-    public function fetch($url)
+    public void Fetch(string url)
     {
-        $adapterName = $this->adapter->getName();
+        var adapterName = Adapter.GetName();
 
-        if ($adapterName === 'ajaxAdapter') {
-            return $this->makeAjaxCall($url);
-        } elseif ($adapterName === 'httpNodeAdapter') {
-            return $this->makeHttpCall($url);
+        if (adapterName === 'ajaxAdapter') {
+            return MakeAjaxCall(url);
+        } elseif (adapterName === 'httpNodeAdapter') {
+            return MakeHttpCall(url);
         }
     }
 
-    private function makeAjaxCall($url)
+    private bool MakeAjaxCall(string url)
     {
         // request and return promise
     }
 
-    private function makeHttpCall($url)
+    private bool MakeHttpCall(string url)
     {
         // request and return promise
     }
@@ -1690,22 +1651,22 @@ class HttpRequester
 **Good:**
 
 ```csharp
-interface Adapter
+interface Idapter
 {
-    public function request($url);
+    bool Request(string url);
 }
 
-class AjaxAdapter implements Adapter
+class AjaxAdapter implements Idapter
 {
-    public function request($url)
+    public bool Request(string url)
     {
         // request and return promise
     }
 }
 
-class NodeAdapter implements Adapter
+class NodeAdapter implements Idapter
 {
-    public function request($url)
+    public bool Request(string url)
     {
         // request and return promise
     }
@@ -1713,16 +1674,16 @@ class NodeAdapter implements Adapter
 
 class HttpRequester
 {
-    private $adapter;
+    private Idapter Adapter;
 
-    public function __construct(Adapter $adapter)
+    public HttpRequester(IAdapter adapter)
     {
-        $this->adapter = $adapter;
+        Adapter = adapter;
     }
 
-    public function fetch($url)
+    public bool Fetch(string url)
     {
-        return $this->adapter->request($url);
+        return Adapter.Request(url);
     }
 }
 ```
@@ -1749,55 +1710,55 @@ get into trouble.
 ```csharp
 class Rectangle
 {
-    protected $width = 0;
-    protected $height = 0;
+    protected double Width = 0;
+    protected double Height = 0;
 
-    public function render($area)
+    public Drawable Render(double area)
     {
         // ...
     }
 
-    public function setWidth($width)
+    public void SetWidth(double width)
     {
-        $this->width = $width;
+        Width = width;
     }
 
-    public function setHeight($height)
+    public void SetHeight(double height)
     {
-        $this->height = $height;
+        Height = height;
     }
 
-    public function getArea()
+    public double GetArea()
     {
-        return $this->width * $this->height;
+        return Width * Height;
     }
 }
 
 class Square extends Rectangle
 {
-    public function setWidth($width)
+    public double SetWidth(double width)
     {
-        $this->width = $this->height = $width;
+        Width = Height = Width;
     }
 
-    public function setHeight(height)
+    public double SetHeight(double height)
     {
-        $this->width = $this->height = $height;
+        Width = Height = Height;
     }
 }
 
-function renderLargeRectangles($rectangles)
+Drawable RenderLargeRectangles(Rectangle rectangles)
 {
-    foreach ($rectangles as $rectangle) {
-        $rectangle->setWidth(4);
-        $rectangle->setHeight(5);
-        $area = $rectangle->getArea(); // BAD: Will return 25 for Square. Should be 20.
-        $rectangle->render($area);
+    foreach (rectangle in rectangles) {
+        rectangle.SetWidth(4);
+        rectangle.SetHeight(5);
+        var area = rectangle.GetArea(); // BAD: Will return 25 for Square. Should be 20.
+        rectangle.Render(area);
     }
 }
 
-$rectangles = [new Rectangle(), new Rectangle(), new Square()];
-renderLargeRectangles($rectangles);
+var rectangles = [new Rectangle(), new Rectangle(), new Square()];
+RenderLargeRectangles(rectangles);
 ```
 
 **Good:**
@@ -1805,12 +1766,12 @@ renderLargeRectangles($rectangles);
 ```csharp
 abstract class Shape
 {
-    protected $width = 0;
-    protected $height = 0;
+    protected double Width = 0;
+    protected double Height = 0;
 
     abstract public function getArea();
 
-    public function render($area)
+    public Drawable Render(double area)
     {
         // ...
     }
@@ -1818,54 +1779,54 @@ abstract class Shape
 
 class Rectangle extends Shape
 {
-    public function setWidth($width)
+    public void SetWidth(double width)
     {
-        $this->width = $width;
+        Width = width;
     }
 
-    public function setHeight($height)
+    public void SetHeight(double height)
     {
-        $this->height = $height;
+        Height = height;
     }
 
-    public function getArea()
+    public double GetArea()
     {
-        return $this->width * $this->height;
+        return Width * Height;
     }
 }
 
 class Square extends Shape
 {
-    private $length = 0;
+    private double Length = 0;
 
-    public function setLength($length)
+    public double SetLength(double length)
     {
-        $this->length = $length;
+        Length = length;
     }
 
-    public function getArea()
+    public double GetArea()
     {
-        return pow($this->length, 2);
+        return Math.Pow(Length, 2);
     }
 }
 
-function renderLargeRectangles($rectangles)
+Drawable RenderLargeRectangles(Rectangle rectangles)
 {
-    foreach ($rectangles as $rectangle) {
-        if ($rectangle instanceof Square) {
-            $rectangle->setLength(5);
-        } elseif ($rectangle instanceof Rectangle) {
-            $rectangle->setWidth(4);
-            $rectangle->setHeight(5);
+    foreach (rectangle in rectangles) {
+        if (rectangle instanceof Square) {
+            rectangle.SetLength(5);
+        } elseif (rectangle instanceof Rectangle) {
+            rectangle.SetWidth(4);
+            rectangle.SetHeight(5);
         }
 
-        $area = $rectangle->getArea();
-        $rectangle->render($area);
+        var area = rectangle.GetArea();
+        rectangle.Render(area);
     }
 }
 
-$shapes = [new Rectangle(), new Rectangle(), new Square()];
-renderLargeRectangles($shapes);
+var shapes = [new Rectangle(), new Rectangle(), new Square()];
+RenderLargeRectangles(shapes);
 ```
 
 **[⬆ back to top](#table-of-contents)**
