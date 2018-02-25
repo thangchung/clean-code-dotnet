@@ -2043,35 +2043,35 @@ updating multiple places anytime you want to change one thing.
 **Bad:**
 
 ```csharp
-function showDeveloperList($developers)
+public List<EmployeeData> ShowDeveloperList(Developers developers)
 {
-    foreach ($developers as $developer) {
-        $expectedSalary = $developer->calculateExpectedSalary();
-        $experience = $developer->getExperience();
-        $githubLink = $developer->getGithubLink();
-        $data = [
-            $expectedSalary,
-            $experience,
-            $githubLink
-        ];
+    foreach (var developers in developer) {
+        var expectedSalary = developer.CalculateExpectedSalary();
+        var experience = developer.GetExperience();
+        var githubLink = developer.GetGithubLink();
+        var data = {
+            expectedSalary,
+            experience,
+            githubLink
+        };
 
-        render($data);
+        render(data);
     }
 }
 
-function showManagerList($managers)
+public List<ManagerData> ShowManagerList(Manager managers)
 {
-    foreach ($managers as $manager) {
-        $expectedSalary = $manager->calculateExpectedSalary();
-        $experience = $manager->getExperience();
-        $githubLink = $manager->getGithubLink();
-        $data = [
-            $expectedSalary,
-            $experience,
-            $githubLink
-        ];
+    foreach (var manager in managers) {
+        var expectedSalary = manager.CalculateExpectedSalary();
+        var experience = manager.GetExperience();
+        var githubLink = manager.GetGithubLink();
+        var data = {
+            expectedSalary,
+            experience,
+            githubLink
+        };
 
-        render($data);
+        render(data);
     }
 }
 ```
@@ -2079,19 +2079,19 @@ function showManagerList($managers)
 **Good:**
 
 ```csharp
-function showList($employees)
+public List<EmployeeData> ShowList(Employee employees)
 {
-    foreach ($employees as $employee) {
-        $expectedSalary = $employee->calculateExpectedSalary();
-        $experience = $employee->getExperience();
-        $githubLink = $employee->getGithubLink();
-        $data = [
-            $expectedSalary,
-            $experience,
-            $githubLink
-        ];
+    foreach (var employee in employees) {
+        var expectedSalary = employees.CalculateExpectedSalary();
+        var experience = employees.GetExperience();
+        var githubLink = employees.GetGithubLink();
+        var data = {
+            expectedSalary,
+            experience,
+            githubLink
+        };
 
-        render($data);
+        render(data);
     }
 }
 ```
@@ -2101,13 +2101,13 @@ function showList($employees)
 It is better to use a compact version of the code.
 
 ```csharp
-function showList($employees)
+public List<EmployeeData> ShowList(Employee employees)
 {
-    foreach ($employees as $employee) {
+    foreach (var employee in employees) {
         render([
-            $employee->calculateExpectedSalary(),
-            $employee->getExperience(),
-            $employee->getGithubLink()
+            employee.CalculateExpectedSalary(),
+            employee.GetExperience(),
+            employee.GetGithubLink()
         ]);
     }
 }
