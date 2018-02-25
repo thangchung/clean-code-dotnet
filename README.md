@@ -1844,34 +1844,34 @@ all of the settings. Making them optional helps prevent having a "fat interface"
 **Bad:**
 
 ```csharp
-interface Employee
+public interface Employee
 {
-    public function work();
+    void work();
 
-    public function eat();
+    void eat();
 }
 
-class Human implements Employee
+public class Human implements Employee
 {
-    public function work()
+    public void work()
     {
         // ....working
     }
 
-    public function eat()
+    public void eat()
     {
         // ...... eating in lunch break
     }
 }
 
-class Robot implements Employee
+public class Robot implements Employee
 {
-    public function work()
+    public void work()
     {
         //.... working much more
     }
 
-    public function eat()
+    public void eat()
     {
         //.... robot can't eat, but it must implement this method
     }
@@ -1883,37 +1883,37 @@ class Robot implements Employee
 Not every worker is an employee, but every employee is an worker.
 
 ```csharp
-interface Workable
+public interface Workable
 {
-    public function work();
+    void work();
 }
 
-interface Feedable
+public interface Feedable
 {
-    public function eat();
+    void eat();
 }
 
-interface Employee extends Feedable, Workable
+public interface Employee extends Feedable, Workable
 {
 }
 
-class Human implements Employee
+public class Human implements Employee
 {
-    public function work()
+    public void work()
     {
         // ....working
     }
 
-    public function eat()
+    public void eat()
     {
         //.... eating in lunch break
     }
 }
 
 // robot can only work
-class Robot implements Workable
+public class Robot implements Workable
 {
-    public function work()
+    public void work()
     {
         // ....working
     }
