@@ -1844,34 +1844,34 @@ all of the settings. Making them optional helps prevent having a "fat interface"
 **Bad:**
 
 ```csharp
-interface Employee
+public interface Employee
 {
-    public function work();
+    void Work();
 
-    public function eat();
+    void Eat();
 }
 
-class Human implements Employee
+public class Human implements Employee
 {
-    public function work()
+    public void Work()
     {
         // ....working
     }
 
-    public function eat()
+    public void Eat()
     {
         // ...... eating in lunch break
     }
 }
 
-class Robot implements Employee
+public class Robot implements Employee
 {
-    public function work()
+    public void Work()
     {
         //.... working much more
     }
 
-    public function eat()
+    public void Eat()
     {
         //.... robot can't eat, but it must implement this method
     }
@@ -1883,37 +1883,37 @@ class Robot implements Employee
 Not every worker is an employee, but every employee is an worker.
 
 ```csharp
-interface Workable
+public interface Workable
 {
-    public function work();
+    void Work();
 }
 
-interface Feedable
+public interface Feedable
 {
-    public function eat();
+    void Eat();
 }
 
-interface Employee extends Feedable, Workable
+public interface Employee extends Feedable, Workable
 {
 }
 
-class Human implements Employee
+public class Human implements Employee
 {
-    public function work()
+    public void Work()
     {
         // ....working
     }
 
-    public function eat()
+    public void Eat()
     {
         //.... eating in lunch break
     }
 }
 
 // robot can only work
-class Robot implements Workable
+public class Robot implements Workable
 {
-    public function work()
+    public void Work()
     {
         // ....working
     }
@@ -1941,34 +1941,34 @@ it makes your code hard to refactor.
 **Bad:**
 
 ```csharp
-class Employee
+public abstract class Employee
 {
-    public function work()
+    public void Work()
     {
         // ....working
     }
 }
 
-class Robot extends Employee
+public class Robot extends Employee
 {
-    public function work()
+    public void Work()
     {
         //.... working much more
     }
 }
 
-class Manager
+public class Manager
 {
-    private $employee;
+    private Employee Employee;
 
-    public function __construct(Employee $employee)
+    public Manager(Employee employee)
     {
-        $this->employee = $employee;
+        Employee = employee;
     }
 
-    public function manage()
+    public void Manage()
     {
-        $this->employee->work();
+        Employee.Work();
     }
 }
 ```
@@ -1976,39 +1976,39 @@ class Manager
 **Good:**
 
 ```csharp
-interface Employee
+public interface Employee
 {
-    public function work();
+    void Work();
 }
 
-class Human implements Employee
+public class Human implements Employee
 {
-    public function work()
+    public void Work()
     {
         // ....working
     }
 }
 
-class Robot implements Employee
+public class Robot implements Employee
 {
-    public function work()
+    public void Work()
     {
         //.... working much more
     }
 }
 
-class Manager
+public class Manager
 {
-    private $employee;
+    private Employee Employee;
 
-    public function __construct(Employee $employee)
+     public Manager(Employee employee)
     {
-        $this->employee = $employee;
+        Employee = employee;
     }
 
-    public function manage()
+    public void Manage()
     {
-        $this->employee->work();
+        Employee.Work();
     }
 }
 ```
@@ -2043,35 +2043,35 @@ updating multiple places anytime you want to change one thing.
 **Bad:**
 
 ```csharp
-function showDeveloperList($developers)
+public List<EmployeeData> ShowDeveloperList(Developers developers)
 {
-    foreach ($developers as $developer) {
-        $expectedSalary = $developer->calculateExpectedSalary();
-        $experience = $developer->getExperience();
-        $githubLink = $developer->getGithubLink();
-        $data = [
-            $expectedSalary,
-            $experience,
-            $githubLink
-        ];
+    foreach (var developers in developer) {
+        var expectedSalary = developer.CalculateExpectedSalary();
+        var experience = developer.GetExperience();
+        var githubLink = developer.GetGithubLink();
+        var data = {
+            expectedSalary,
+            experience,
+            githubLink
+        };
 
-        render($data);
+        render(data);
     }
 }
 
-function showManagerList($managers)
+public List<ManagerData> ShowManagerList(Manager managers)
 {
-    foreach ($managers as $manager) {
-        $expectedSalary = $manager->calculateExpectedSalary();
-        $experience = $manager->getExperience();
-        $githubLink = $manager->getGithubLink();
-        $data = [
-            $expectedSalary,
-            $experience,
-            $githubLink
-        ];
+    foreach (var manager in managers) {
+        var expectedSalary = manager.CalculateExpectedSalary();
+        var experience = manager.GetExperience();
+        var githubLink = manager.GetGithubLink();
+        var data = {
+            expectedSalary,
+            experience,
+            githubLink
+        };
 
-        render($data);
+        render(data);
     }
 }
 ```
@@ -2079,19 +2079,19 @@ function showManagerList($managers)
 **Good:**
 
 ```csharp
-function showList($employees)
+public List<EmployeeData> ShowList(Employee employees)
 {
-    foreach ($employees as $employee) {
-        $expectedSalary = $employee->calculateExpectedSalary();
-        $experience = $employee->getExperience();
-        $githubLink = $employee->getGithubLink();
-        $data = [
-            $expectedSalary,
-            $experience,
-            $githubLink
-        ];
+    foreach (var employee in employees) {
+        var expectedSalary = employees.CalculateExpectedSalary();
+        var experience = employees.GetExperience();
+        var githubLink = employees.GetGithubLink();
+        var data = {
+            expectedSalary,
+            experience,
+            githubLink
+        };
 
-        render($data);
+        render(data);
     }
 }
 ```
@@ -2101,13 +2101,13 @@ function showList($employees)
 It is better to use a compact version of the code.
 
 ```csharp
-function showList($employees)
+public List<EmployeeData> ShowList(Employee employees)
 {
-    foreach ($employees as $employee) {
+    foreach (var employee in employees) {
         render([
-            $employee->calculateExpectedSalary(),
-            $employee->getExperience(),
-            $employee->getGithubLink()
+            employee.CalculateExpectedSalary(),
+            employee.GetExperience(),
+            employee.GetGithubLink()
         ]);
     }
 }
@@ -2289,7 +2289,7 @@ process (in Node), and notifying you in the console with a stack trace.
 ### Don't ignore caught errors
 
 Doing nothing with a caught error doesn't give you the ability to ever fix
-or react to said error. Logging the error to the console (`console.log`)
+or react to said error. Throwing the error
 isn't much better as often times it can get lost in a sea of things printed
 to the console. If you wrap any bit of code in a `try/catch` it means you
 think an error may occur there and therefore you should have a plan,
@@ -2299,9 +2299,9 @@ or create a code path, for when it occurs.
 
 ```csharp
 try {
-  functionThatMightThrow();
-} catch (error) {
-  console.log(error);
+  FunctionThatMightThrow();
+} catch (Exception ex) {
+  throw ex;
 }
 ```
 
@@ -2309,83 +2309,33 @@ try {
 
 ```csharp
 try {
-  functionThatMightThrow();
+  FunctionThatMightThrow();
 } catch (error) {
-  // One option (more noisy than console.log):
-  console.error(error);
+  NotifyUserOfError(error);
   // Another option:
-  notifyUserOfError(error);
-  // Another option:
-  reportErrorToService(error);
-  // OR do all three!
+  ReportErrorToService(error);
 }
-```
-
-### Don't ignore rejected promises
-
-For the same reason you shouldn't ignore caught errors
-from `try/catch`.
-
-**Bad:**
-
-```csharp
-getdata()
-  .then((data) => {
-    functionThatMightThrow(data);
-  })
-  .catch((error) => {
-    console.log(error);
-  });
-```
-
-**Good:**
-
-```csharp
-getdata()
-  .then((data) => {
-    functionThatMightThrow(data);
-  })
-  .catch((error) => {
-    // One option (more noisy than console.log):
-    console.error(error);
-    // Another option:
-    notifyUserOfError(error);
-    // Another option:
-    reportErrorToService(error);
-    // OR do all three!
-  });
 ```
 
 **[⬆ back to top](#table-of-contents)**
 
-## **Formatting**
-
-Formatting is subjective. Like many rules herein, there is no hard and fast
-rule that you must follow. The main point is DO NOT ARGUE over formatting.
-There are [tons of tools](http://standardjs.com/rules.html) to automate this.
-Use one! It's a waste of time and money for engineers to argue over formatting.
-
-For things that don't fall under the purview of automatic formatting
-(indentation, tabs vs. spaces, double vs. single quotes, etc.) look here
-for some guidance.
-
 ### Use consistent capitalization
 
-JavaScript is untyped, so capitalization tells you a lot about your variables,
+Capitalization tells you a lot about your variables,
 functions, etc. These rules are subjective, so your team can choose whatever
 they want. The point is, no matter what you all choose, just be consistent.
 
 **Bad:**
 
 ```csharp
-const DAYS_IN_WEEK = 7;
-const daysInMonth = 30;
+int DAYS_IN_WEEK = 7;
+int daysInMonth = 30;
 
-const songs = ['Back In Black', 'Stairway to Heaven', 'Hey Jude'];
-const Artists = ['ACDC', 'Led Zeppelin', 'The Beatles'];
+List<string> songs = ['Back In Black', 'Stairway to Heaven', 'Hey Jude'];
+List<string> Artists = ['ACDC', 'Led Zeppelin', 'The Beatles'];
 
-function eraseDatabase() {}
-function restore_database() {}
+bool EraseDatabase() {}
+bool Restore_database() {}
 
 class animal {}
 class Alpaca {}
@@ -2394,14 +2344,14 @@ class Alpaca {}
 **Good:**
 
 ```csharp
-const DAYS_IN_WEEK = 7;
-const DAYS_IN_MONTH = 30;
+int DAYS_IN_WEEK = 7;
+int DAYS_IN_MONTH = 30;
 
-const SONGS = ['Back In Black', 'Stairway to Heaven', 'Hey Jude'];
-const ARTISTS = ['ACDC', 'Led Zeppelin', 'The Beatles'];
+List<string> SONGS = ['Back In Black', 'Stairway to Heaven', 'Hey Jude'];
+List<string> ARTISTS = ['ACDC', 'Led Zeppelin', 'The Beatles'];
 
-function eraseDatabase() {}
-function restoreDatabase() {}
+bool EraseDatabase() {}
+bool Restore_database() {}
 
 class Animal {}
 class Alpaca {}
@@ -2419,80 +2369,84 @@ top-to-bottom, like a newspaper. Because of this, make your code read that way.
 
 ```csharp
 class PerformanceReview {
-  constructor(employee) {
-    this.employee = employee;
+  private Employee Employee;
+
+  public PerformanceReview(Employee employee) {
+    Employee = employee;
   }
 
-  lookupPeers() {
-    return db.lookup(this.employee, 'peers');
+  List<PeersData> LookupPeers() {
+    return db.lookup(Employee, 'peers');
   }
 
-  lookupManager() {
-    return db.lookup(this.employee, 'manager');
+  List<ManagerData> LookupManager() {
+    return db.lookup(Employee, 'manager');
   }
 
-  getPeerReviews() {
-    const peers = this.lookupPeers();
+  GetPeerReviews() {
+    var peers = LookupPeers();
     // ...
   }
 
-  perfReview() {
-    this.getPeerReviews();
-    this.getManagerReview();
-    this.getSelfReview();
+  PerfReview() {
+    GetPeerReviews();
+    GetManagerReview();
+    GetSelfReview();
   }
 
-  getManagerReview() {
-    const manager = this.lookupManager();
+  GetManagerReview() {
+    var manager = LookupManager();
   }
 
-  getSelfReview() {
+  GetSelfReview() {
     // ...
   }
 }
 
-const review = new PerformanceReview(employee);
-review.perfReview();
+var  review = new PerformanceReview(employee);
+review.PerfReview();
 ```
 
 **Good:**
 
 ```csharp
 class PerformanceReview {
-  constructor(employee) {
-    this.employee = employee;
+  private Employee Employee;
+
+  public PerformanceReview(Employee employee) {
+    Employee = employee;
   }
 
-  perfReview() {
-    this.getPeerReviews();
-    this.getManagerReview();
-    this.getSelfReview();
+  PerfReview() {
+    GetPeerReviews();
+    GetManagerReview();
+    GetSelfReview();
   }
 
-  getPeerReviews() {
-    const peers = this.lookupPeers();
+  GetPeerReviews() {
+    vonst peers = LookupPeers();
     // ...
   }
 
-  lookupPeers() {
-    return db.lookup(this.employee, 'peers');
+  LookupPeers() {
+    return db.lookup(Employee, 'peers');
   }
 
-  getManagerReview() {
-    const manager = this.lookupManager();
+  GetManagerReview() {
+    var manager = LookupManager();
   }
 
-  lookupManager() {
-    return db.lookup(this.employee, 'manager');
+  LookupManager() {
+    return db.lookup(Employee, 'manager');
   }
 
-  getSelfReview() {
+  GetSelfReview() {
     // ...
   }
 }
 
-const review = new PerformanceReview(employee);
-review.perfReview();
+var review = new PerformanceReview(employee);
+review.PerfReview();
 ```
 
 **[⬆ back to top](#table-of-contents)**
@@ -2506,15 +2460,15 @@ Comments are an apology, not a requirement. Good code _mostly_ documents itself.
 **Bad:**
 
 ```csharp
-function hashIt(data) {
+public string HashIt(string inputData) {
   // The hash
-  let hash = 0;
+  var hash = 0;
 
   // Length of string
   const length = data.length;
 
   // Loop through every character in data
-  for (let i = 0; i < length; i++) {
+  for (var i = 0; i < length; i++) {
     // Get character code.
     const char = data.charCodeAt(i);
     // Make the hash
@@ -2528,11 +2482,11 @@ function hashIt(data) {
 **Good:**
 
 ```csharp
-function hashIt(data) {
-  let hash = 0;
+public string hashIt(string inputData) {
+  var hash = 0;
   const length = data.length;
 
-  for (let i = 0; i < length; i++) {
+  for (var i = 0; i < length; i++) {
     const char = data.charCodeAt(i);
     hash = ((hash << 5) - hash) + char;
 
@@ -2579,7 +2533,7 @@ and especially journal comments. Use `git log` to get history!
  * 2016-02-03: Removed type-checking (LI)
  * 2015-03-14: Added combine with type-checking (JR)
  */
-function combine(a, b) {
+public int Combine(int a,int b) {
   return a + b;
 }
 ```
@@ -2587,7 +2541,7 @@ function combine(a, b) {
 **Good:**
 
 ```csharp
-function combine(a, b) {
+public int Combine(int a,int b) {
   return a + b;
 }
 ```
@@ -2605,7 +2559,7 @@ proper indentation and formatting give the visual structure to your code.
 ////////////////////////////////////////////////////////////////////////////////
 // Scope Model Instantiation
 ////////////////////////////////////////////////////////////////////////////////
-$scope.model = {
+var model = {
   menu: 'foo',
   nav: 'bar'
 };
@@ -2613,7 +2567,7 @@ $scope.model = {
 ////////////////////////////////////////////////////////////////////////////////
 // Action setup
 ////////////////////////////////////////////////////////////////////////////////
-const actions = function() {
+void Actions() {
   // ...
 };
 ```
@@ -2621,12 +2575,12 @@ const actions = function() {
 **Good:**
 
 ```csharp
-$scope.model = {
+var model = {
   menu: 'foo',
   nav: 'bar'
 };
 
-const actions = function() {
+void Actions() {
   // ...
 };
 ```
