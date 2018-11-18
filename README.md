@@ -1153,11 +1153,11 @@ public Path TravelToTexas(object vehicle)
 {
     if (vehicle.GetType() == typeof(Bicycle)) 
     {
-        vehicle.PeddleTo(new Location("texas"));
+        (vehicle as Bicycle).PeddleTo(new Location("texas"));
     } 
-    else if (vehicle.GetType() ==  typeof(Car)) 
+    else if (vehicle.GetType() == typeof(Car)) 
     {
-        vehicle.DriveTo(new Location("texas"));
+        (vehicle as Car).DriveTo(new Location("texas"));
     }
 }
 ```
