@@ -41,6 +41,8 @@ int d;
 int daySinceModification;
 ```
 
+**[⬆ Back to top](#table-of-contents)**
+
 ### Avoid Disinformation name
 
 Programmers must avoid naming with disinformation name and we should name variable to reflect what we want to do with it.
@@ -57,6 +59,8 @@ var dataFromDb = db.GetFromService().Tolist();
 var listOfEmployee = _employeeService.GetEmployeeListFromDb().Tolist();
 ```
 
+**[⬆ Back to top](#table-of-contents)**
+
 ### Use Pronounceable Names
 
 What happends if we cant pronoun variables, function, etc... It will take us a lot of time (some time make us like an idiot to discuss about it) to investigate what meaning of that variables, what is use.
@@ -64,7 +68,8 @@ What happends if we cant pronoun variables, function, etc... It will take us a l
 **Bad:**
 
 ```csharp
-public class Employee {
+public class Employee 
+{
     public Datetime sWorkDate { get; set; } // what the heck is this
     public Datetime modTime { get; set; } // same here
 }
@@ -73,20 +78,23 @@ public class Employee {
 **Good:**
 
 ```csharp
-public class Employee {
-    public Datetime startWorkingDate { get; set; }
-    public Datetime modificationTime { get; set; }
+public class Employee 
+{
+    public Datetime StartWorkingDate { get; set; }
+    public Datetime ModificationTime { get; set; }
 }
 ```
 
-### Use Hungarian Notation
+**[⬆ Back to top](#table-of-contents)**
 
-Use Hungarian Notation for variable and parms function
+### Use Camelcase Notation
+
+Use [Camelcase Notation](https://en.wikipedia.org/wiki/Camel_case) for variable and parameter function
 
 **Bad:**
 
 ```csharp
-var employeephone // or var employee-phone
+var employeephone;
 
 public double CalculateSalary(int workingdays, int workinghours)
 {
@@ -97,13 +105,15 @@ public double CalculateSalary(int workingdays, int workinghours)
 **Good:**
 
 ```csharp
-var employeePhone // or var employee-phone
+var employeePhone;
 
 public double CalculateSalary(int workingDays, int workingHours)
 {
     // some logic
 }
 ```
+
+**[⬆ Back to top](#table-of-contents)**
 
 ### Use domain name
 
@@ -112,36 +122,41 @@ People who read your code is also programmers. So naming right will help everyon
 **Good**
 
 ```csharp
-public class SingleObject {
+public class SingleObject 
+{
    //create an object of SingleObject
-   private static SingleObject instance = new SingleObject();
+   private static SingleObject _instance = new SingleObject();
 
    //make the constructor private so that this class cannot be
    //instantiated
-   private SingleObject(){}
+   private SingleObject() {}
 
    //Get the only object available
-   public static SingleObject GetInstance(){
-      return instance;
+   public static SingleObject GetInstance() 
+   {
+      return _instance;
    }
 
-   public string ShowMessage(){
+   public string ShowMessage()
+   {
       return "Hello World!";
    }
 }
 
-public static void main(String[] args) {
+public static void main(String[] args) 
+{
+    // illegal construct
+    // var object = new SingleObject();
 
-      //illegal construct
-      //SingleObject object = new SingleObject();
+    // Get the only object available
+    var singletonObject = SingleObject.GetInstance();
 
-      //Get the only object available
-      SingleObject singletonObject = SingleObject.GetInstance();
-
-      //show the message
-      singletonObject.ShowMessage();
+    // show the message
+    singletonObject.ShowMessage();
 }
 ```
+
+**[⬆ Back to top](#table-of-contents)**
 
 ## **Variables**
 
@@ -194,7 +209,7 @@ Make your names searchable.
 var data = new { Name = "John", Age = 42 };
 
 var stream1 = new MemoryStream();
-DataContractJsonSerializer ser1 = new DataContractJsonSerializer(typeof(object));
+var ser1 = new DataContractJsonSerializer(typeof(object));
 ser1.WriteObject(stream1, data);
 
 stream1.Position = 0;
@@ -213,11 +228,11 @@ var person = new Person
 };
 
 var stream2 = new MemoryStream();
-DataContractJsonSerializer ser2 = new DataContractJsonSerializer(typeof(Person));
+var ser2 = new DataContractJsonSerializer(typeof(Person));
 ser2.WriteObject(stream2, data);
 
 stream2.Position = 0;
-StreamReader sr2 = new StreamReader(stream2);
+var sr2 = new StreamReader(stream2);
 Console.Write("JSON form of Data object: ");
 Console.WriteLine(sr2.ReadToEnd());
 ```
@@ -861,7 +876,7 @@ than the vast majority of other programmers.
 ```csharp
 // Global variable referenced by following function.
 // If we had another function that used this name, now it'd be an array and it could break it.
-string name = 'Ryan McDermott';
+var name = 'Ryan McDermott';
 
 public string SplitIntoFirstAndLastName()
 {
@@ -881,8 +896,8 @@ public string SplitIntoFirstAndLastName(string name)
     return name.Split(" ");
 }
 
-string name = 'Ryan McDermott';
-string newName = SplitIntoFirstAndLastName(name);
+var name = 'Ryan McDermott';
+var newName = SplitIntoFirstAndLastName(name);
 
 Console.PrintLine(name); // 'Ryan McDermott';
 Console.PrintLine(newName); // ['Ryan', 'McDermott'];
@@ -983,19 +998,20 @@ var singleton = DBConnection.GetInstance();
 ```csharp
 class DBConnection
 {
-    public DBConnection(array $dsn)
+    public DBConnection(IOptions<DbConnectionOption> options)
     {
         // ...
     }
 
-     // ...
+    // ...
 }
 ```
 
-Create instance of `DBConnection` class and configure it with [DSN](http://php.net/manual/en/pdo.construct.php#refsect1-pdo.construct-parameters).
+Create instance of `DBConnection` class and configure it with [Option pattern](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/configuration/options?view=aspnetcore-2.1).
 
 ```csharp
-var connection = new DBConnection($dsn);
+var options = <resolve from IOC>;
+var connection = new DBConnection(options);
 ```
 
 And now you must use instance of `DBConnection` in your application.
@@ -1135,9 +1151,12 @@ class Cessna : IAirplane
 ```csharp
 public Path TravelToTexas(object vehicle)
 {
-    if (vehicle instanceof Bicycle) {
+    if (vehicle.GetType() == typeof(Bicycle)) 
+    {
         vehicle.PeddleTo(new Location("texas"));
-    } elseif (vehicle instanceof Car) {
+    } 
+    else if (vehicle.GetType() ==  typeof(Car)) 
+    {
         vehicle.DriveTo(new Location("texas"));
     }
 }
@@ -1149,6 +1168,23 @@ public Path TravelToTexas(object vehicle)
 public Path TravelToTexas(Traveler vehicle)
 {
     vehicle.TravelTo(new Location("texas"));
+}
+```
+
+or 
+
+```csharp
+// pattern matching
+public Path TravelToTexas(object vehicle)
+{
+    if (vehicle is Bicycle bicycle)
+    {
+        bicycle.PeddleTo(new Location("texas"));
+    } 
+    else if (vehicle is Car car) 
+    {
+        car.DriveTo(new Location("texas"));
+    }
 }
 ```
 
@@ -1256,30 +1292,30 @@ bankAccount.Balance -= 100;
 ```csharp
 class BankAccount
 {
-    private doulbe Balance{ get; set;};
+    private double _balance = 0.0D;
 
     public BankAccount(balance = 1000)
     {
-       Balance = balance;
+       _balance = balance;
     }
 
     public double WithdrawBalance(int amount)
     {
-        if (amount > Balance) {
+        if (amount > _balance) {
             throw new \Exception('Amount greater than available balance.');
         }
 
-        Balance -= amount;
+        _balance -= amount;
     }
 
     public void DepositBalance(int amount)
     {
-        Balance += amount;
+        _balance += amount;
     }
 
     public double getBalance()
     {
-        return Balance;
+        return _balance;
     }
 }
 
@@ -1301,7 +1337,7 @@ balance = bankAccount.GetBalance();
 ```csharp
 class Employee
 {
-    public string Name { get; set; };
+    public string Name { get; set; }
 
     public Employee(name)
     {
@@ -1318,16 +1354,11 @@ Console.WriteLine(employee.Name) // Employee name: John Doe
 ```csharp
 class Employee
 {
-    private string Name { get; set; };
+    public string Name { get; }
 
     public Employee(string name)
     {
         Name = name;
-    }
-
-    public string GetName()
-    {
-        return Name;
     }
 }
 
@@ -1424,8 +1455,8 @@ makes more sense than composition:
 ```csharp
 class Employee
 {
-    private string Name { get; set; };
-    private string Email { get; set; };
+    private string Name { get; set; }
+    private string Email { get; set; }
 
     public Employee(string name, string email)
     {
@@ -1441,8 +1472,8 @@ class Employee
 
 class EmployeeTaxData extends Employee
 {
-    private string Ssn { get; set; };
-    private string Salary { get; set; };
+    private string Name { get; }
+    private string Email { get; }
 
     public EmployeeTaxData(string name, string email, string ssn, string salary)
     {
@@ -1458,8 +1489,8 @@ class EmployeeTaxData extends Employee
 ```csharp
 class EmployeeTaxData
 {
-    private string Ssn { get; set; };
-    private string Salary { get; set; };
+    public string Ssn { get; }
+    public string Salary { get; }
 
     public EmployeeTaxData(string ssn, string salary)
     {
@@ -1472,9 +1503,9 @@ class EmployeeTaxData
 
 class Employee
 {
-    private string Name { get; set; };
-    private string Email { get; set; };
-    private string TaxData { get; set; };
+    public string Name { get; }
+    public string Email { get; }
+    public string TaxData { get; }
 
     public Employee(string name, string email)
     {
@@ -1484,7 +1515,7 @@ class Employee
 
     public void SetTax(string ssn, double salary)
     {
-        taxData = new EmployeeTaxData(ssn, salary);
+        TaxData = new EmployeeTaxData(ssn, salary);
     }
 
     // ...
@@ -1590,7 +1621,7 @@ add new functionalities without changing existing code.
 **Bad:**
 
 ```csharp
-abstract class Adapter
+abstract class AdapterBase
 {
     protected string Name;
 
@@ -1600,7 +1631,7 @@ abstract class Adapter
     }
 }
 
-class AjaxAdapter extends Adapter
+class AjaxAdapter : AdapterBase
 {
     public AjaxAdapter()
     {
@@ -1608,7 +1639,7 @@ class AjaxAdapter extends Adapter
     }
 }
 
-class NodeAdapter extends Adapter
+class NodeAdapter : AdapterBase
 {
     public NodeAdapter()
     {
@@ -1616,11 +1647,11 @@ class NodeAdapter extends Adapter
     }
 }
 
-class HttpRequester extends Adapter
+class HttpRequester : AdapterBase
 {
-    private Adapter Adapter;
+    private AdapterBase Adapter;
 
-    public HttpRequester(Adapter adapter)
+    public HttpRequester(AdapterBase adapter)
     {
         Adapter = adapter;
     }
@@ -1651,12 +1682,12 @@ class HttpRequester extends Adapter
 **Good:**
 
 ```csharp
-interface Idapter
+interface IAdapter
 {
     bool Request(string url);
 }
 
-class AjaxAdapter implements Idapter
+class AjaxAdapter : IAdapter
 {
     public bool Request(string url)
     {
@@ -1664,7 +1695,7 @@ class AjaxAdapter implements Idapter
     }
 }
 
-class NodeAdapter implements Idapter
+class NodeAdapter : IAdapter
 {
     public bool Request(string url)
     {
@@ -1674,7 +1705,7 @@ class NodeAdapter implements Idapter
 
 class HttpRequester
 {
-    private Idapter Adapter;
+    private IAdapter Adapter;
 
     public HttpRequester(IAdapter adapter)
     {
@@ -1734,7 +1765,7 @@ class Rectangle
     }
 }
 
-class Square extends Rectangle
+class Square : Rectangle
 {
     public double SetWidth(double width)
     {
@@ -1777,7 +1808,7 @@ abstract class Shape
     }
 }
 
-class Rectangle extends Shape
+class Rectangle : Shape
 {
     public void SetWidth(double width)
     {
@@ -1795,7 +1826,7 @@ class Rectangle extends Shape
     }
 }
 
-class Square extends Shape
+class Square : Shape
 {
     private double Length = 0;
 
@@ -1844,14 +1875,13 @@ all of the settings. Making them optional helps prevent having a "fat interface"
 **Bad:**
 
 ```csharp
-public interface Employee
+public interface IEmployee
 {
     void Work();
-
     void Eat();
 }
 
-public class Human implements Employee
+public class Human : IEmployee
 {
     public void Work()
     {
@@ -1864,7 +1894,7 @@ public class Human implements Employee
     }
 }
 
-public class Robot implements Employee
+public class Robot : IEmployee
 {
     public void Work()
     {
@@ -1883,21 +1913,21 @@ public class Robot implements Employee
 Not every worker is an employee, but every employee is an worker.
 
 ```csharp
-public interface Workable
+public interface IWorkable
 {
     void Work();
 }
 
-public interface Feedable
+public interface IFeedable
 {
     void Eat();
 }
 
-public interface Employee extends Feedable, Workable
+public interface IEmployee : IFeedable, IWorkable
 {
 }
 
-public class Human implements Employee
+public class Human : IEmployee
 {
     public void Work()
     {
@@ -1911,7 +1941,7 @@ public class Human implements Employee
 }
 
 // robot can only work
-public class Robot implements Workable
+public class Robot : IWorkable
 {
     public void Work()
     {
@@ -1949,7 +1979,7 @@ public abstract class Employee
     }
 }
 
-public class Robot extends Employee
+public class Robot : Employee
 {
     public void Work()
     {
@@ -1981,7 +2011,7 @@ public interface Employee
     void Work();
 }
 
-public class Human implements Employee
+public class Human : Employee
 {
     public void Work()
     {
@@ -1989,7 +2019,7 @@ public class Human implements Employee
     }
 }
 
-public class Robot implements Employee
+public class Robot : Employee
 {
     public void Work()
     {
@@ -2188,10 +2218,12 @@ describe('MakeMomentJSGreatAgain', () => {
 
 ## **Concurrency**
 
-### Use Promises, not callbacks
+<details>
+  <summary>Use Action/Func, not delegation</summary>
 
-Callbacks aren't clean, and they cause excessive amounts of nesting. With ES2015/ES6,
-Promises are a built-in global type. Use them!
+### Use Action/Func, not delegation
+
+Callbacks aren't clean, and they cause excessive amounts of nesting. With .NET latest versions use Action/Func keywords. Use them!
 
 **Bad:**
 
@@ -2234,48 +2266,63 @@ get('https://en.wikipedia.org/wiki/Robert_Cecil_Martin')
 
 **[⬆ back to top](#table-of-contents)**
 
-### Async/Await are even cleaner than Promises
+</details>
 
-Promises are a very clean alternative to callbacks, but ES2017/ES8 brings async and await
-which offer an even cleaner solution. All you need is a function that is prefixed
-in an `async` keyword, and then you can write your logic imperatively without
-a `then` chain of functions. Use this if you can take advantage of ES2017/ES8 features
-today!
+### Use Async Await
 
-**Bad:**
+#### Summary of Asynchronous Programming Guidelines
 
-```csharp
-import { get } from 'request-promise';
-import { writeFile } from 'fs-promise';
+|        Name       |                    Description                    |           Exceptions          |
+|-------------------|---------------------------------------------------|-------------------------------|
+| Avoid async void  | Prefer async Task methods over async void methods | Event handlers                |
+| Async all the way | Don't mix blocking and async code                 | Console main method           |
+| Configure context | Use `ConfigureAwait(false)` when you can          | Methods that require con­text  |
 
-get('https://en.wikipedia.org/wiki/Robert_Cecil_Martin')
-  .then((response) => {
-    return writeFile('article.html', response);
-  })
-  .then(() => {
-    console.log('File written');
-  })
-  .catch((err) => {
-    console.error(err);
-  });
-```
+#### The Async Way of Doing Things
 
-**Good:**
+|              To Do This ...              |    Instead of This ...     |       Use This       |
+|------------------------------------------|----------------------------|----------------------|
+| Retrieve the result of a background task | `Task.Wait or Task.Result` | `await`              |
+| Wait for any task to complete            | `Task.WaitAny`             | `await Task.WhenAny` |
+| Retrieve the results of multiple tasks   | `Task.WaitAll`             | `await Task.WhenAll` |
+| Wait a period of time                    | `Thread.Sleep`             | `await Task.Delay`   |
 
-```csharp
-import { get } from 'request-promise';
-import { writeFile } from 'fs-promise';
+#### Know Your Tools
 
-async function getCleanCodeArticle() {
-  try {
-    const response = await get('https://en.wikipedia.org/wiki/Robert_Cecil_Martin');
-    await writeFile('article.html', response);
-    console.log('File written');
-  } catch(err) {
-    console.error(err);
-  }
-}
-```
+There's a lot to learn about async and await, and it's natural to get a little
+disoriented. Here's a quick reference of solutions to common problems.
+
+**Solutions to Common Async Problems**
+
+|                     Problem                     |                                      Solution                                     |
+|-------------------------------------------------|-----------------------------------------------------------------------------------|
+| Create a task to execute code                   | `Task.Run` or `TaskFactory.StartNew` (not the `Task` constructor or `Task.Start`) |
+| Create a task wrapper for an operation or event | `TaskFactory.FromAsync` or `TaskCompletionSource<T>`                              |
+| Support cancellation                            | `CancellationTokenSource` and `CancellationToken`                                 |
+| Report progress                                 | `IProgress<T>` and `Progress<T>`                                                  |
+| Handle streams of data                          | TPL Dataflow or Reactive Extensions                                               |
+| Synchronize access to a shared resource         | `SemaphoreSlim`                                                                   |
+| Asynchronously initialize a resource            | `AsyncLazy<T>`                                                                    |
+| Async-ready producer/consumer structures        | TPL Dataflow or `AsyncCollection<T>`                                              |
+
+Read the [Task-based Asynchronous Pattern (TAP) document](http://www.microsoft.com/download/en/details.aspx?id=19957).
+It is extremely well-written, and includes guidance on API design and the proper
+use of async/await (including cancellation and progress reporting).
+
+There are many new await-friendly techniques that should be used instead of the
+old blocking techniques. If you have any of these Old examples in your new async
+code, you're Doing It Wrong(TM):
+
+|        Old         |                 New                  |                          Description                          |
+|--------------------|--------------------------------------|---------------------------------------------------------------|
+| `task.Wait`        | `await task`                         | Wait/await for a task to complete                             |
+| `task.Result`      | `await task`                         | Get the result of a completed task                            |
+| `Task.WaitAny`     | `await Task.WhenAny`                 | Wait/await for one of a collection of tasks to complete       |
+| `Task.WaitAll`     | `await Task.WhenAll`                 | Wait/await for every one of a collection of tasks to complete |
+| `Thread.Sleep`     | `await Task.Delay`                   | Wait/await for a period of time                               |
+| `Task` constructor | `Task.Run` or `TaskFactory.StartNew` | Create a code-based task                                      |
+
+> Source https://gist.github.com/jonlabelle/841146854b23b305b50fa5542f84b20c
 
 **[⬆ back to top](#table-of-contents)**
 
