@@ -2275,7 +2275,7 @@ get('https://en.wikipedia.org/wiki/Robert_Cecil_Martin')
 |        Name       |                    Description                    |           Exceptions          |
 |-------------------|---------------------------------------------------|-------------------------------|
 | Avoid async void  | Prefer async Task methods over async void methods | Event handlers                |
-| Async all the way | Don't mix blocking and async code                 | Console main method           |
+| Async all the way | Don't mix blocking and async code                 | Console main method (C# <= 7.0)|
 | Configure context | Use `ConfigureAwait(false)` when you can          | Methods that require con­text  |
 
 #### The Async Way of Doing Things
