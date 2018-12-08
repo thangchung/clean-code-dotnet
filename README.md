@@ -1,5 +1,7 @@
 # clean-code-dotnet
 
+Inspired from [clean-code-javascript](https://github.com/ryanmcdermott/clean-code-javascript) and [clean-code-php](https://github.com/jupeter/clean-code-php)
+
 ## Give a Star! :star:
 
 If you liked the project or if `clean-code-dotnet` helped you, please give a star so that .NET community will know and help them just like you. Thank you very much :+1:
@@ -26,8 +28,6 @@ If you liked the project or if `clean-code-dotnet` helped you, please give a sta
 Software engineering principles, from Robert C. Martin's book [_Clean Code_](https://www.amazon.com/Clean-Code-Handbook-Software-Craftsmanship/dp/0132350882), adapted for .NET and .NET Core. This is not a style guide. It's a guide to producing readable, reusable, and refactorable software in .NET and .NET Core.
 
 Not every principle herein has to be strictly followed, and even fewer will be universally agreed upon. These are guidelines and nothing more, but they are ones codified over many years of collective experience by the authors of _Clean Code_.
-
-Inspired from [clean-code-javascript](https://github.com/ryanmcdermott/clean-code-javascript) and [clean-code-php](https://github.com/jupeter/clean-code-php)
 
 ## 2. **Naming**
 
