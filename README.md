@@ -395,10 +395,7 @@ public bool IsShopOpen(string day)
         return false;
     }
 
-    var openingDays = new string[] {
-        "friday", "saturday", "sunday"
-    };
-
+    var openingDays = new[] { "friday", "saturday", "sunday" };
     return openingDays.Any(d => d == day.ToLower());
 }
 ```
@@ -581,7 +578,7 @@ Magic strings are string values that are specified directly within application c
 **Bad**
 
 ```csharp
-if(userRole == "Admin")
+if (userRole == "Admin")
 {
     // logic in here
 }
@@ -591,7 +588,7 @@ if(userRole == "Admin")
 
 ```csharp
 string ADMIN_ROLE = "Admin"
-if(userRole == ADMIN_ROLE)
+if (userRole == ADMIN_ROLE)
 {
     // logic in here
 }
@@ -667,9 +664,11 @@ of many developers.
 ```csharp
 public void SendEmailToListOfClients(string[] clients)
 {
-    foreach (var string client in clients) {
+    foreach (var string client in clients)
+    {
         clientRecord = db.Find(client);
-        if (clientRecord.IsActive()) {
+        if (clientRecord.IsActive())
+        {
             Email(client);
         }
     }
@@ -748,6 +747,8 @@ message.Send();
 <details>
   <summary><b>Functions should only be one level of abstraction</b></summary>
 
+> Not finished yet
+
 When you have more than one level of abstraction your function is usually
 doing too much. Splitting up functions leads to reusability and easier
 testing.
@@ -762,14 +763,14 @@ public string ParseBetterJSAlternative(string code)
     ];
 
     var statements = explode(" ", code);
-    var tokens = [];
+    var tokens = new string[] {};
     foreach (var regex in regexes) {
         foreach (var statement in statements) {
             // ...
         }
     }
 
-    var ast = [];
+    var ast = new string[] {};
     foreach (var token in tokens) {
         // lex...
     }
@@ -787,14 +788,16 @@ We have carried out some of the functionality, but the `ParseBetterJSAlternative
 ```csharp
 public string Tokenize(string code)
 {
-    var regexes = [
+    var regexes = new string[] {
         // ...
-    ];
+    };
 
     var statements = explode(" ", code);
-    var tokens = [];
-    foreach (var regex in regexes) {
-        foreach (var statement in statements) {
+    var tokens = new string[] {};
+    foreach (var regex in regexes)
+    {
+        foreach (var statement in statements)
+        {
             tokens[] = /* ... */;
         }
     }
@@ -804,8 +807,9 @@ public string Tokenize(string code)
 
 public string Lexer(string[] tokens)
 {
-    var ast = [];
-    foreach (var token in tokens) {
+    var ast = new string[] {};
+    foreach (var token in tokens)
+    {
         ast[] = /* ... */;
     }
 
@@ -816,7 +820,8 @@ public string ParseBetterJSAlternative(string code)
 {
     var tokens = Tokenize(code);
     var ast = Lexer(tokens);
-    foreach (var node in ast) {
+    foreach (var node in ast)
+    {
         // parse...
     }
 }
@@ -831,14 +836,16 @@ class Tokenizer
 {
     public string Tokenize(string code)
     {
-        var regexes = [
+        var regexes = new string[] {
             // ...
-        ];
+        };
 
         var statements = explode(" ", code);
-        var tokens = [];
-        foreach (var regex in regexes) {
-            foreach (var statement in statements) {
+        var tokens = new string[] {};
+        foreach (var regex in regexes)
+        {
+            foreach (var statement in statements)
+            {
                 tokens[] = /* ... */;
             }
         }
@@ -851,8 +858,9 @@ class Lexer
 {
     public string Lexify(string[] tokens)
     {
-        var ast = [];
-        foreach (var token in tokens) {
+        var ast = new[] {};
+        foreach (var token in tokens)
+        {
             ast[] = /* ... */;
         }
 
@@ -875,7 +883,8 @@ class BetterJSAlternative
     {
         var tokens = _tokenizer->Tokenize(code);
         var ast = _lexer.Lexify(tokens);
-        foreach (var node in ast) {
+        foreach (var node in ast)
+        {
             // parse...
         }
     }
@@ -898,9 +907,12 @@ based on a boolean.
 ```csharp
 public void CreateFile(string name, bool temp = false)
 {
-    if (temp) {
+    if (temp) 
+    {
         Touch("./temp/" + name);
-    } else {
+    }
+    else 
+    {
         Touch(name);
     }
 }
@@ -980,6 +992,8 @@ Console.PrintLine(newName); // ['Ryan', 'McDermott'];
 <details>
   <summary><b>Don't write to global functions</b></summary>
 
+> Not finished yet
+
 Polluting globals is a bad practice in many languages because you could clash with another
 library and the user of your API would be none-the-wiser until they get an exception in
 production. Let's think about an example: what if you wanted to have configuration array.
@@ -1019,9 +1033,9 @@ class Configuration
 Load configuration and create instance of `Configuration` class
 
 ```csharp
-var configuration = new Configuration([
+var configuration = new Configuration(new string[] {
     "foo" => "bar",
-]);
+});
 ```
 
 And now you must use instance of `Configuration` in your application.
@@ -1049,14 +1063,15 @@ class DBConnection
 {
     private static DBConnection _instance;
 
-    private DBConnection($dsn)
+    private DBConnection()
     {
         // ...
     }
 
     public static GetInstance()
     {
-        if (_instance == null) {
+        if (_instance == null)
+        {
             _instance = new DBConnection();
         }
 
@@ -1102,7 +1117,8 @@ And now you must use instance of `DBConnection` in your application.
 **Bad:**
 
 ```csharp
-if (article.state == "published") {
+if (article.state == "published")
+{
     // ...
 }
 ```
@@ -1110,7 +1126,8 @@ if (article.state == "published") {
 **Good:**
 
 ```csharp
-if (article.IsPublished()) {
+if (article.IsPublished())
+{
     // ...
 }
 ```
@@ -1144,7 +1161,8 @@ public bool IsDOMNodePresent(string node)
     // ...
 }
 
-if (IsDOMNodePresent(node)) {
+if (IsDOMNodePresent(node))
+{
     // ...
 }
 ```
@@ -1174,7 +1192,8 @@ class Airplane
 
     public double GetCruisingAltitude()
     {
-        switch (_type) {
+        switch (_type)
+        {
             case '777':
                 return GetMaxAltitude() - GetPassengerCount();
             case 'Air Force One':
@@ -1289,7 +1308,8 @@ public Path TravelToTexas(object vehicle)
 public int Combine(dynamic val1, dynamic val2)
 {
     int value;
-    if (!int.TryParse(val1, out value) || !int.TryParse(val2, out value)) {
+    if (!int.TryParse(val1, out value) || !int.TryParse(val2, out value))
+    {
         throw new Exception('Must be of type Number');
     }
 
@@ -1398,8 +1418,9 @@ class BankAccount
 
     public double WithdrawBalance(int amount)
     {
-        if (amount > _balance) {
-            throw new \Exception('Amount greater than available balance.');
+        if (amount > _balance) 
+        {
+            throw new Exception('Amount greater than available balance.');
         }
 
         _balance -= amount;
@@ -1522,7 +1543,7 @@ public static class ListExtensions
 
 internal static void ListFluentExtensions()
 {
-    List<int> list = new List<int>() { 1, 2, 3, 4, 5 }
+    var list = new List<int>() { 1, 2, 3, 4, 5 }
         .FluentAdd(1)
         .FluentInsert(0, 0)
         .FluentRemoveAt(1)
@@ -1668,7 +1689,8 @@ class UserSettings
 
     public void ChangeSettings(Settings settings)
     {
-        if (verifyCredentials()) {
+        if (verifyCredentials())
+        {
             // ...
         }
     }
@@ -1711,7 +1733,8 @@ class UserSettings
 
     public function changeSettings(Settings settings)
     {
-        if (Auth.VerifyCredentials()) {
+        if (Auth.VerifyCredentials()) 
+        {
             // ...
         }
     }
@@ -1761,7 +1784,7 @@ class NodeAdapter : AdapterBase
 
 class HttpRequester : AdapterBase
 {
-    private AdapterBase Adapter;
+    private readonly AdapterBase Adapter;
 
     public HttpRequester(AdapterBase adapter)
     {
@@ -1772,9 +1795,12 @@ class HttpRequester : AdapterBase
     {
         var adapterName = Adapter.GetName();
 
-        if (adapterName === 'ajaxAdapter') {
+        if (adapterName === 'ajaxAdapter') 
+        {
             return MakeAjaxCall(url);
-        } elseif (adapterName === 'httpNodeAdapter') {
+        } 
+        else if (adapterName === 'httpNodeAdapter') 
+        {
             return MakeHttpCall(url);
         }
     }
@@ -1817,7 +1843,7 @@ class NodeAdapter : IAdapter
 
 class HttpRequester
 {
-    private IAdapter Adapter;
+    private readonly IAdapter Adapter;
 
     public HttpRequester(IAdapter adapter)
     {
@@ -1884,18 +1910,19 @@ class Square : Rectangle
 {
     public double SetWidth(double width)
     {
-        Width = Height = Width;
+        Width = Height = width;
     }
 
     public double SetHeight(double height)
     {
-        Width = Height = Height;
+        Width = Height = height;
     }
 }
 
 Drawable RenderLargeRectangles(Rectangle rectangles)
 {
-    foreach (rectangle in rectangles) {
+    foreach (rectangle in rectangles) 
+    {
         rectangle.SetWidth(4);
         rectangle.SetHeight(5);
         var area = rectangle.GetArea(); // BAD: Will return 25 for Square. Should be 20.
@@ -1903,14 +1930,14 @@ Drawable RenderLargeRectangles(Rectangle rectangles)
     }
 }
 
-var rectangles = [new Rectangle(), new Rectangle(), new Square()];
+var rectangles = new[] { new Rectangle(), new Rectangle(), new Square() };
 RenderLargeRectangles(rectangles);
 ```
 
 **Good:**
 
 ```csharp
-abstract class Shape
+abstract class ShapeBase
 {
     protected double Width = 0;
     protected double Height = 0;
@@ -1923,7 +1950,7 @@ abstract class Shape
     }
 }
 
-class Rectangle : Shape
+class Rectangle : ShapeBase
 {
     public void SetWidth(double width)
     {
@@ -1941,7 +1968,7 @@ class Rectangle : Shape
     }
 }
 
-class Square : Shape
+class Square : ShapeBase
 {
     private double Length = 0;
 
@@ -1958,10 +1985,14 @@ class Square : Shape
 
 Drawable RenderLargeRectangles(Rectangle rectangles)
 {
-    foreach (rectangle in rectangles) {
-        if (rectangle instanceof Square) {
+    foreach (rectangle in rectangles)
+    {
+        if (rectangle is Square)
+        {
             rectangle.SetLength(5);
-        } elseif (rectangle instanceof Rectangle) {
+        } 
+        else if (rectangle is Rectangle)
+        {
             rectangle.SetWidth(4);
             rectangle.SetHeight(5);
         }
@@ -1971,7 +2002,7 @@ Drawable RenderLargeRectangles(Rectangle rectangles)
     }
 }
 
-var shapes = [new Rectangle(), new Rectangle(), new Square()];
+var shapes = new[] { new Rectangle(), new Rectangle(), new Square() };
 RenderLargeRectangles(shapes);
 ```
 
@@ -2094,7 +2125,7 @@ it makes your code hard to refactor.
 **Bad:**
 
 ```csharp
-public abstract class Employee
+public abstract class EmployeeBase
 {
     public void Work()
     {
@@ -2102,7 +2133,7 @@ public abstract class Employee
     }
 }
 
-public class Robot : Employee
+public class Robot : EmployeeBase
 {
     public void Work()
     {
@@ -2112,16 +2143,16 @@ public class Robot : Employee
 
 public class Manager
 {
-    private Employee Employee;
+    private readonly Employee _employee;
 
     public Manager(Employee employee)
     {
-        Employee = employee;
+        _employee = employee;
     }
 
     public void Manage()
     {
-        Employee.Work();
+        _employee.Work();
     }
 }
 ```
@@ -2152,16 +2183,16 @@ public class Robot : Employee
 
 public class Manager
 {
-    private Employee Employee;
+    private readonly Employee _employee;
 
-     public Manager(Employee employee)
+    public Manager(Employee employee)
     {
-        Employee = employee;
+        _employee = employee;
     }
 
     public void Manage()
     {
-        Employee.Work();
+        _employee.Work();
     }
 }
 ```
@@ -2201,11 +2232,13 @@ updating multiple places anytime you want to change one thing.
 ```csharp
 public List<EmployeeData> ShowDeveloperList(Developers developers)
 {
-    foreach (var developers in developer) {
+    foreach (var developers in developer) 
+    {
         var expectedSalary = developer.CalculateExpectedSalary();
         var experience = developer.GetExperience();
         var githubLink = developer.GetGithubLink();
-        var data = {
+        var data = 
+        new[] {
             expectedSalary,
             experience,
             githubLink
@@ -2217,11 +2250,13 @@ public List<EmployeeData> ShowDeveloperList(Developers developers)
 
 public List<ManagerData> ShowManagerList(Manager managers)
 {
-    foreach (var manager in managers) {
+    foreach (var manager in managers) 
+    {
         var expectedSalary = manager.CalculateExpectedSalary();
         var experience = manager.GetExperience();
         var githubLink = manager.GetGithubLink();
-        var data = {
+        var data = 
+        new[] {
             expectedSalary,
             experience,
             githubLink
@@ -2237,11 +2272,13 @@ public List<ManagerData> ShowManagerList(Manager managers)
 ```csharp
 public List<EmployeeData> ShowList(Employee employees)
 {
-    foreach (var employee in employees) {
+    foreach (var employee in employees) 
+    {
         var expectedSalary = employees.CalculateExpectedSalary();
         var experience = employees.GetExperience();
         var githubLink = employees.GetGithubLink();
-        var data = {
+        var data = 
+        new[] {
             expectedSalary,
             experience,
             githubLink
@@ -2259,12 +2296,13 @@ It is better to use a compact version of the code.
 ```csharp
 public List<EmployeeData> ShowList(Employee employees)
 {
-    foreach (var employee in employees) {
-        render([
+    foreach (var employee in employees) 
+    {
+        render(new[] {
             employee.CalculateExpectedSalary(),
             employee.GetExperience(),
             employee.GetGithubLink()
-        ]);
+        });
     }
 }
 ```
@@ -2352,56 +2390,6 @@ describe('MakeMomentJSGreatAgain', () => {
 ## 9. **Concurrency**
 
 <details>
-  <summary>Use Action/Func, not delegation</summary>
-
-> Not finished yet
-
-Callbacks aren't clean, and they cause excessive amounts of nesting. With .NET latest versions use Action/Func keywords. Use them!
-
-**Bad:**
-
-```csharp
-import { get } from 'request';
-import { writeFile } from 'fs';
-
-get('https://en.wikipedia.org/wiki/Robert_Cecil_Martin', (requestErr, response) => {
-  if (requestErr) {
-    console.error(requestErr);
-  } else {
-    writeFile('article.html', response.body, (writeErr) => {
-      if (writeErr) {
-        console.error(writeErr);
-      } else {
-        console.log('File written');
-      }
-    });
-  }
-});
-```
-
-**Good:**
-
-```csharp
-import { get } from 'request';
-import { writeFile } from 'fs';
-
-get('https://en.wikipedia.org/wiki/Robert_Cecil_Martin')
-  .then((response) => {
-    return writeFile('article.html', response);
-  })
-  .then(() => {
-    console.log('File written');
-  })
-  .catch((err) => {
-    console.error(err);
-  });
-```
-
-**[⬆ back to top](#table-of-contents)**
-
-</details>
-
-<details>
   <summary><b>Use Async Await</b></summary> 
 
 #### Summary of Asynchronous Programming Guidelines
@@ -2482,9 +2470,12 @@ or create a code path, for when it occurs.
 **Bad:**
 
 ```csharp
-try {
+try
+{
   FunctionThatMightThrow();
-} catch (Exception ex) {
+}
+catch (Exception ex) 
+{
   throw ex;
 }
 ```
@@ -2492,11 +2483,15 @@ try {
 **Good:**
 
 ```csharp
-try {
+try
+{
   FunctionThatMightThrow();
-} catch (Exception error) {
+}
+catch (Exception error)
+{
   NotifyUserOfError(error);
-  // Another option:
+
+  // Another option
   ReportErrorToService(error);
 }
 ```
@@ -2515,11 +2510,11 @@ they want. The point is, no matter what you all choose, just be consistent.
 **Bad:**
 
 ```csharp
-int DAYS_IN_WEEK = 7;
-int daysInMonth = 30;
+const int DAYS_IN_WEEK = 7;
+const int daysInMonth = 30;
 
-List<string> songs = ['Back In Black', 'Stairway to Heaven', 'Hey Jude'];
-List<string> Artists = ['ACDC', 'Led Zeppelin', 'The Beatles'];
+var songs = new List<string> { 'Back In Black', 'Stairway to Heaven', 'Hey Jude' };
+var Artists = new List<string> { 'ACDC', 'Led Zeppelin', 'The Beatles' };
 
 bool EraseDatabase() {}
 bool Restore_database() {}
@@ -2531,14 +2526,14 @@ class Alpaca {}
 **Good:**
 
 ```csharp
-int DAYS_IN_WEEK = 7;
-int DAYS_IN_MONTH = 30;
+const int DaysInWeek = 7;
+const int DaysInMonth = 30;
 
-List<string> SONGS = ['Back In Black', 'Stairway to Heaven', 'Hey Jude'];
-List<string> ARTISTS = ['ACDC', 'Led Zeppelin', 'The Beatles'];
+var songs = new List<string> { 'Back In Black', 'Stairway to Heaven', 'Hey Jude' };
+var artists = new List<string> { 'ACDC', 'Led Zeppelin', 'The Beatles' };
 
 bool EraseDatabase() {}
-bool Restore_database() {}
+bool RestoreDatabase() {}
 
 class Animal {}
 class Alpaca {}
@@ -2558,37 +2553,45 @@ top-to-bottom, like a newspaper. Because of this, make your code read that way.
 **Bad:**
 
 ```csharp
-class PerformanceReview {
+class PerformanceReview 
+{
   private readonly Employee _employee;
 
-  public PerformanceReview(Employee employee) {
+  public PerformanceReview(Employee employee) 
+  {
     _employee = employee;
   }
 
-  List<PeersData> LookupPeers() {
+  private IEnumerable<PeersData> LookupPeers() 
+  {
     return db.lookup(_employee, 'peers');
   }
 
-  List<ManagerData> LookupManager() {
+  private ManagerData LookupManager() 
+  {
     return db.lookup(_employee, 'manager');
   }
 
-  GetPeerReviews() {
+  private IEnumerable<PeerReviews> GetPeerReviews() 
+  {
     var peers = LookupPeers();
     // ...
   }
 
-  PerfReview() {
+  public PerfReviewData PerfReview() 
+  {
     GetPeerReviews();
     GetManagerReview();
     GetSelfReview();
   }
 
-  GetManagerReview() {
+  public ManagerData GetManagerReview() 
+  {
     var manager = LookupManager();
   }
 
-  GetSelfReview() {
+  public EmployeeData GetSelfReview() 
+  {
     // ...
   }
 }
@@ -2600,37 +2603,46 @@ review.PerfReview();
 **Good:**
 
 ```csharp
-class PerformanceReview {
-  private Employee Employee;
+class PerformanceReview 
+{
+  private readonly Employee _employee;
 
-  public PerformanceReview(Employee employee) {
-    Employee = employee;
+  public PerformanceReview(Employee employee) 
+  {
+    _employee = employee;
   }
 
-  PerfReview() {
+  public PerfReviewData PerfReview() 
+  {
     GetPeerReviews();
     GetManagerReview();
     GetSelfReview();
   }
 
-  GetPeerReviews() {
-    vonst peers = LookupPeers();
+  private IEnumerable<PeerReviews> GetPeerReviews() 
+  {
+    var peers = LookupPeers();
     // ...
   }
 
-  LookupPeers() {
-    return db.lookup(Employee, 'peers');
+  private IEnumerable<PeersData> LookupPeers() 
+  {
+    return db.lookup(_employee, 'peers');
   }
 
-  GetManagerReview() {
+  private ManagerData GetManagerReview() 
+  {
     var manager = LookupManager();
+    return manager;
   }
 
-  LookupManager() {
-    return db.lookup(Employee, 'manager');
+  private ManagerData LookupManager() 
+  {
+    return db.lookup(_employee, 'manager');
   }
 
-  GetSelfReview() {
+  private EmployeeData GetSelfReview() 
+  {
     // ...
   }
 }
@@ -2659,7 +2671,8 @@ Comments are an apology, not a requirement. Good code _mostly_ documents itself.
 **Bad:**
 
 ```csharp
-public string HashIt(string inputData) {
+public string HashIt(string data)
+{
   // The hash
   var hash = 0;
 
@@ -2667,7 +2680,8 @@ public string HashIt(string inputData) {
   const length = data.length;
 
   // Loop through every character in data
-  for (var i = 0; i < length; i++) {
+  for (var i = 0; i < length; i++)
+  {
     // Get character code.
     const char = data.charCodeAt(i);
     // Make the hash
@@ -2681,11 +2695,13 @@ public string HashIt(string inputData) {
 **Good:**
 
 ```csharp
-public string hashIt(string inputData) {
+public string hashIt(string data) 
+{
   var hash = 0;
   const length = data.length;
 
-  for (var i = 0; i < length; i++) {
+  for (var i = 0; i < length; i++) 
+  {
     const char = data.charCodeAt(i);
     hash = ((hash << 5) - hash) + char;
 
@@ -2733,12 +2749,13 @@ and especially journal comments. Use `git log` to get history!
 
 ```csharp
 /**
- * 2016-12-20: Removed monads, didn't understand them (RM)
- * 2016-10-01: Improved using special monads (JP)
+ * 2018-12-20: Removed monads, didn't understand them (RM)
+ * 2017-10-01: Improved using special monads (JP)
  * 2016-02-03: Removed type-checking (LI)
  * 2015-03-14: Added combine with type-checking (JR)
  */
-public int Combine(int a,int b) {
+public int Combine(int a,int b) 
+{
   return a + b;
 }
 ```
@@ -2746,7 +2763,8 @@ public int Combine(int a,int b) {
 **Good:**
 
 ```csharp
-public int Combine(int a,int b) {
+public int Combine(int a,int b) 
+{
   return a + b;
 }
 ```
@@ -2767,7 +2785,8 @@ proper indentation and formatting give the visual structure to your code.
 ////////////////////////////////////////////////////////////////////////////////
 // Scope Model Instantiation
 ////////////////////////////////////////////////////////////////////////////////
-var model = {
+var model = new[] 
+{
   menu: 'foo',
   nav: 'bar'
 };
@@ -2775,7 +2794,8 @@ var model = {
 ////////////////////////////////////////////////////////////////////////////////
 // Action setup
 ////////////////////////////////////////////////////////////////////////////////
-void Actions() {
+void Actions() 
+{
   // ...
 };
 ```
@@ -2783,12 +2803,14 @@ void Actions() {
 **Good:**
 
 ```csharp
-var model = {
+var model = new[]
+{
   menu: 'foo',
   nav: 'bar'
 };
 
-void Actions() {
+void Actions() 
+{
   // ...
 };
 ```
