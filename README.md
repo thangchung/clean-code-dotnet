@@ -1241,11 +1241,11 @@ public Path TravelToTexas(object vehicle)
 {
     if (vehicle.GetType() == typeof(Bicycle)) 
     {
-        vehicle.PeddleTo(new Location("texas"));
+        (vehicle as Bicycle).PeddleTo(new Location("texas"));
     } 
-    else if (vehicle.GetType() ==  typeof(Car)) 
+    else if (vehicle.GetType() == typeof(Car)) 
     {
-        vehicle.DriveTo(new Location("texas"));
+        (vehicle as Car).DriveTo(new Location("texas"));
     }
 }
 ```
@@ -2409,7 +2409,7 @@ get('https://en.wikipedia.org/wiki/Robert_Cecil_Martin')
 |        Name       |                    Description                    |           Exceptions          |
 |-------------------|---------------------------------------------------|-------------------------------|
 | Avoid async void  | Prefer async Task methods over async void methods | Event handlers                |
-| Async all the way | Don't mix blocking and async code                 | Console main method           |
+| Async all the way | Don't mix blocking and async code                 | Console main method (C# <= 7.0)|
 | Configure context | Use `ConfigureAwait(false)` when you can          | Methods that require con­text  |
 
 #### The Async Way of Doing Things
