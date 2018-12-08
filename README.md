@@ -1,5 +1,9 @@
 # clean-code-dotnet
 
+## Give a Star! :star:
+
+If you liked the project or if `clean-code-dotnet` helped you, please give a star so that .NET community will know and help them just like you. Thank you very much :+1:
+
 ## Table of Contents
 
 1. [Introduction](#introduction)
@@ -15,7 +19,7 @@
 11. [Formatting](#formatting)
 12. [Comments](#comments)
 
-## Introduction
+## 1. Introduction
 
 ![Humorous image of software quality estimation as a count of how many expletives you shout when reading code](http://www.osnews.com/images/comics/wtfm.jpg)
 
@@ -25,7 +29,10 @@ Not every principle herein has to be strictly followed, and even fewer will be u
 
 Inspired from [clean-code-javascript](https://github.com/ryanmcdermott/clean-code-javascript) and [clean-code-php](https://github.com/jupeter/clean-code-php)
 
-## **Naming**
+## 2. **Naming**
+
+<details>
+  <summary><b>Avoid using a bad name</b></summary>
 
 Naming it hard and it takes time but worth it. Choosing good names takes time but saves more than it takes and it will help everyone who reads your code (including you) will be happier if you do. Naming should reflect about what it does, what is the context.
 
@@ -43,7 +50,10 @@ int daySinceModification;
 
 **[⬆ Back to top](#table-of-contents)**
 
-### Avoid Disinformation name
+</details>
+
+<details>
+  <summary><b>Avoid Disinformation name</b></summary>
 
 Programmers must avoid naming with disinformation name and we should name variable to reflect what we want to do with it.
 
@@ -61,7 +71,10 @@ var listOfEmployee = _employeeService.GetEmployeeListFromDb().Tolist();
 
 **[⬆ Back to top](#table-of-contents)**
 
-### Use Pronounceable Names
+</details>
+
+<details>
+  <summary><b>Use Pronounceable Names</b></summary>
 
 What happends if we cant pronoun variables, function, etc... It will take us a lot of time (some time make us like an idiot to discuss about it) to investigate what meaning of that variables, what is use.
 
@@ -87,7 +100,10 @@ public class Employee
 
 **[⬆ Back to top](#table-of-contents)**
 
-### Use Camelcase Notation
+</details>
+
+<details>
+  <summary><b>Use Camelcase Notation</b></summary>
 
 Use [Camelcase Notation](https://en.wikipedia.org/wiki/Camel_case) for variable and parameter function
 
@@ -115,7 +131,10 @@ public double CalculateSalary(int workingDays, int workingHours)
 
 **[⬆ Back to top](#table-of-contents)**
 
-### Use domain name
+</details>
+
+<details>
+  <summary><b>Use domain name</b></summary>
 
 People who read your code is also programmers. So naming right will help everyone on the same page because we dont want to take time to explain for everyone what that variable for, what the function for. We can name the variable or function to reflect the pattern, algorithm names and so forth.
 
@@ -158,9 +177,12 @@ public static void main(String[] args)
 
 **[⬆ Back to top](#table-of-contents)**
 
-## **Variables**
+</details>
 
-### Use meaningful and pronounceable variable names [:page_facing_up:](https://github.com/thangchung/clean-code-dotnet/blob/master/src/Variables/UseMeaningfulAndPronounceableVariableNames.cs)
+## 3. **Variables**
+
+<details>
+  <summary><b>Use meaningful and pronounceable variable names</b></summary>
 
 **Bad:**
 
@@ -176,7 +198,10 @@ var currentDate = DateTime.UtcNow.ToString("MMMM dd, yyyy");
 
 **[⬆ Back to top](#table-of-contents)**
 
-### Use the same vocabulary for the same type of variable [:page_facing_up:](https://github.com/thangchung/clean-code-dotnet/blob/master/src/Variables/UseSameVocabularyForSameTypeVariables.cs)
+</details>
+
+<details>
+  <summary><b>Use the same vocabulary for the same type of variable</b></summary>
 
 **Bad:**
 
@@ -195,7 +220,10 @@ GetUser();
 
 **[⬆ Back to top](#table-of-contents)**
 
-### Use searchable names (part 1) [:page_facing_up:](https://github.com/thangchung/clean-code-dotnet/blob/master/src/Variables/UseSearchableNames.cs)
+</details>
+
+<details>
+  <summary><b>Use searchable names (part 1)</b></summary>
 
 We will read more code than we will ever write. It's important that the code we do write is
 readable and searchable. By _not_ naming variables that end up being meaningful for
@@ -236,8 +264,12 @@ var sr2 = new StreamReader(stream2);
 Console.Write("JSON form of Data object: ");
 Console.WriteLine(sr2.ReadToEnd());
 ```
+**[⬆ Back to top](#table-of-contents)**
 
-### Use searchable names (part 2) [:page_facing_up:](https://github.com/thangchung/clean-code-dotnet/blob/master/src/Variables/UseSearchableNames.cs)
+</details>
+
+<details>
+  <summary><b>Use searchable names (part 2)</b></summary>
 
 **Bad:**
 
@@ -277,7 +309,10 @@ if (person.PersonAccess == PersonAccess.ACCESS_UPDATE)
 
 **[⬆ Back to top](#table-of-contents)**
 
-### Use explanatory variables [:page_facing_up:](https://github.com/thangchung/clean-code-dotnet/blob/master/src/Variables/UseExplanatoryVariables.cs)
+</details>
+
+<details>
+  <summary><b>Use explanatory variables</b></summary>
 
 **Bad:**
 
@@ -309,7 +344,10 @@ if(cityGroup.Success == true && zipCodeGroup.Success == true)
 
 **[⬆ back to top](#table-of-contents)**
 
-### Avoid nesting too deeply and return early [:page_facing_up:](https://github.com/thangchung/clean-code-dotnet/blob/master/src/Variables/AvoidNestingTooDeeplyReturnEarly.cs)
+</details>
+
+<details>
+  <summary><b>Avoid nesting too deeply and return early</b></summary>
 
 Too many if else statemetns can make your code hard to follow. Explicit is better
 than implicit.
@@ -421,7 +459,10 @@ public long Fibonacci(int n)
 
 **[⬆ back to top](#table-of-contents)**
 
-### Avoid Mental Mapping [:page_facing_up:](https://github.com/thangchung/clean-code-dotnet/blob/master/src/Variables/AvoidMentalMapping.cs)
+</details>
+
+<details>
+  <summary><b>Avoid Mental Mapping</b></summary>
 
 Don’t force the reader of your code to translate what the variable means.
 Explicit is better than implicit.
@@ -464,7 +505,10 @@ foreach (var location in locations)
 
 **[⬆ back to top](#table-of-contents)**
 
-### Don't add unneeded context [:page_facing_up:](https://github.com/thangchung/clean-code-dotnet/blob/master/src/Variables/DontAddUnNeededContext.cs)
+</details>
+
+<details>
+  <summary><b>Don't add unneeded context</b></summary>
 
 If your class/object name tells you something, don't repeat that in your
 variable name.
@@ -497,7 +541,10 @@ public class Car
 
 **[⬆ back to top](#table-of-contents)**
 
-### Use default arguments instead of short circuiting or conditionals [:page_facing_up:](https://github.com/thangchung/clean-code-dotnet/blob/master/src/Variables/UseDefaultArgumentsInsteadOfShortCircuitingOrConditionals.cs)
+</details>
+
+<details>
+  <summary><b>Use default arguments instead of short circuiting or conditionals</b></summary>
 
 **Not good:**
 
@@ -522,7 +569,12 @@ public void CreateMicrobrewery(string breweryName = "Hipster Brew Co.")
 }
 ```
 
-### Avoid magic string
+**[⬆ back to top](#table-of-contents)**
+
+</details>
+
+<details>
+  <summary><b>Avoid magic string</b></summary>
 
 Magic strings are string values that are specified directly within application code that have an impact on the application’s behavior. Frequently, such strings will end up being duplicated within the system, and since they cannot automatically be updated using refactoring tools, they become a common source of bugs when changes are made to some strings but not others.
 
@@ -549,9 +601,12 @@ Using this we only have to change in centralize place and others will adapt it.
 
 **[⬆ back to top](#table-of-contents)**
 
-## **Functions**
+</details>
 
-### Function arguments (2 or fewer ideally)
+## 4. **Functions**
+
+<details>
+  <summary><b>Function arguments (2 or fewer ideally)</b></summary>
 
 Limiting the amount of function parameters is incredibly important because it makes
 testing your function easier. Having more than three leads to a combinatorial explosion
@@ -596,7 +651,10 @@ public void CreateMenu(MenuConfig config)
 
 **[⬆ back to top](#table-of-contents)**
 
-### Functions should do one thing
+</details>
+
+<details>
+  <summary><b>Functions should do one thing</b></summary>
 
 This is by far the most important rule in software engineering. When functions do more
 than one thing, they are harder to compose, test, and reason about. When you can isolate
@@ -642,7 +700,10 @@ public List<Client> IsClientActive(string client)
 
 **[⬆ back to top](#table-of-contents)**
 
-### Function names should say what they do
+</details>
+
+<details>
+  <summary><b>Function names should say what they do</b></summary>
 
 **Bad:**
 
@@ -682,7 +743,10 @@ message.Send();
 
 **[⬆ back to top](#table-of-contents)**
 
-### Functions should only be one level of abstraction
+</details>
+
+<details>
+  <summary><b>Functions should only be one level of abstraction</b></summary>
 
 When you have more than one level of abstraction your function is usually
 doing too much. Splitting up functions leads to reusability and easier
@@ -820,7 +884,10 @@ class BetterJSAlternative
 
 **[⬆ back to top](#table-of-contents)**
 
-### Don't use flags as function parameters
+</details>
+
+<details>
+  <summary><b>Don't use flags as function parameters</b></summary>
 
 Flags tell your user that this function does more than one thing. Functions should
 do one thing. Split out your functions if they are following different code paths
@@ -855,7 +922,10 @@ public void CreateTempFile(string name)
 
 **[⬆ back to top](#table-of-contents)**
 
-### Avoid Side Effects
+</details>
+
+<details>
+  <summary><b>Avoid Side Effects</b></summary>
 
 A function produces a side effect if it does anything other than take a value in and
 return another value or values. A side effect could be writing to a file, modifying
@@ -905,7 +975,10 @@ Console.PrintLine(newName); // ['Ryan', 'McDermott'];
 
 **[⬆ back to top](#table-of-contents)**
 
-### Don't write to global functions
+</details>
+
+<details>
+  <summary><b>Don't write to global functions</b></summary>
 
 Polluting globals is a bad practice in many languages because you could clash with another
 library and the user of your API would be none-the-wiser until they get an exception in
@@ -955,7 +1028,10 @@ And now you must use instance of `Configuration` in your application.
 
 **[⬆ back to top](#table-of-contents)**
 
-### Don't use a Singleton pattern
+</details>
+
+<details>
+  <summary><b>Don't use a Singleton pattern</b></summary>
 
 Singleton is an [anti-pattern](https://en.wikipedia.org/wiki/Singleton_pattern). Paraphrased from Brian Button:
 
@@ -1018,7 +1094,10 @@ And now you must use instance of `DBConnection` in your application.
 
 **[⬆ back to top](#table-of-contents)**
 
-### Encapsulate conditionals
+</details>
+
+<details>
+  <summary><b>Encapsulate conditionals</b></summary>
 
 **Bad:**
 
@@ -1038,7 +1117,10 @@ if (article.IsPublished()) {
 
 **[⬆ back to top](#table-of-contents)**
 
-### Avoid negative conditionals
+</details>
+
+<details>
+  <summary><b>Avoid negative conditionals</b></summary>
 
 **Bad:**
 
@@ -1069,7 +1151,10 @@ if (IsDOMNodePresent(node)) {
 
 **[⬆ back to top](#table-of-contents)**
 
-### Avoid conditionals
+</details>
+
+<details>
+  <summary><b>Avoid conditionals</b></summary>
 
 This seems like an impossible task. Upon first hearing this, most people say,
 "how am I supposed to do anything without an `if` statement?" The answer is that
@@ -1144,7 +1229,10 @@ class Cessna : IAirplane
 
 **[⬆ back to top](#table-of-contents)**
 
-### Avoid type-checking (part 1)
+</details>
+
+<details>
+  <summary><b>Avoid type-checking (part 1)</b></summary>
 
 **Bad:**
 
@@ -1190,7 +1278,10 @@ public Path TravelToTexas(object vehicle)
 
 **[⬆ back to top](#table-of-contents)**
 
-### Avoid type-checking (part 2)
+</details>
+
+<details>
+  <summary><b>Avoid type-checking (part 2)</b></summary>
 
 **Bad:**
 
@@ -1217,7 +1308,10 @@ public int Combine(int val1, int val2)
 
 **[⬆ back to top](#table-of-contents)**
 
-### Remove dead code
+</details>
+
+<details>
+  <summary><b>Remove dead code</b></summary>
 
 Dead code is just as bad as duplicate code. There's no reason to keep it in
 your codebase. If it's not being called, get rid of it! It will still be safe
@@ -1254,9 +1348,12 @@ InventoryTracker("apples", request, "www.inventory-awesome.io");
 
 **[⬆ back to top](#table-of-contents)**
 
-## **Objects and Data Structures**
+</details>
 
-### Use getters and setters
+## 5. **Objects and Data Structures**
+
+<details>
+  <summary><b>Use getters and setters</b></summary>
 
 In C# / VB.NET you can set `public`, `protected` and `private` keywords for methods.
 Using it, you can control properties modification on an object.
@@ -1330,7 +1427,10 @@ balance = bankAccount.GetBalance();
 
 **[⬆ back to top](#table-of-contents)**
 
-### Make objects have private/protected members
+</details>
+
+<details>
+  <summary><b>Make objects have private/protected members</b></summary>
 
 **Bad:**
 
@@ -1368,9 +1468,12 @@ Console.WriteLine(employee.GetName());// Employee name: John Doe
 
 **[⬆ back to top](#table-of-contents)**
 
-## **Classes**
+</details>
 
-### Use method chaining
+## 6. **Classes**
+
+<details>
+  <summary><b>Use method chaining</b></summary>
 
 This pattern is very useful and commonly used in many libraries. It allows your code to be expressive, and less verbose.
 For that reason, use method chaining and take a look at how clean your code will be.
@@ -1431,7 +1534,10 @@ internal static void ListFluentExtensions()
 
 **[⬆ back to top](#table-of-contents)**
 
-### Prefer composition over inheritance
+</details>
+
+<details>
+  <summary><b>Prefer composition over inheritance</b></summary>
 
 As stated famously in [_Design Patterns_](https://en.wikipedia.org/wiki/Design_Patterns) by the Gang of Four,
 you should prefer composition over inheritance where you can. There are lots of
@@ -1524,7 +1630,9 @@ class Employee
 
 **[⬆ back to top](#table-of-contents)**
 
-## **SOLID**
+</details>
+
+## 7. **SOLID**
 
 **SOLID** is the mnemonic acronym introduced by Michael Feathers for the first five principles named by Robert Martin, which meant five basic principles of object-oriented programming and design.
 
@@ -1534,7 +1642,8 @@ class Employee
 * [I: Interface Segregation Principle (ISP)](#interface-segregation-principle-isp)
 * [D: Dependency Inversion Principle (DIP)](#dependency-inversion-principle-dip)
 
-### Single Responsibility Principle (SRP)
+<details>
+  <summary><b>Single Responsibility Principle (SRP)</b></summary>
 
 As stated in Clean Code, "There should never be more than one reason for a class
 to change". It's tempting to jam-pack a class with a lot of functionality, like
@@ -1611,7 +1720,10 @@ class UserSettings
 
 **[⬆ back to top](#table-of-contents)**
 
-### Open/Closed Principle (OCP)
+</details>
+
+<details>
+  <summary><b>Open/Closed Principle (OCP)</b></summary>
 
 As stated by Bertrand Meyer, "software entities (classes, modules, functions,
 etc.) should be open for extension, but closed for modification." What does that
@@ -1721,7 +1833,10 @@ class HttpRequester
 
 **[⬆ back to top](#table-of-contents)**
 
-### Liskov Substitution Principle (LSP)
+</details>
+
+<details>
+  <summary><b>Liskov Substitution Principle (LSP)</b></summary>
 
 This is a scary term for a very simple concept. It's formally defined as "If S
 is a subtype of T, then objects of type T may be replaced with objects of type S
@@ -1862,6 +1977,11 @@ RenderLargeRectangles(shapes);
 
 **[⬆ back to top](#table-of-contents)**
 
+</details>
+
+<details>
+  <summary><b>Interface Segregation Principle (ISP)</b></summary>
+
 ### Interface Segregation Principle (ISP)
 
 ISP states that "Clients should not be forced to depend upon interfaces that
@@ -1952,7 +2072,10 @@ public class Robot : IWorkable
 
 **[⬆ back to top](#table-of-contents)**
 
-### Dependency Inversion Principle (DIP)
+</details>
+
+<details>
+  <summary><b>Dependency Inversion Principle (DIP)</b></summary>
 
 This principle states two essential things:
 
@@ -2045,7 +2168,10 @@ public class Manager
 
 **[⬆ back to top](#table-of-contents)**
 
-## Don’t repeat yourself (DRY)
+</details>
+
+<details>
+  <summary><b>Don’t repeat yourself (DRY)</b></summary>
 
 Try to observe the [DRY](https://en.wikipedia.org/wiki/Don%27t_repeat_yourself) principle.
 
@@ -2145,7 +2271,9 @@ public List<EmployeeData> ShowList(Employee employees)
 
 **[⬆ back to top](#table-of-contents)**
 
-## **Testing**
+</details>
+
+## 8. **Testing**
 
 Testing is more important than shipping. If you have no tests or an
 inadequate amount, then every time you ship code you won't be sure that you
@@ -2153,16 +2281,19 @@ didn't break anything. Deciding on what constitutes an adequate amount is up
 to your team, but having 100% coverage (all statements and branches) is how
 you achieve very high confidence and developer peace of mind. This means that
 in addition to having a great testing framework, you also need to use a
-[good coverage tool](http://gotwarlost.github.io/istanbul/).
+[good coverage tool](https://docs.microsoft.com/en-us/visualstudio/test/using-code-coverage-to-determine-how-much-code-is-being-tested).
 
-There's no excuse to not write tests. There's [plenty of good JS test frameworks](http://jstherightway.org/#testing-tools), so find one that your team prefers.
+There's no excuse to not write tests. There's [plenty of good .NET test frameworks](https://github.com/thangchung/awesome-dotnet-core#testing), so find one that your team prefers.
 When you find one that works for your team, then aim to always write tests
 for every new feature/module you introduce. If your preferred method is
 Test Driven Development (TDD), that is great, but the main point is to just
 make sure you are reaching your coverage goals before launching any feature,
 or refactoring an existing one.
 
-### Single concept per test
+<details>
+  <summary><b>Single concept per test</b></summary>
+
+> Not finished yet
 
 **Bad:**
 
@@ -2216,12 +2347,14 @@ describe('MakeMomentJSGreatAgain', () => {
 
 **[⬆ back to top](#table-of-contents)**
 
-## **Concurrency**
+</details>
+
+## 9. **Concurrency**
 
 <details>
   <summary>Use Action/Func, not delegation</summary>
 
-### Use Action/Func, not delegation
+> Not finished yet
 
 Callbacks aren't clean, and they cause excessive amounts of nesting. With .NET latest versions use Action/Func keywords. Use them!
 
@@ -2268,7 +2401,8 @@ get('https://en.wikipedia.org/wiki/Robert_Cecil_Martin')
 
 </details>
 
-### Use Async Await
+<details>
+  <summary><b>Use Async Await</b></summary> 
 
 #### Summary of Asynchronous Programming Guidelines
 
@@ -2326,14 +2460,17 @@ code, you're Doing It Wrong(TM):
 
 **[⬆ back to top](#table-of-contents)**
 
-## **Error Handling**
+</details>
+
+## 10. **Error Handling**
 
 Thrown errors are a good thing! They mean the runtime has successfully
 identified when something in your program has gone wrong and it's letting
 you know by stopping function execution on the current stack, killing the
 process (in Node), and notifying you in the console with a stack trace.
 
-### Don't ignore caught errors
+<details>
+  <summary><b>Don't ignore caught errors</b></summary>
 
 Doing nothing with a caught error doesn't give you the ability to ever fix
 or react to said error. Throwing the error
@@ -2357,7 +2494,7 @@ try {
 ```csharp
 try {
   FunctionThatMightThrow();
-} catch (error) {
+} catch (Exception error) {
   NotifyUserOfError(error);
   // Another option:
   ReportErrorToService(error);
@@ -2366,7 +2503,10 @@ try {
 
 **[⬆ back to top](#table-of-contents)**
 
-### Use consistent capitalization
+</details>
+
+<details>
+  <summary><b>Use consistent capitalization</b></summary>
 
 Capitalization tells you a lot about your variables,
 functions, etc. These rules are subjective, so your team can choose whatever
@@ -2406,7 +2546,10 @@ class Alpaca {}
 
 **[⬆ back to top](#table-of-contents)**
 
-### Function callers and callees should be close
+</details>
+
+<details>
+  <summary><b>Function callers and callees should be close</b></summary>
 
 If a function calls another, keep those functions vertically close in the source
 file. Ideally, keep the caller right above the callee. We tend to read code from
@@ -2416,18 +2559,18 @@ top-to-bottom, like a newspaper. Because of this, make your code read that way.
 
 ```csharp
 class PerformanceReview {
-  private Employee Employee;
+  private readonly Employee _employee;
 
   public PerformanceReview(Employee employee) {
-    Employee = employee;
+    _employee = employee;
   }
 
   List<PeersData> LookupPeers() {
-    return db.lookup(Employee, 'peers');
+    return db.lookup(_employee, 'peers');
   }
 
   List<ManagerData> LookupManager() {
-    return db.lookup(Employee, 'manager');
+    return db.lookup(_employee, 'manager');
   }
 
   GetPeerReviews() {
@@ -2498,9 +2641,18 @@ review.PerfReview();
 
 **[⬆ back to top](#table-of-contents)**
 
-## **Comments**
+</details>
 
-### Only comment things that have business logic complexity.
+## 11. **Formatting**
+
+> Not finished yet
+
+## 12. **Comments**
+
+</details>
+
+<details>
+  <summary><b>Only comment things that have business logic complexity</b></summary>
 
 Comments are an apology, not a requirement. Good code _mostly_ documents itself.
 
@@ -2545,7 +2697,10 @@ public string hashIt(string inputData) {
 
 **[⬆ back to top](#table-of-contents)**
 
-### Don't leave commented out code in your codebase
+</details>
+
+<details>
+  <summary><b>Don't leave commented out code in your codebase</b></summary>
 
 Version control exists for a reason. Leave old code in your history.
 
@@ -2566,7 +2721,10 @@ doStuff();
 
 **[⬆ back to top](#table-of-contents)**
 
-### Don't have journal comments
+</details>
+
+<details>
+  <summary><b>Don't have journal comments</b></summary>
 
 Remember, use version control! There's no need for dead code, commented code,
 and especially journal comments. Use `git log` to get history!
@@ -2595,7 +2753,10 @@ public int Combine(int a,int b) {
 
 **[⬆ back to top](#table-of-contents)**
 
-### Avoid positional markers
+</details>
+
+<details>
+  <summary><b>Avoid positional markers</b></summary>
 
 They usually just add noise. Let the functions and variable names along with the
 proper indentation and formatting give the visual structure to your code.
@@ -2633,3 +2794,5 @@ void Actions() {
 ```
 
 **[⬆ back to top](#table-of-contents)**
+
+</details>
