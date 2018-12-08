@@ -1,6 +1,4 @@
-# clean-code-dotnet
-
-Inspired from [clean-code-javascript](https://github.com/ryanmcdermott/clean-code-javascript) and [clean-code-php](https://github.com/jupeter/clean-code-php)
+# Clean Code .NET / .NET Core
 
 ## Give a Star! :star:
 
@@ -8,18 +6,18 @@ If you liked the project or if `clean-code-dotnet` helped you, please give a sta
 
 ## Table of Contents
 
-1. [Introduction](#introduction)
-2. [Naming](#naming)
-3. [Variables](#variables)
-4. [Functions](#functions)
-5. [Objects and Data Structures](#objects-and-data-structures)
-6. [Classes](#classes)
-7. [SOLID](#solid)
-8. [Testing](#testing)
-9. [Concurrency](#concurrency)
-10. [Error Handling](#error-handling)
-11. [Formatting](#formatting)
-12. [Comments](#comments)
+1. [Introduction](#1-introduction)
+2. [Naming](#2-naming)
+3. [Variables](#3-variables)
+4. [Functions](#4-functions)
+5. [Objects and Data Structures](#5-objects-and-data-structures)
+6. [Classes](#6-classes)
+7. [SOLID](#7-solid)
+8. [Testing](#8-testing)
+9. [Concurrency](#9-concurrency)
+10. [Error Handling](#10-error-handling)
+11. [Formatting](#11-formatting)
+12. [Comments](#12-comments)
 
 ## 1. Introduction
 
@@ -28,6 +26,8 @@ If you liked the project or if `clean-code-dotnet` helped you, please give a sta
 Software engineering principles, from Robert C. Martin's book [_Clean Code_](https://www.amazon.com/Clean-Code-Handbook-Software-Craftsmanship/dp/0132350882), adapted for .NET and .NET Core. This is not a style guide. It's a guide to producing readable, reusable, and refactorable software in .NET and .NET Core.
 
 Not every principle herein has to be strictly followed, and even fewer will be universally agreed upon. These are guidelines and nothing more, but they are ones codified over many years of collective experience by the authors of _Clean Code_.
+
+Inspired from [clean-code-javascript](https://github.com/ryanmcdermott/clean-code-javascript) and [clean-code-php](https://github.com/jupeter/clean-code-php)
 
 ## 2. **Naming**
 
@@ -2796,3 +2796,10 @@ void Actions() {
 **[⬆ back to top](#table-of-contents)**
 
 </details>
+
+
+## License
+
+[![CC0](http://mirrors.creativecommons.org/presskit/buttons/88x31/svg/cc-zero.svg)](https://creativecommons.org/publicdomain/zero/1.0/)
+
+To the extent possible under law, [thangchung](https://github.com/thangchung) has waived all copyright and related or neighboring rights to this work.
