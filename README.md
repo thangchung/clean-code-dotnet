@@ -2331,61 +2331,86 @@ or refactoring an existing one.
 <details>
   <summary><b>Single concept per test</b></summary>
 
-> Not finished yet
+Ensures that your tests are laser focused and not testing miscellaenous (non-related) things, forces [AAA patern](http://wiki.c2.com/?ArrangeActAssert) used to make your codes more clean and readable.
 
 **Bad:**
 
 ```csharp
-import assert from 'assert';
 
-describe('MakeMomentJSGreatAgain', () => {
-  it('handles date boundaries', () => {
-    let date;
+public class MakeDotNetGreatAgainTests
+{
+    [Fact]
+    public void HandleDateBoundaries()
+    {
+        var date = new MyDateTime("1/1/2015");
+        date.AddDays(30);
+        Assert.Equal("1/31/2015", date);
 
-    date = new MakeMomentJSGreatAgain('1/1/2015');
-    date.addDays(30);
-    assert.equal('1/31/2015', date);
+        date = new MyDateTime("2/1/2016");
+        date.AddDays(28);
+        Assert.Equal("02/29/2016", date);
 
-    date = new MakeMomentJSGreatAgain('2/1/2016');
-    date.addDays(28);
-    assert.equal('02/29/2016', date);
+        date = new MyDateTime("2/1/2015");
+        date.AddDays(28);
+        Assert.Equal("03/01/2015", date);
+    }
+}
 
-    date = new MakeMomentJSGreatAgain('2/1/2015');
-    date.addDays(28);
-    assert.equal('03/01/2015', date);
-  });
-});
 ```
 
 **Good:**
 
 ```csharp
-import assert from 'assert';
 
-describe('MakeMomentJSGreatAgain', () => {
-  it('handles 30-day months', () => {
-    const date = new MakeMomentJSGreatAgain('1/1/2015');
-    date.addDays(30);
-    assert.equal('1/31/2015', date);
-  });
+public class MakeDotNetGreatAgainTests
+{
+    [Fact]
+    public void Handle30DayMonths()
+    {
+        // Arrange
+        var date = new MyDateTime("1/1/2015");
 
-  it('handles leap year', () => {
-    const date = new MakeMomentJSGreatAgain('2/1/2016');
-    date.addDays(28);
-    assert.equal('02/29/2016', date);
-  });
+        // Act
+        date.AddDays(30);
 
-  it('handles non-leap year', () => {
-    const date = new MakeMomentJSGreatAgain('2/1/2015');
-    date.addDays(28);
-    assert.equal('03/01/2015', date);
-  });
-});
+        // Assert
+        Assert.Equal("1/31/2015", date);
+    }
+
+    [Fact]
+    public void HandleLeapYear()
+    {
+        // Arrange
+        var date = new MyDateTime("2/1/2016");
+
+        // Act
+        date.AddDays(28);
+
+        // Assert
+        Assert.Equal("02/29/2016", date);
+    }
+
+    [Fact]
+    public void HandleNonLeapYear()
+    {
+        // Arrange
+        var date = new MyDateTime("2/1/2015");
+
+        // Act
+        date.AddDays(28);
+
+        // Assert
+        Assert.Equal("03/01/2015", date);
+    }
+}
+
 ```
 
 **[⬆ back to top](#table-of-contents)**
 
 </details>
+
+> Soure https://www.codingblocks.net/podcast/how-to-write-amazing-unit-tests
 
 ## 9. **Concurrency**
 
