@@ -137,6 +137,7 @@ public double CalculateSalary(int workingDays, int workingHours)
   <summary><b>Use domain name</b></summary>
 
 People who read your code are also programmers. Naming things right will help everyone be on the same page. We don’t want to take time to explain to everyone what a variable or function is for. 
+
 **Good**
 
 ```csharp
