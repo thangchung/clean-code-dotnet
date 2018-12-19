@@ -1,4 +1,4 @@
-# Clean Code .NET / .NET Core
+﻿# Clean Code .NET / .NET Core
 
 ## Give a Star! :star:
 
@@ -136,8 +136,7 @@ public double CalculateSalary(int workingDays, int workingHours)
 <details>
   <summary><b>Use domain name</b></summary>
 
-People who read your code is also programmers. So naming right will help everyone on the same page because we dont want to take time to explain for everyone what that variable for, what the function for. We can name the variable or function to reflect the pattern, algorithm names and so forth.
-
+People who read your code are also programmers. Naming things right will help everyone be on the same page. We don’t want to take time to explain to everyone what a variable or function is for. 
 **Good**
 
 ```csharp
