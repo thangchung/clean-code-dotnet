@@ -357,7 +357,7 @@ than implicit.
 ```csharp
 public bool IsShopOpen(string day)
 {
-    if (string.IsNullOrEmpty(day))
+    if (!string.IsNullOrEmpty(day))
     {
         day = day.ToLower();
         if (day == "friday")
