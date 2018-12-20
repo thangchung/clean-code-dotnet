@@ -76,7 +76,7 @@ var listOfEmployee = _employeeService.GetEmployeeListFromDb().Tolist();
 <details>
   <summary><b>Use Pronounceable Names</b></summary>
 
-What happends if we cant pronoun variables, function, etc... It will take us a lot of time (some time make us like an idiot to discuss about it) to investigate what meaning of that variables, what is use.
+It will take time to investigate the meaning of the variables and functions when they are not pronounceable. 
 
 **Bad:**
 
