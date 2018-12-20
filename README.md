@@ -1942,7 +1942,7 @@ abstract class ShapeBase
     protected double Width = 0;
     protected double Height = 0;
 
-    abstract public function getArea();
+    abstract public double GetArea();
 
     public Drawable Render(double area)
     {
