@@ -108,7 +108,7 @@ public bool IsShopOpen(string sDay, int iAmount)
 **Good:**
 
 ```csharp
-public bool IsShopOpen(string day, amount)
+public bool IsShopOpen(string day, int amount)
 {
 ...
 }
