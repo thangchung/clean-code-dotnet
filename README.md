@@ -99,7 +99,7 @@ Hungarian Notation should also not be used in paramaters.
 **Bad:**
 
 ```csharp
-public bool IsShopOpen(string sDay, int iAmount)
+public bool IsShopOpen(string pDay, int pAmount)
 {
     // some logic
 }
