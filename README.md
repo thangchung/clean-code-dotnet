@@ -101,7 +101,7 @@ Hungarian Notation should also not be used in paramaters.
 ```csharp
 public bool IsShopOpen(string sDay, int iAmount)
 {
-...
+    // some logic
 }
 ```
 
@@ -110,7 +110,7 @@ public bool IsShopOpen(string sDay, int iAmount)
 ```csharp
 public bool IsShopOpen(string day, int amount)
 {
-...
+     // some logic
 }
 ```
 
