@@ -686,7 +686,7 @@ public void SendEmailToListOfClients(string[] clients)
 
 public List<Client> ActiveClients(string[] clients)
 {
-    return db.Find(clients).Where(s => s.Status = "Active");
+    return db.Find(clients).Where(s => s.Status == "Active");
 }
 ```
 
