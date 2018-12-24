@@ -395,7 +395,7 @@ if(cityGroup.Success == true && zipCodeGroup.Success == true)
 <details>
   <summary><b>Avoid nesting too deeply and return early</b></summary>
 
-Too many if else statemetns can make your code hard to follow. Explicit is better
+Too many if else statements can make the code hard to follow. Explicit is better
 than implicit.
 
 **Bad:**
