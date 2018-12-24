@@ -664,7 +664,7 @@ of many developers.
 ```csharp
 public void SendEmailToListOfClients(string[] clients)
 {
-    foreach (var string client in clients)
+    foreach (var client in clients)
     {
         var clientRecord = db.Find(client);
         if (clientRecord.IsActive())
