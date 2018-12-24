@@ -74,6 +74,52 @@ var listOfEmployee = _employeeService.GetEmployeeListFromDb().Tolist();
 </details>
 
 <details>
+  <summary><b>Avoid Hungarian Notation</b></summary>
+
+Hungarian Notation restates the type which is already present in the declaration. This is pointless since modern IDEs will identify the type.
+
+**Bad:**
+
+```csharp
+int iCounter;
+string strFullName;
+DateTime dModifiedDate;
+```
+
+**Good:**
+
+```csharp
+int counter;
+string fullName;
+DateTime modifiedDate;
+```
+
+Hungarian Notation should also not be used in paramaters.
+
+**Bad:**
+
+```csharp
+public bool IsShopOpen(string pDay, int pAmount)
+{
+    // some logic
+}
+```
+
+**Good:**
+
+```csharp
+public bool IsShopOpen(string day, int amount)
+{
+     // some logic
+}
+```
+
+
+**[⬆ Back to top](#table-of-contents)**
+
+</details>
+
+<details>
   <summary><b>Use Pronounceable Names</b></summary>
 
 What happends if we cant pronoun variables, function, etc... It will take us a lot of time (some time make us like an idiot to discuss about it) to investigate what meaning of that variables, what is use.
