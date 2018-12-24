@@ -664,9 +664,9 @@ of many developers.
 ```csharp
 public void SendEmailToListOfClients(string[] clients)
 {
-    foreach (var string client in clients)
+    foreach (var client in clients)
     {
-        clientRecord = db.Find(client);
+        var clientRecord = db.Find(client);
         if (clientRecord.IsActive())
         {
             Email(client);
@@ -686,14 +686,7 @@ public void SendEmailToListOfClients(string[] clients)
 
 public List<Client> ActiveClients(string[] clients)
 {
-    return IsClientActive(clients);
-}
-
-public List<Client> IsClientActive(string client)
-{
-    var clientRecord = db.Find(client).Where(s => s.Status = "Active");
-
-    return clientRecord;
+    return db.Find(clients).Where(s => s.Status == "Active");
 }
 ```
 
