@@ -4,6 +4,8 @@
 
 If you liked `clean-code-dotnet` project or if it helped you, please give a star for this repository so that .NET community will know and help them out just like you. Thank you very much :+1:
 
+---
+
 ## Table of Contents
 
 1. [Introduction](#1-introduction)
@@ -20,6 +22,8 @@ If you liked `clean-code-dotnet` project or if it helped you, please give a star
 - [Formatting](#formatting)
 - [Comments](#comments)
 3. [Other Clean Code Resources](#3-other-clean-code-resources)
+
+---
 
 ## 1. Introduction
 
@@ -3083,6 +3087,8 @@ void Actions()
 ### Tools
 - [codemaid](https://github.com/codecadwallader/codemaid) - open source Visual Studio extension to cleanup and simplify our C#, C++, F#, VB, PHP, PowerShell, JSON, XAML, XML, ASP, HTML, CSS, LESS, SCSS, JavaScript and TypeScript coding.
 - [tslint-clean-code](https://github.com/Glavin001/tslint-clean-code) - TSLint rules for enforcing Clean Code.
+
+---
 
 ## License
 
