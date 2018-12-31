@@ -1,35 +1,39 @@
-# Clean Code .NET / .NET Core
+# Clean Code .NET and Other Resources
 
 ## Give a Star! :star:
 
-If you liked the project or if `clean-code-dotnet` helped you, please give a star so that .NET community will know and help them just like you. Thank you very much :+1:
+If you liked `clean-code-dotnet` project or if it helped you, please give a star for this repository so that .NET community will know and help them out just like you. Thank you very much :+1:
 
 ## Table of Contents
 
 1. [Introduction](#1-introduction)
-2. [Naming](#2-naming)
-3. [Variables](#3-variables)
-4. [Functions](#4-functions)
-5. [Objects and Data Structures](#5-objects-and-data-structures)
-6. [Classes](#6-classes)
-7. [SOLID](#7-solid)
-8. [Testing](#8-testing)
-9. [Concurrency](#9-concurrency)
-10. [Error Handling](#10-error-handling)
-11. [Formatting](#11-formatting)
-12. [Comments](#12-comments)
+2. [Clean Code .NET](#2-clean-code-.net)
+- [Naming](#naming)
+- [Variables](#variables)
+- [Functions](#functions)
+- [Objects and Data Structures](#objects-and-data-structures)
+- [Classes](#classes)
+- [SOLID](#solid)
+- [Testing](#testing)
+- [Concurrency](#concurrency)
+- [Error Handling](#error-handling)
+- [Formatting](#formatting)
+- [Comments](#comments)
+3. [Other Clean Code Resources](#3-other-clean-code-resources)
 
 ## 1. Introduction
 
 ![Humorous image of software quality estimation as a count of how many expletives you shout when reading code](http://www.osnews.com/images/comics/wtfm.jpg)
 
-Software engineering principles, from Robert C. Martin's book [_Clean Code_](https://www.amazon.com/Clean-Code-Handbook-Software-Craftsmanship/dp/0132350882), adapted for .NET and .NET Core. This is not a style guide. It's a guide to producing readable, reusable, and refactorable software in .NET and .NET Core.
+Software engineering principles, from Robert C. Martin's book [_Clean Code_](https://www.amazon.com/Clean-Code-Handbook-Software-Craftsmanship/dp/0132350882), adapted for .NET/.NET Core. This is not a style guide. It's a guide to producing readable, reusable, and refactorable software in .NET/.NET Core.
 
 Not every principle herein has to be strictly followed, and even fewer will be universally agreed upon. These are guidelines and nothing more, but they are ones codified over many years of collective experience by the authors of _Clean Code_.
 
-Inspired from [clean-code-javascript](https://github.com/ryanmcdermott/clean-code-javascript) and [clean-code-php](https://github.com/jupeter/clean-code-php)
+Inspired from [clean-code-javascript](https://github.com/ryanmcdermott/clean-code-javascript) and [clean-code-php](https://github.com/jupeter/clean-code-php) lists.
 
-## 2. **Naming**
+## 2. Clean Code .NET
+
+### **Naming**
 
 <details>
   <summary><b>Avoid using a bad name</b></summary>
@@ -179,7 +183,7 @@ public static void main(String[] args)
 
 </details>
 
-## 3. **Variables**
+### **Variables**
 
 <details>
   <summary><b>Use meaningful and pronounceable variable names</b></summary>
@@ -600,7 +604,7 @@ Using this we only have to change in centralize place and others will adapt it.
 
 </details>
 
-## 4. **Functions**
+### **Functions**
 
 <details>
   <summary><b>Function arguments (2 or fewer ideally)</b></summary>
@@ -1370,7 +1374,7 @@ InventoryTracker("apples", request, "www.inventory-awesome.io");
 
 </details>
 
-## 5. **Objects and Data Structures**
+### **Objects and Data Structures**
 
 <details>
   <summary><b>Use getters and setters</b></summary>
@@ -1491,7 +1495,7 @@ Console.WriteLine(employee.GetName());// Employee name: John Doe
 
 </details>
 
-## 6. **Classes**
+### **Classes**
 
 <details>
   <summary><b>Use method chaining</b></summary>
@@ -1571,11 +1575,9 @@ You might be wondering then, "when should I use inheritance?" It
 depends on your problem at hand, but this is a decent list of when inheritance
 makes more sense than composition:
 
-1. Your inheritance represents an "is-a" relationship and not a "has-a"
-   relationship (Human->Animal vs. User->UserDetails).
+1. Your inheritance represents an "is-a" relationship and not a "has-a" relationship (Human->Animal vs. User->UserDetails).
 2. You can reuse code from the base classes (Humans can move like all animals).
-3. You want to make global changes to derived classes by changing a base class.
-   (Change the caloric expenditure of all animals when they move).
+3. You want to make global changes to derived classes by changing a base class (Change the caloric expenditure of all animals when they move).
 
 **Bad:**
 
@@ -1653,7 +1655,7 @@ class Employee
 
 </details>
 
-## 7. **SOLID**
+### **SOLID**
 
 **SOLID** is the mnemonic acronym introduced by Michael Feathers for the first five principles named by Robert Martin, which meant five basic principles of object-oriented programming and design.
 
@@ -2311,7 +2313,7 @@ public List<EmployeeData> ShowList(Employee employees)
 
 </details>
 
-## 8. **Testing**
+### **Testing**
 
 Testing is more important than shipping. If you have no tests or an
 inadequate amount, then every time you ship code you won't be sure that you
@@ -2412,7 +2414,7 @@ public class MakeDotNetGreatAgainTests
 
 </details>
 
-## 9. **Concurrency**
+### **Concurrency**
 
 <details>
   <summary><b>Use Async Await</b></summary> 
@@ -2475,7 +2477,7 @@ code, you're Doing It Wrong(TM):
 
 </details>
 
-## 10. **Error Handling**
+### **Error Handling**
 
 Thrown errors are a good thing! They mean the runtime has successfully
 identified when something in your program has gone wrong and it's letting
@@ -2680,7 +2682,7 @@ review.PerfReview();
 
 </details>
 
-## 11. **Formatting**
+### **Formatting**
 
 <details>
   <summary><b>Uses <i>.editorconfig</i> file</b></summary>
@@ -2849,7 +2851,7 @@ indent_size = 2
 
 </details>
 
-## 12. **Comments**
+### **Comments**
 
 <details>
   <summary><b>Only comment things that have business logic complexity</b></summary>
@@ -3007,6 +3009,16 @@ void Actions()
 
 </details>
 
+## 3. Other Clean Code Resources
+
+### Other Clean Code Lists
+- [clean-code-javascript](https://github.com/ryanmcdermott/clean-code-javascript) - Clean Code concepts adapted for JavaScript.
+- [clean-code-php](https://github.com/jupeter/clean-code-php) - Clean Code concepts adapted for PHP.
+- [clean-code-ruby](https://github.com/uohzxela/clean-code-ruby) - Clean Code concepts adapted for Ruby.
+
+### Tools
+- [codemaid](https://github.com/codecadwallader/codemaid) - open source Visual Studio extension to cleanup and simplify our C#, C++, F#, VB, PHP, PowerShell, JSON, XAML, XML, ASP, HTML, CSS, LESS, SCSS, JavaScript and TypeScript coding.
+- [tslint-clean-code](https://github.com/Glavin001/tslint-clean-code) - TSLint rules for enforcing Clean Code.
 
 ## License
 
