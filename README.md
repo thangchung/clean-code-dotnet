@@ -78,9 +78,55 @@ var listOfEmployee = _employeeService.GetEmployeeListFromDb().Tolist();
 </details>
 
 <details>
+  <summary><b>Avoid Hungarian Notation</b></summary>
+
+Hungarian Notation restates the type which is already present in the declaration. This is pointless since modern IDEs will identify the type.
+
+**Bad:**
+
+```csharp
+int iCounter;
+string strFullName;
+DateTime dModifiedDate;
+```
+
+**Good:**
+
+```csharp
+int counter;
+string fullName;
+DateTime modifiedDate;
+```
+
+Hungarian Notation should also not be used in paramaters.
+
+**Bad:**
+
+```csharp
+public bool IsShopOpen(string pDay, int pAmount)
+{
+    // some logic
+}
+```
+
+**Good:**
+
+```csharp
+public bool IsShopOpen(string day, int amount)
+{
+     // some logic
+}
+```
+
+
+**[⬆ Back to top](#table-of-contents)**
+
+</details>
+
+<details>
   <summary><b>Use Pronounceable Names</b></summary>
 
-What happends if we cant pronoun variables, function, etc... It will take us a lot of time (some time make us like an idiot to discuss about it) to investigate what meaning of that variables, what is use.
+It will take time to investigate the meaning of the variables and functions when they are not pronounceable. 
 
 **Bad:**
 
@@ -140,7 +186,7 @@ public double CalculateSalary(int workingDays, int workingHours)
 <details>
   <summary><b>Use domain name</b></summary>
 
-People who read your code is also programmers. So naming right will help everyone on the same page because we dont want to take time to explain for everyone what that variable for, what the function for. We can name the variable or function to reflect the pattern, algorithm names and so forth.
+People who read your code are also programmers. Naming things right will help everyone be on the same page. We don’t want to take time to explain to everyone what a variable or function is for. 
 
 **Good**
 
@@ -353,7 +399,7 @@ if(cityGroup.Success == true && zipCodeGroup.Success == true)
 <details>
   <summary><b>Avoid nesting too deeply and return early</b></summary>
 
-Too many if else statemetns can make your code hard to follow. Explicit is better
+Too many if else statements can make the code hard to follow. Explicit is better
 than implicit.
 
 **Bad:**
@@ -361,7 +407,7 @@ than implicit.
 ```csharp
 public bool IsShopOpen(string day)
 {
-    if (string.IsNullOrEmpty(day))
+    if (!string.IsNullOrEmpty(day))
     {
         day = day.ToLower();
         if (day == "friday")
@@ -668,9 +714,9 @@ of many developers.
 ```csharp
 public void SendEmailToListOfClients(string[] clients)
 {
-    foreach (var string client in clients)
+    foreach (var client in clients)
     {
-        clientRecord = db.Find(client);
+        var clientRecord = db.Find(client);
         if (clientRecord.IsActive())
         {
             Email(client);
@@ -690,14 +736,7 @@ public void SendEmailToListOfClients(string[] clients)
 
 public List<Client> ActiveClients(string[] clients)
 {
-    return IsClientActive(clients);
-}
-
-public List<Client> IsClientActive(string client)
-{
-    var clientRecord = db.Find(client).Where(s => s.Status = "Active");
-
-    return clientRecord;
+    return db.Find(clients).Where(s => s.Status == "Active");
 }
 ```
 
@@ -1944,7 +1983,7 @@ abstract class ShapeBase
     protected double Width = 0;
     protected double Height = 0;
 
-    abstract public function getArea();
+    abstract public double GetArea();
 
     public Drawable Render(double area)
     {
@@ -2708,6 +2747,7 @@ insert_final_newline = true
 
 # C# files
 [*.cs]
+indent_size = 4
 # New line preferences
 csharp_new_line_before_open_brace = all
 csharp_new_line_before_else = true
@@ -2989,6 +3029,30 @@ void Actions()
   // ...
 };
 ```
+
+**Bad:**
+
+```csharp
+
+#region Scope Model Instantiation
+
+var model = {
+  menu: 'foo',
+  nav: 'bar'
+};
+
+#endregion
+
+#region Action setup
+
+void Actions() {
+  // ...
+};
+
+#endregion
+```
+
+
 
 **Good:**
 
