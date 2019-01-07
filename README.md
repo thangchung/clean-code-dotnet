@@ -1677,7 +1677,7 @@ class Employee
 {
     public string Name { get; }
     public string Email { get; }
-    public string TaxData { get; }
+    public EmployeeTaxData TaxData { get; }
 
     public Employee(string name, string email)
     {
@@ -1776,7 +1776,7 @@ class UserSettings
         Auth = new UserAuth(user);
     }
 
-    public function changeSettings(Settings settings)
+    public void ChangeSettings(Settings settings)
     {
         if (Auth.VerifyCredentials()) 
         {
@@ -1815,7 +1815,7 @@ class AjaxAdapter : AdapterBase
 {
     public AjaxAdapter()
     {
-        Name = 'ajaxAdapter';
+        Name = "ajaxAdapter";
     }
 }
 
@@ -1823,7 +1823,7 @@ class NodeAdapter : AdapterBase
 {
     public NodeAdapter()
     {
-        Name = 'nodeAdapter';
+        Name = "nodeAdapter";
     }
 }
 
@@ -1840,11 +1840,11 @@ class HttpRequester : AdapterBase
     {
         var adapterName = Adapter.GetName();
 
-        if (adapterName === 'ajaxAdapter') 
+        if (adapterName == "ajaxAdapter")
         {
             return MakeAjaxCall(url);
-        } 
-        else if (adapterName === 'httpNodeAdapter') 
+        }
+        else if (adapterName == "httpNodeAdapter")
         {
             return MakeHttpCall(url);
         }
@@ -2277,19 +2277,18 @@ updating multiple places anytime you want to change one thing.
 ```csharp
 public List<EmployeeData> ShowDeveloperList(Developers developers)
 {
-    foreach (var developers in developer) 
+    foreach (var developers in developer)
     {
         var expectedSalary = developer.CalculateExpectedSalary();
         var experience = developer.GetExperience();
         var githubLink = developer.GetGithubLink();
-        var data = 
-        new[] {
+        var data = new[] {
             expectedSalary,
             experience,
             githubLink
         };
 
-        render(data);
+        Render(data);
     }
 }
 
