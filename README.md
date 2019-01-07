@@ -2545,7 +2545,7 @@ try
 }
 catch (Exception ex)
 {
-  throw ex;
+  //silent exception
 }
 ```
 
