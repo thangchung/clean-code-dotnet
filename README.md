@@ -1,35 +1,43 @@
-﻿# Clean Code .NET / .NET Core
+# Clean Code .NET and Other Resources
 
 ## Give a Star! :star:
 
-If you liked the project or if `clean-code-dotnet` helped you, please give a star so that .NET community will know and help them just like you. Thank you very much :+1:
+If you liked `clean-code-dotnet` project or if it helped you, please give a star for this repository so that .NET community will know and help them out just like you. Thank you very much :+1:
+
+---
 
 ## Table of Contents
 
 1. [Introduction](#1-introduction)
-2. [Naming](#2-naming)
-3. [Variables](#3-variables)
-4. [Functions](#4-functions)
-5. [Objects and Data Structures](#5-objects-and-data-structures)
-6. [Classes](#6-classes)
-7. [SOLID](#7-solid)
-8. [Testing](#8-testing)
-9. [Concurrency](#9-concurrency)
-10. [Error Handling](#10-error-handling)
-11. [Formatting](#11-formatting)
-12. [Comments](#12-comments)
+2. [Clean Code .NET](#2-clean-code-.net)
+- [Naming](#naming)
+- [Variables](#variables)
+- [Functions](#functions)
+- [Objects and Data Structures](#objects-and-data-structures)
+- [Classes](#classes)
+- [SOLID](#solid)
+- [Testing](#testing)
+- [Concurrency](#concurrency)
+- [Error Handling](#error-handling)
+- [Formatting](#formatting)
+- [Comments](#comments)
+3. [Other Clean Code Resources](#3-other-clean-code-resources)
+
+---
 
 ## 1. Introduction
 
 ![Humorous image of software quality estimation as a count of how many expletives you shout when reading code](http://www.osnews.com/images/comics/wtfm.jpg)
 
-Software engineering principles, from Robert C. Martin's book [_Clean Code_](https://www.amazon.com/Clean-Code-Handbook-Software-Craftsmanship/dp/0132350882), adapted for .NET and .NET Core. This is not a style guide. It's a guide to producing readable, reusable, and refactorable software in .NET and .NET Core.
+Software engineering principles, from Robert C. Martin's book [_Clean Code_](https://www.amazon.com/Clean-Code-Handbook-Software-Craftsmanship/dp/0132350882), adapted for .NET/.NET Core. This is not a style guide. It's a guide to producing readable, reusable, and refactorable software in .NET/.NET Core.
 
 Not every principle herein has to be strictly followed, and even fewer will be universally agreed upon. These are guidelines and nothing more, but they are ones codified over many years of collective experience by the authors of _Clean Code_.
 
-Inspired from [clean-code-javascript](https://github.com/ryanmcdermott/clean-code-javascript) and [clean-code-php](https://github.com/jupeter/clean-code-php)
+Inspired from [clean-code-javascript](https://github.com/ryanmcdermott/clean-code-javascript) and [clean-code-php](https://github.com/jupeter/clean-code-php) lists.
 
-## 2. **Naming**
+## 2. Clean Code .NET
+
+### **Naming**
 
 <details>
   <summary><b>Avoid using a bad name</b></summary>
@@ -120,14 +128,60 @@ class Alpaca {}
 </details>
 
 <details>
-  <summary><b>Use Pronounceable Names</b></summary>
+  <summary><b>Avoid Hungarian Notation</b></summary>
 
-What happends if we cant pronoun variables, function, etc... It will take us a lot of time (some time make us like an idiot to discuss about it) to investigate what meaning of that variables, what is use.
+Hungarian Notation restates the type which is already present in the declaration. This is pointless since modern IDEs will identify the type.
 
 **Bad:**
 
 ```csharp
-public class Employee 
+int iCounter;
+string strFullName;
+DateTime dModifiedDate;
+```
+
+**Good:**
+
+```csharp
+int counter;
+string fullName;
+DateTime modifiedDate;
+```
+
+Hungarian Notation should also not be used in paramaters.
+
+**Bad:**
+
+```csharp
+public bool IsShopOpen(string pDay, int pAmount)
+{
+    // some logic
+}
+```
+
+**Good:**
+
+```csharp
+public bool IsShopOpen(string day, int amount)
+{
+     // some logic
+}
+```
+
+
+**[⬆ Back to top](#table-of-contents)**
+
+</details>
+
+<details>
+  <summary><b>Use Pronounceable Names</b></summary>
+
+It will take time to investigate the meaning of the variables and functions when they are not pronounceable.
+
+**Bad:**
+
+```csharp
+public class Employee
 {
     public Datetime sWorkDate { get; set; } // what the heck is this
     public Datetime modTime { get; set; } // same here
@@ -137,7 +191,7 @@ public class Employee
 **Good:**
 
 ```csharp
-public class Employee 
+public class Employee
 {
     public Datetime StartWorkingDate { get; set; }
     public Datetime ModificationTime { get; set; }
@@ -182,12 +236,12 @@ public double CalculateSalary(int workingDays, int workingHours)
 <details>
   <summary><b>Use domain name</b></summary>
 
-People who read your code are also programmers. Naming things right will help everyone be on the same page. We don’t want to take time to explain to everyone what a variable or function is for. 
+People who read your code are also programmers. Naming things right will help everyone be on the same page. We don’t want to take time to explain to everyone what a variable or function is for.
 
 **Good**
 
 ```csharp
-public class SingleObject 
+public class SingleObject
 {
    //create an object of SingleObject
    private static SingleObject _instance = new SingleObject();
@@ -197,7 +251,7 @@ public class SingleObject
    private SingleObject() {}
 
    //Get the only object available
-   public static SingleObject GetInstance() 
+   public static SingleObject GetInstance()
    {
       return _instance;
    }
@@ -208,7 +262,7 @@ public class SingleObject
    }
 }
 
-public static void main(String[] args) 
+public static void main(String[] args)
 {
     // illegal construct
     // var object = new SingleObject();
@@ -225,7 +279,7 @@ public static void main(String[] args)
 
 </details>
 
-## 3. **Variables**
+### **Variables**
 
 <details>
   <summary><b>Use meaningful and pronounceable variable names</b></summary>
@@ -395,7 +449,7 @@ if(cityGroup.Success == true && zipCodeGroup.Success == true)
 <details>
   <summary><b>Avoid nesting too deeply and return early</b></summary>
 
-Too many if else statemetns can make your code hard to follow. Explicit is better
+Too many if else statements can make the code hard to follow. Explicit is better
 than implicit.
 
 **Bad:**
@@ -633,7 +687,7 @@ if (userRole == "Admin")
 **Good**
 
 ```csharp
-string ADMIN_ROLE = "Admin"
+const string ADMIN_ROLE = "Admin"
 if (userRole == ADMIN_ROLE)
 {
     // logic in here
@@ -646,7 +700,7 @@ Using this we only have to change in centralize place and others will adapt it.
 
 </details>
 
-## 4. **Functions**
+### **Functions**
 
 <details>
   <summary><b>Function arguments (2 or fewer ideally)</b></summary>
@@ -710,9 +764,9 @@ of many developers.
 ```csharp
 public void SendEmailToListOfClients(string[] clients)
 {
-    foreach (var string client in clients)
+    foreach (var client in clients)
     {
-        clientRecord = db.Find(client);
+        var clientRecord = db.Find(client);
         if (clientRecord.IsActive())
         {
             Email(client);
@@ -732,14 +786,7 @@ public void SendEmailToListOfClients(string[] clients)
 
 public List<Client> ActiveClients(string[] clients)
 {
-    return IsClientActive(clients);
-}
-
-public List<Client> IsClientActive(string client)
-{
-    var clientRecord = db.Find(client).Where(s => s.Status = "Active");
-
-    return clientRecord;
+    return db.Find(clients).Where(s => s.Status == "Active");
 }
 ```
 
@@ -1068,11 +1115,11 @@ based on a boolean.
 ```csharp
 public void CreateFile(string name, bool temp = false)
 {
-    if (temp) 
+    if (temp)
     {
         Touch("./temp/" + name);
     }
-    else 
+    else
     {
         Touch(name);
     }
@@ -1419,11 +1466,11 @@ class Cessna : IAirplane
 ```csharp
 public Path TravelToTexas(object vehicle)
 {
-    if (vehicle.GetType() == typeof(Bicycle)) 
+    if (vehicle.GetType() == typeof(Bicycle))
     {
         (vehicle as Bicycle).PeddleTo(new Location("texas"));
-    } 
-    else if (vehicle.GetType() == typeof(Car)) 
+    }
+    else if (vehicle.GetType() == typeof(Car))
     {
         (vehicle as Car).DriveTo(new Location("texas"));
     }
@@ -1439,7 +1486,7 @@ public Path TravelToTexas(Traveler vehicle)
 }
 ```
 
-or 
+or
 
 ```csharp
 // pattern matching
@@ -1448,8 +1495,8 @@ public Path TravelToTexas(object vehicle)
     if (vehicle is Bicycle bicycle)
     {
         bicycle.PeddleTo(new Location("texas"));
-    } 
-    else if (vehicle is Car car) 
+    }
+    else if (vehicle is Car car)
     {
         car.DriveTo(new Location("texas"));
     }
@@ -1531,7 +1578,7 @@ InventoryTracker("apples", request, "www.inventory-awesome.io");
 
 </details>
 
-## 5. **Objects and Data Structures**
+### **Objects and Data Structures**
 
 <details>
   <summary><b>Use getters and setters</b></summary>
@@ -1579,7 +1626,7 @@ class BankAccount
 
     public double WithdrawBalance(int amount)
     {
-        if (amount > _balance) 
+        if (amount > _balance)
         {
             throw new Exception('Amount greater than available balance.');
         }
@@ -1652,7 +1699,7 @@ Console.WriteLine(employee.GetName());// Employee name: John Doe
 
 </details>
 
-## 6. **Classes**
+### **Classes**
 
 <details>
   <summary><b>Use method chaining</b></summary>
@@ -1732,11 +1779,9 @@ You might be wondering then, "when should I use inheritance?" It
 depends on your problem at hand, but this is a decent list of when inheritance
 makes more sense than composition:
 
-1. Your inheritance represents an "is-a" relationship and not a "has-a"
-   relationship (Human->Animal vs. User->UserDetails).
+1. Your inheritance represents an "is-a" relationship and not a "has-a" relationship (Human->Animal vs. User->UserDetails).
 2. You can reuse code from the base classes (Humans can move like all animals).
-3. You want to make global changes to derived classes by changing a base class.
-   (Change the caloric expenditure of all animals when they move).
+3. You want to make global changes to derived classes by changing a base class (Change the caloric expenditure of all animals when they move).
 
 **Bad:**
 
@@ -1793,7 +1838,7 @@ class Employee
 {
     public string Name { get; }
     public string Email { get; }
-    public string TaxData { get; }
+    public EmployeeTaxData TaxData { get; }
 
     public Employee(string name, string email)
     {
@@ -1814,7 +1859,7 @@ class Employee
 
 </details>
 
-## 7. **SOLID**
+### **SOLID**
 
 **SOLID** is the mnemonic acronym introduced by Michael Feathers for the first five principles named by Robert Martin, which meant five basic principles of object-oriented programming and design.
 
@@ -1892,9 +1937,9 @@ class UserSettings
         Auth = new UserAuth(user);
     }
 
-    public function changeSettings(Settings settings)
+    public void ChangeSettings(Settings settings)
     {
-        if (Auth.VerifyCredentials()) 
+        if (Auth.VerifyCredentials())
         {
             // ...
         }
@@ -1931,7 +1976,7 @@ class AjaxAdapter : AdapterBase
 {
     public AjaxAdapter()
     {
-        Name = 'ajaxAdapter';
+        Name = "ajaxAdapter";
     }
 }
 
@@ -1939,7 +1984,7 @@ class NodeAdapter : AdapterBase
 {
     public NodeAdapter()
     {
-        Name = 'nodeAdapter';
+        Name = "nodeAdapter";
     }
 }
 
@@ -1956,11 +2001,11 @@ class HttpRequester : AdapterBase
     {
         var adapterName = Adapter.GetName();
 
-        if (adapterName === 'ajaxAdapter') 
+        if (adapterName == "ajaxAdapter")
         {
             return MakeAjaxCall(url);
-        } 
-        else if (adapterName === 'httpNodeAdapter') 
+        }
+        else if (adapterName == "httpNodeAdapter")
         {
             return MakeHttpCall(url);
         }
@@ -2082,7 +2127,7 @@ class Square : Rectangle
 
 Drawable RenderLargeRectangles(Rectangle rectangles)
 {
-    foreach (rectangle in rectangles) 
+    foreach (rectangle in rectangles)
     {
         rectangle.SetWidth(4);
         rectangle.SetHeight(5);
@@ -2151,7 +2196,7 @@ Drawable RenderLargeRectangles(Rectangle rectangles)
         if (rectangle is Square)
         {
             rectangle.SetLength(5);
-        } 
+        }
         else if (rectangle is Rectangle)
         {
             rectangle.SetWidth(4);
@@ -2393,30 +2438,29 @@ updating multiple places anytime you want to change one thing.
 ```csharp
 public List<EmployeeData> ShowDeveloperList(Developers developers)
 {
-    foreach (var developers in developer) 
+    foreach (var developers in developer)
     {
         var expectedSalary = developer.CalculateExpectedSalary();
         var experience = developer.GetExperience();
         var githubLink = developer.GetGithubLink();
-        var data = 
-        new[] {
+        var data = new[] {
             expectedSalary,
             experience,
             githubLink
         };
 
-        render(data);
+        Render(data);
     }
 }
 
 public List<ManagerData> ShowManagerList(Manager managers)
 {
-    foreach (var manager in managers) 
+    foreach (var manager in managers)
     {
         var expectedSalary = manager.CalculateExpectedSalary();
         var experience = manager.GetExperience();
         var githubLink = manager.GetGithubLink();
-        var data = 
+        var data =
         new[] {
             expectedSalary,
             experience,
@@ -2433,12 +2477,12 @@ public List<ManagerData> ShowManagerList(Manager managers)
 ```csharp
 public List<EmployeeData> ShowList(Employee employees)
 {
-    foreach (var employee in employees) 
+    foreach (var employee in employees)
     {
         var expectedSalary = employees.CalculateExpectedSalary();
         var experience = employees.GetExperience();
         var githubLink = employees.GetGithubLink();
-        var data = 
+        var data =
         new[] {
             expectedSalary,
             experience,
@@ -2457,7 +2501,7 @@ It is better to use a compact version of the code.
 ```csharp
 public List<EmployeeData> ShowList(Employee employees)
 {
-    foreach (var employee in employees) 
+    foreach (var employee in employees)
     {
         render(new[] {
             employee.CalculateExpectedSalary(),
@@ -2472,7 +2516,7 @@ public List<EmployeeData> ShowList(Employee employees)
 
 </details>
 
-## 8. **Testing**
+### **Testing**
 
 Testing is more important than shipping. If you have no tests or an
 inadequate amount, then every time you ship code you won't be sure that you
@@ -2573,10 +2617,10 @@ public class MakeDotNetGreatAgainTests
 
 </details>
 
-## 9. **Concurrency**
+### **Concurrency**
 
 <details>
-  <summary><b>Use Async Await</b></summary> 
+  <summary><b>Use Async Await</b></summary>
 
 #### Summary of Asynchronous Programming Guidelines
 
@@ -2636,7 +2680,7 @@ code, you're Doing It Wrong(TM):
 
 </details>
 
-## 10. **Error Handling**
+### **Error Handling**
 
 Thrown errors are a good thing! They mean the runtime has successfully
 identified when something in your program has gone wrong and it's letting
@@ -2660,9 +2704,9 @@ try
 {
   FunctionThatMightThrow();
 }
-catch (Exception ex) 
+catch (Exception ex)
 {
-  throw ex;
+  //silent exception
 }
 ```
 
@@ -2686,10 +2730,167 @@ catch (Exception error)
 
 </details>
 
+sort-error-handling
 
 
 
-## 11. **Formatting**
+<details>
+  <summary><b>Use consistent capitalization</b></summary>
+
+Capitalization tells you a lot about your variables,
+functions, etc. These rules are subjective, so your team can choose whatever
+they want. The point is, no matter what you all choose, just be consistent.
+
+**Bad:**
+
+```csharp
+const int DAYS_IN_WEEK = 7;
+const int daysInMonth = 30;
+
+var songs = new List<string> { 'Back In Black', 'Stairway to Heaven', 'Hey Jude' };
+var Artists = new List<string> { 'ACDC', 'Led Zeppelin', 'The Beatles' };
+
+bool EraseDatabase() {}
+bool Restore_database() {}
+
+class animal {}
+class Alpaca {}
+```
+
+**Good:**
+
+```csharp
+const int DaysInWeek = 7;
+const int DaysInMonth = 30;
+
+var songs = new List<string> { 'Back In Black', 'Stairway to Heaven', 'Hey Jude' };
+var artists = new List<string> { 'ACDC', 'Led Zeppelin', 'The Beatles' };
+
+bool EraseDatabase() {}
+bool RestoreDatabase() {}
+
+class Animal {}
+class Alpaca {}
+```
+
+**[⬆ back to top](#table-of-contents)**
+
+</details>
+
+<details>
+  <summary><b>Function callers and callees should be close</b></summary>
+
+If a function calls another, keep those functions vertically close in the source
+file. Ideally, keep the caller right above the callee. We tend to read code from
+top-to-bottom, like a newspaper. Because of this, make your code read that way.
+
+**Bad:**
+
+```csharp
+class PerformanceReview
+{
+  private readonly Employee _employee;
+
+  public PerformanceReview(Employee employee)
+  {
+    _employee = employee;
+  }
+
+  private IEnumerable<PeersData> LookupPeers()
+  {
+    return db.lookup(_employee, 'peers');
+  }
+
+  private ManagerData LookupManager()
+  {
+    return db.lookup(_employee, 'manager');
+  }
+
+  private IEnumerable<PeerReviews> GetPeerReviews()
+  {
+    var peers = LookupPeers();
+    // ...
+  }
+
+  public PerfReviewData PerfReview()
+  {
+    GetPeerReviews();
+    GetManagerReview();
+    GetSelfReview();
+  }
+
+  public ManagerData GetManagerReview()
+  {
+    var manager = LookupManager();
+  }
+
+  public EmployeeData GetSelfReview()
+  {
+    // ...
+  }
+}
+
+var  review = new PerformanceReview(employee);
+review.PerfReview();
+```
+
+**Good:**
+
+```csharp
+class PerformanceReview
+{
+  private readonly Employee _employee;
+
+  public PerformanceReview(Employee employee)
+  {
+    _employee = employee;
+  }
+
+  public PerfReviewData PerfReview()
+  {
+    GetPeerReviews();
+    GetManagerReview();
+    GetSelfReview();
+  }
+
+  private IEnumerable<PeerReviews> GetPeerReviews()
+  {
+    var peers = LookupPeers();
+    // ...
+  }
+
+  private IEnumerable<PeersData> LookupPeers()
+  {
+    return db.lookup(_employee, 'peers');
+  }
+
+  private ManagerData GetManagerReview()
+  {
+    var manager = LookupManager();
+    return manager;
+  }
+
+  private ManagerData LookupManager()
+  {
+    return db.lookup(_employee, 'manager');
+  }
+
+  private EmployeeData GetSelfReview()
+  {
+    // ...
+  }
+}
+
+var review = new PerformanceReview(employee);
+review.PerfReview();
+```
+
+**[⬆ back to top](#table-of-contents)**
+
+</details>
+
+
+### **Formatting**
 
 <details>
   <summary><b>Uses <i>.editorconfig</i> file</b></summary>
@@ -2715,6 +2916,7 @@ insert_final_newline = true
 
 # C# files
 [*.cs]
+indent_size = 4
 # New line preferences
 csharp_new_line_before_open_brace = all
 csharp_new_line_before_else = true
@@ -2769,7 +2971,7 @@ dotnet_naming_symbols.static_fields.applicable_kinds   = field
 dotnet_naming_symbols.static_fields.required_modifiers = static
 
 dotnet_naming_style.static_prefix_style.required_prefix = s_
-dotnet_naming_style.static_prefix_style.capitalization = camel_case 
+dotnet_naming_style.static_prefix_style.capitalization = camel_case
 
 # internal and private fields should be _camelCase
 dotnet_naming_rule.camel_case_for_private_internal_fields.severity = suggestion
@@ -2780,7 +2982,7 @@ dotnet_naming_symbols.private_internal_fields.applicable_kinds = field
 dotnet_naming_symbols.private_internal_fields.applicable_accessibilities = private, internal
 
 dotnet_naming_style.camel_case_underscore_style.required_prefix = _
-dotnet_naming_style.camel_case_underscore_style.capitalization = camel_case 
+dotnet_naming_style.camel_case_underscore_style.capitalization = camel_case
 
 # Code style defaults
 dotnet_sort_system_directives_first = true
@@ -2858,7 +3060,7 @@ indent_size = 2
 
 </details>
 
-## 12. **Comments**
+### **Comments**
 
 <details>
   <summary><b>Only comment things that have business logic complexity</b></summary>
@@ -2892,12 +3094,12 @@ public string HashIt(string data)
 **Good:**
 
 ```csharp
-public string hashIt(string data) 
+public string hashIt(string data)
 {
   var hash = 0;
   const length = data.length;
 
-  for (var i = 0; i < length; i++) 
+  for (var i = 0; i < length; i++)
   {
     const char = data.charCodeAt(i);
     hash = ((hash << 5) - hash) + char;
@@ -2951,7 +3153,7 @@ and especially journal comments. Use `git log` to get history!
  * 2016-02-03: Removed type-checking (LI)
  * 2015-03-14: Added combine with type-checking (JR)
  */
-public int Combine(int a,int b) 
+public int Combine(int a,int b)
 {
   return a + b;
 }
@@ -2960,7 +3162,7 @@ public int Combine(int a,int b)
 **Good:**
 
 ```csharp
-public int Combine(int a,int b) 
+public int Combine(int a,int b)
 {
   return a + b;
 }
@@ -2982,7 +3184,7 @@ proper indentation and formatting give the visual structure to your code.
 ////////////////////////////////////////////////////////////////////////////////
 // Scope Model Instantiation
 ////////////////////////////////////////////////////////////////////////////////
-var model = new[] 
+var model = new[]
 {
   menu: 'foo',
   nav: 'bar'
@@ -2991,7 +3193,7 @@ var model = new[]
 ////////////////////////////////////////////////////////////////////////////////
 // Action setup
 ////////////////////////////////////////////////////////////////////////////////
-void Actions() 
+void Actions()
 {
   // ...
 };
@@ -3030,7 +3232,7 @@ var model = new[]
   nav: 'bar'
 };
 
-void Actions() 
+void Actions()
 {
   // ...
 };
@@ -3040,6 +3242,22 @@ void Actions()
 
 </details>
 
+## 3. Other Clean Code Resources
+
+### Other Clean Code Lists
+- [clean-code-javascript](https://github.com/ryanmcdermott/clean-code-javascript) - Clean Code concepts adapted for JavaScript.
+- [clean-code-php](https://github.com/jupeter/clean-code-php) - Clean Code concepts adapted for PHP.
+- [clean-code-ruby](https://github.com/uohzxela/clean-code-ruby) - Clean Code concepts adapted for Ruby.
+
+### Tools
+- [codemaid](https://github.com/codecadwallader/codemaid) - open source Visual Studio extension to cleanup and simplify our C#, C++, F#, VB, PHP, PowerShell, JSON, XAML, XML, ASP, HTML, CSS, LESS, SCSS, JavaScript and TypeScript coding.
+- [tslint-clean-code](https://github.com/Glavin001/tslint-clean-code) - TSLint rules for enforcing Clean Code.
+
+### Cheetsheets
+- [Clean Code](cheetsheets/Clean-Code-V2.4.pdf) - The summary of [Clean Code: A Handbook of Agile Software Craftsmanship](https://www.amazon.com/dp/0132350882) book.
+- [Clean Architecture](cheetsheets/Clean-Architecture-V1.0.pdf) - The summary of [Clean Architecture: A Craftsman's Guide to Software Structure and Design](https://www.amazon.com/dp/0134494164) book.
+
+---
 
 ## License
 
