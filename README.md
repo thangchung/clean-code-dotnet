@@ -130,12 +130,12 @@ public bool IsShopOpen(string day, int amount)
 <details>
   <summary><b>Use Pronounceable Names</b></summary>
 
-It will take time to investigate the meaning of the variables and functions when they are not pronounceable. 
+It will take time to investigate the meaning of the variables and functions when they are not pronounceable.
 
 **Bad:**
 
 ```csharp
-public class Employee 
+public class Employee
 {
     public Datetime sWorkDate { get; set; } // what the heck is this
     public Datetime modTime { get; set; } // same here
@@ -145,7 +145,7 @@ public class Employee
 **Good:**
 
 ```csharp
-public class Employee 
+public class Employee
 {
     public Datetime StartWorkingDate { get; set; }
     public Datetime ModificationTime { get; set; }
@@ -190,12 +190,12 @@ public double CalculateSalary(int workingDays, int workingHours)
 <details>
   <summary><b>Use domain name</b></summary>
 
-People who read your code are also programmers. Naming things right will help everyone be on the same page. We don’t want to take time to explain to everyone what a variable or function is for. 
+People who read your code are also programmers. Naming things right will help everyone be on the same page. We don’t want to take time to explain to everyone what a variable or function is for.
 
 **Good**
 
 ```csharp
-public class SingleObject 
+public class SingleObject
 {
    //create an object of SingleObject
    private static SingleObject _instance = new SingleObject();
@@ -205,7 +205,7 @@ public class SingleObject
    private SingleObject() {}
 
    //Get the only object available
-   public static SingleObject GetInstance() 
+   public static SingleObject GetInstance()
    {
       return _instance;
    }
@@ -216,7 +216,7 @@ public class SingleObject
    }
 }
 
-public static void main(String[] args) 
+public static void main(String[] args)
 {
     // illegal construct
     // var object = new SingleObject();
@@ -954,11 +954,11 @@ based on a boolean.
 ```csharp
 public void CreateFile(string name, bool temp = false)
 {
-    if (temp) 
+    if (temp)
     {
         Touch("./temp/" + name);
     }
-    else 
+    else
     {
         Touch(name);
     }
@@ -1305,11 +1305,11 @@ class Cessna : IAirplane
 ```csharp
 public Path TravelToTexas(object vehicle)
 {
-    if (vehicle.GetType() == typeof(Bicycle)) 
+    if (vehicle.GetType() == typeof(Bicycle))
     {
         (vehicle as Bicycle).PeddleTo(new Location("texas"));
-    } 
-    else if (vehicle.GetType() == typeof(Car)) 
+    }
+    else if (vehicle.GetType() == typeof(Car))
     {
         (vehicle as Car).DriveTo(new Location("texas"));
     }
@@ -1325,7 +1325,7 @@ public Path TravelToTexas(Traveler vehicle)
 }
 ```
 
-or 
+or
 
 ```csharp
 // pattern matching
@@ -1334,8 +1334,8 @@ public Path TravelToTexas(object vehicle)
     if (vehicle is Bicycle bicycle)
     {
         bicycle.PeddleTo(new Location("texas"));
-    } 
-    else if (vehicle is Car car) 
+    }
+    else if (vehicle is Car car)
     {
         car.DriveTo(new Location("texas"));
     }
@@ -1465,7 +1465,7 @@ class BankAccount
 
     public double WithdrawBalance(int amount)
     {
-        if (amount > _balance) 
+        if (amount > _balance)
         {
             throw new Exception('Amount greater than available balance.');
         }
@@ -1677,7 +1677,7 @@ class Employee
 {
     public string Name { get; }
     public string Email { get; }
-    public string TaxData { get; }
+    public EmployeeTaxData TaxData { get; }
 
     public Employee(string name, string email)
     {
@@ -1776,9 +1776,9 @@ class UserSettings
         Auth = new UserAuth(user);
     }
 
-    public function changeSettings(Settings settings)
+    public void ChangeSettings(Settings settings)
     {
-        if (Auth.VerifyCredentials()) 
+        if (Auth.VerifyCredentials())
         {
             // ...
         }
@@ -1815,7 +1815,7 @@ class AjaxAdapter : AdapterBase
 {
     public AjaxAdapter()
     {
-        Name = 'ajaxAdapter';
+        Name = "ajaxAdapter";
     }
 }
 
@@ -1823,7 +1823,7 @@ class NodeAdapter : AdapterBase
 {
     public NodeAdapter()
     {
-        Name = 'nodeAdapter';
+        Name = "nodeAdapter";
     }
 }
 
@@ -1840,11 +1840,11 @@ class HttpRequester : AdapterBase
     {
         var adapterName = Adapter.GetName();
 
-        if (adapterName === 'ajaxAdapter') 
+        if (adapterName == "ajaxAdapter")
         {
             return MakeAjaxCall(url);
-        } 
-        else if (adapterName === 'httpNodeAdapter') 
+        }
+        else if (adapterName == "httpNodeAdapter")
         {
             return MakeHttpCall(url);
         }
@@ -1966,7 +1966,7 @@ class Square : Rectangle
 
 Drawable RenderLargeRectangles(Rectangle rectangles)
 {
-    foreach (rectangle in rectangles) 
+    foreach (rectangle in rectangles)
     {
         rectangle.SetWidth(4);
         rectangle.SetHeight(5);
@@ -2035,7 +2035,7 @@ Drawable RenderLargeRectangles(Rectangle rectangles)
         if (rectangle is Square)
         {
             rectangle.SetLength(5);
-        } 
+        }
         else if (rectangle is Rectangle)
         {
             rectangle.SetWidth(4);
@@ -2277,30 +2277,29 @@ updating multiple places anytime you want to change one thing.
 ```csharp
 public List<EmployeeData> ShowDeveloperList(Developers developers)
 {
-    foreach (var developers in developer) 
+    foreach (var developers in developer)
     {
         var expectedSalary = developer.CalculateExpectedSalary();
         var experience = developer.GetExperience();
         var githubLink = developer.GetGithubLink();
-        var data = 
-        new[] {
+        var data = new[] {
             expectedSalary,
             experience,
             githubLink
         };
 
-        render(data);
+        Render(data);
     }
 }
 
 public List<ManagerData> ShowManagerList(Manager managers)
 {
-    foreach (var manager in managers) 
+    foreach (var manager in managers)
     {
         var expectedSalary = manager.CalculateExpectedSalary();
         var experience = manager.GetExperience();
         var githubLink = manager.GetGithubLink();
-        var data = 
+        var data =
         new[] {
             expectedSalary,
             experience,
@@ -2317,12 +2316,12 @@ public List<ManagerData> ShowManagerList(Manager managers)
 ```csharp
 public List<EmployeeData> ShowList(Employee employees)
 {
-    foreach (var employee in employees) 
+    foreach (var employee in employees)
     {
         var expectedSalary = employees.CalculateExpectedSalary();
         var experience = employees.GetExperience();
         var githubLink = employees.GetGithubLink();
-        var data = 
+        var data =
         new[] {
             expectedSalary,
             experience,
@@ -2341,7 +2340,7 @@ It is better to use a compact version of the code.
 ```csharp
 public List<EmployeeData> ShowList(Employee employees)
 {
-    foreach (var employee in employees) 
+    foreach (var employee in employees)
     {
         render(new[] {
             employee.CalculateExpectedSalary(),
@@ -2460,7 +2459,7 @@ public class MakeDotNetGreatAgainTests
 ### **Concurrency**
 
 <details>
-  <summary><b>Use Async Await</b></summary> 
+  <summary><b>Use Async Await</b></summary>
 
 #### Summary of Asynchronous Programming Guidelines
 
@@ -2544,9 +2543,9 @@ try
 {
   FunctionThatMightThrow();
 }
-catch (Exception ex) 
+catch (Exception ex)
 {
-  throw ex;
+  //silent exception
 }
 ```
 
@@ -2623,44 +2622,44 @@ top-to-bottom, like a newspaper. Because of this, make your code read that way.
 **Bad:**
 
 ```csharp
-class PerformanceReview 
+class PerformanceReview
 {
   private readonly Employee _employee;
 
-  public PerformanceReview(Employee employee) 
+  public PerformanceReview(Employee employee)
   {
     _employee = employee;
   }
 
-  private IEnumerable<PeersData> LookupPeers() 
+  private IEnumerable<PeersData> LookupPeers()
   {
     return db.lookup(_employee, 'peers');
   }
 
-  private ManagerData LookupManager() 
+  private ManagerData LookupManager()
   {
     return db.lookup(_employee, 'manager');
   }
 
-  private IEnumerable<PeerReviews> GetPeerReviews() 
+  private IEnumerable<PeerReviews> GetPeerReviews()
   {
     var peers = LookupPeers();
     // ...
   }
 
-  public PerfReviewData PerfReview() 
+  public PerfReviewData PerfReview()
   {
     GetPeerReviews();
     GetManagerReview();
     GetSelfReview();
   }
 
-  public ManagerData GetManagerReview() 
+  public ManagerData GetManagerReview()
   {
     var manager = LookupManager();
   }
 
-  public EmployeeData GetSelfReview() 
+  public EmployeeData GetSelfReview()
   {
     // ...
   }
@@ -2673,45 +2672,45 @@ review.PerfReview();
 **Good:**
 
 ```csharp
-class PerformanceReview 
+class PerformanceReview
 {
   private readonly Employee _employee;
 
-  public PerformanceReview(Employee employee) 
+  public PerformanceReview(Employee employee)
   {
     _employee = employee;
   }
 
-  public PerfReviewData PerfReview() 
+  public PerfReviewData PerfReview()
   {
     GetPeerReviews();
     GetManagerReview();
     GetSelfReview();
   }
 
-  private IEnumerable<PeerReviews> GetPeerReviews() 
+  private IEnumerable<PeerReviews> GetPeerReviews()
   {
     var peers = LookupPeers();
     // ...
   }
 
-  private IEnumerable<PeersData> LookupPeers() 
+  private IEnumerable<PeersData> LookupPeers()
   {
     return db.lookup(_employee, 'peers');
   }
 
-  private ManagerData GetManagerReview() 
+  private ManagerData GetManagerReview()
   {
     var manager = LookupManager();
     return manager;
   }
 
-  private ManagerData LookupManager() 
+  private ManagerData LookupManager()
   {
     return db.lookup(_employee, 'manager');
   }
 
-  private EmployeeData GetSelfReview() 
+  private EmployeeData GetSelfReview()
   {
     // ...
   }
@@ -2806,7 +2805,7 @@ dotnet_naming_symbols.static_fields.applicable_kinds   = field
 dotnet_naming_symbols.static_fields.required_modifiers = static
 
 dotnet_naming_style.static_prefix_style.required_prefix = s_
-dotnet_naming_style.static_prefix_style.capitalization = camel_case 
+dotnet_naming_style.static_prefix_style.capitalization = camel_case
 
 # internal and private fields should be _camelCase
 dotnet_naming_rule.camel_case_for_private_internal_fields.severity = suggestion
@@ -2817,7 +2816,7 @@ dotnet_naming_symbols.private_internal_fields.applicable_kinds = field
 dotnet_naming_symbols.private_internal_fields.applicable_accessibilities = private, internal
 
 dotnet_naming_style.camel_case_underscore_style.required_prefix = _
-dotnet_naming_style.camel_case_underscore_style.capitalization = camel_case 
+dotnet_naming_style.camel_case_underscore_style.capitalization = camel_case
 
 # Code style defaults
 dotnet_sort_system_directives_first = true
@@ -2929,12 +2928,12 @@ public string HashIt(string data)
 **Good:**
 
 ```csharp
-public string hashIt(string data) 
+public string hashIt(string data)
 {
   var hash = 0;
   const length = data.length;
 
-  for (var i = 0; i < length; i++) 
+  for (var i = 0; i < length; i++)
   {
     const char = data.charCodeAt(i);
     hash = ((hash << 5) - hash) + char;
@@ -2988,7 +2987,7 @@ and especially journal comments. Use `git log` to get history!
  * 2016-02-03: Removed type-checking (LI)
  * 2015-03-14: Added combine with type-checking (JR)
  */
-public int Combine(int a,int b) 
+public int Combine(int a,int b)
 {
   return a + b;
 }
@@ -2997,7 +2996,7 @@ public int Combine(int a,int b)
 **Good:**
 
 ```csharp
-public int Combine(int a,int b) 
+public int Combine(int a,int b)
 {
   return a + b;
 }
@@ -3019,7 +3018,7 @@ proper indentation and formatting give the visual structure to your code.
 ////////////////////////////////////////////////////////////////////////////////
 // Scope Model Instantiation
 ////////////////////////////////////////////////////////////////////////////////
-var model = new[] 
+var model = new[]
 {
   menu: 'foo',
   nav: 'bar'
@@ -3028,7 +3027,7 @@ var model = new[]
 ////////////////////////////////////////////////////////////////////////////////
 // Action setup
 ////////////////////////////////////////////////////////////////////////////////
-void Actions() 
+void Actions()
 {
   // ...
 };
@@ -3067,7 +3066,7 @@ var model = new[]
   nav: 'bar'
 };
 
-void Actions() 
+void Actions()
 {
   // ...
 };
