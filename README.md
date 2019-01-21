@@ -2904,13 +2904,13 @@ Comments are an apology, not a requirement. Good code _mostly_ documents itself.
 **Bad:**
 
 ```csharp
-public string HashIt(string data)
+public int HashIt(string data)
 {
   // The hash
   var hash = 0;
 
   // Length of string
-  const length = data.length;
+  var length = data.length;
 
   // Loop through every character in data
   for (var i = 0; i < length; i++)
@@ -2928,10 +2928,10 @@ public string HashIt(string data)
 **Good:**
 
 ```csharp
-public string hashIt(string data)
+public int HashIt(string data)
 {
   var hash = 0;
-  const length = data.length;
+  var length = data.length;
 
   for (var i = 0; i < length; i++)
   {
