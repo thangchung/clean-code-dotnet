@@ -2570,6 +2570,59 @@ catch (Exception error)
 </details>
 
 <details>
+  <summary><b>Keep exception stack trace when rethrowing exceptions</b></summary>
+
+C# allows you to re-throw an exception in a catch block using the `throw` keyword. However, it is (most of the time) a bad practice to throw a caught exception using `throw e;`. This statement will re-throw your exception but it will also reset the stack trace of that exception. If your goal is to re-throw the exact same exception, use `throw;` so that you keep your stack trace unchanged. If you want to enrich with a custom exception, then you can instantiate a new exception and set its inner exception property with the caught exception with `throw new CustomException("some info", e);`.
+
+Adding information to an exception is a good practice as it will help when debugging. However if you only want to log or notify an exception happened just use `throw;` to pass the buck to the caller after you log/notify it.
+
+**Bad:**
+
+```csharp
+try
+{
+  FunctionThatMightThrow();
+}
+catch (Exception ex)
+{
+  logger.LogInfo(ex);
+  throw ex;
+}
+```
+
+**Good:**
+
+```csharp
+try
+{
+  FunctionThatMightThrow();
+}
+catch (Exception error)
+{
+  logger.LogInfo(ex);
+  throw;
+}
+```
+
+**Good:**
+
+```csharp
+try
+{
+  FunctionThatMightThrow();
+}
+catch (Exception error)
+{
+  logger.LogInfo(ex);
+  throw new CustomException(ex);
+}
+```
+
+**[⬆ back to top](#table-of-contents)**
+
+</details>
+
+<details>
   <summary><b>Use consistent capitalization</b></summary>
 
 Capitalization tells you a lot about your variables,
