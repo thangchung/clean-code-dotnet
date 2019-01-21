@@ -2925,7 +2925,7 @@ public int HashIt(string data)
 }
 ```
 
-**Good:**
+**Better but still Bad:**
 
 ```csharp
 public int HashIt(string data)
@@ -2941,6 +2941,36 @@ public int HashIt(string data)
     // Convert to 32-bit integer
     hash &= hash;
   }
+}
+```
+
+If a comment explain WHAT the code is doing, it is probably a useless comment and can be implemented with a well named variable or function. The comment in the previous code could be replaced with a function named `ConvertTo32bitInt` so this comment is still useless.
+
+However it would be hard to express by code WHY the developer choose djb2 hash algorithm instead of sha-1 or another hash function. In that case a comment is acceptable.
+
+**Good:**
+
+```csharp
+public int Hash(string data)
+{
+    var hash = 0;
+    var length = data.Length;
+
+    for (var i = 0; i < length; i++)
+    {
+        var character = data[i];
+        // use of djb2 hash algorithm as it has a good compromise
+        // between speed and low collision with a very simple implementation
+        hash = ((hash << 5) - hash) + character;
+
+        hash = ConvertTo32bitInt(hash);
+    }
+    return hash;
+}
+
+private int ConvertTo32bitInt(int value)
+{
+    return value & value;
 }
 ```
 
