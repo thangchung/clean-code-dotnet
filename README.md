@@ -1522,11 +1522,16 @@ Console.WriteLine(employee.Name) // Employee name: John Doe
 ```csharp
 class Employee
 {
-    public string Name { get; }
+    private string Name { get; }
 
     public Employee(string name)
     {
         Name = name;
+    }
+    
+    public string GetName()
+    {
+        return Name;
     }
 }
 
