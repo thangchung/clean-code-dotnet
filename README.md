@@ -8,20 +8,31 @@ If you liked `clean-code-dotnet` project or if it helped you, please give a star
 
 ## Table of Contents
 
-1. [Introduction](#1-introduction)
-2. [Clean Code .NET](#2-clean-code-.net)
-- [Naming](#naming)
-- [Variables](#variables)
-- [Functions](#functions)
-- [Objects and Data Structures](#objects-and-data-structures)
-- [Classes](#classes)
-- [SOLID](#solid)
-- [Testing](#testing)
-- [Concurrency](#concurrency)
-- [Error Handling](#error-handling)
-- [Formatting](#formatting)
-- [Comments](#comments)
-3. [Other Clean Code Resources](#3-other-clean-code-resources)
+- [Clean Code .NET and Other Resources](#clean-code-net-and-other-resources)
+  - [Give a Star! :star:](#give-a-star-star)
+  - [Table of Contents](#table-of-contents)
+  - [1. Introduction](#1-introduction)
+  - [2. Clean Code .NET](#2-clean-code-net)
+    - [**Naming**](#naming)
+    - [**Variables**](#variables)
+    - [**Functions**](#functions)
+    - [**Objects and Data Structures**](#objects-and-data-structures)
+    - [**Classes**](#classes)
+    - [**SOLID**](#solid)
+    - [Interface Segregation Principle (ISP)](#interface-segregation-principle-isp)
+    - [**Testing**](#testing)
+    - [**Concurrency**](#concurrency)
+      - [Summary of Asynchronous Programming Guidelines](#summary-of-asynchronous-programming-guidelines)
+      - [The Async Way of Doing Things](#the-async-way-of-doing-things)
+      - [Know Your Tools](#know-your-tools)
+    - [**Error Handling**](#error-handling)
+    - [**Formatting**](#formatting)
+    - [**Comments**](#comments)
+  - [3. Other Clean Code Resources](#3-other-clean-code-resources)
+    - [Other Clean Code Lists](#other-clean-code-lists)
+    - [Tools](#tools)
+    - [Cheetsheets](#cheetsheets)
+  - [License](#license)
 
 ---
 
@@ -2205,12 +2216,12 @@ public class Manager
 **Good:**
 
 ```csharp
-public interface Employee
+public interface IEmployee
 {
     void Work();
 }
 
-public class Human : Employee
+public class Human : IEmployee
 {
     public void Work()
     {
@@ -2218,7 +2229,7 @@ public class Human : Employee
     }
 }
 
-public class Robot : Employee
+public class Robot : IEmployee
 {
     public void Work()
     {
@@ -2228,9 +2239,9 @@ public class Robot : Employee
 
 public class Manager
 {
-    private readonly Employee _employee;
+    private readonly IEmployee _employee;
 
-    public Manager(Employee employee)
+    public Manager(IEmployee employee)
     {
         _employee = employee;
     }
