@@ -32,9 +32,8 @@ Inspired from [clean-code-javascript](https://github.com/ryanmcdermott/clean-cod
 ## 2. **Naming**
 
 <details>
-  <summary><b>Avoid using a bad name</b></summary>
-
-Naming it hard and it takes time but worth it. Choosing good names takes time but saves more than it takes and it will help everyone who reads your code (including you) will be happier if you do. Naming should reflect about what it does, what is the context.
+  <summary><b>Avoid using bad names</b></summary>
+A good name allows the code to be used by many developers. The name should reflect what it does and give context.
 
 **Bad:**
 
