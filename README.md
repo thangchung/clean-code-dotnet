@@ -53,20 +53,20 @@ int daySinceModification;
 </details>
 
 <details>
-  <summary><b>Avoid Disinformation name</b></summary>
+  <summary><b>Avoid Misleading Names</b></summary>
 
-Programmers must avoid naming with disinformation name and we should name variable to reflect what we want to do with it.
+Name the variable to reflect what it is used for.
 
 **Bad:**
 
 ```csharp
-var dataFromDb = db.GetFromService().Tolist();
+var dataFromDb = db.GetFromService().ToList();
 ```
 
 **Good:**
 
 ```csharp
-var listOfEmployee = _employeeService.GetEmployeeListFromDb().Tolist();
+var listOfEmployee = _employeeService.GetEmployees().ToList();
 ```
 
 **[⬆ Back to top](#table-of-contents)**
