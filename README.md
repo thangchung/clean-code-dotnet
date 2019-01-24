@@ -105,7 +105,7 @@ public class Employee
 <details>
   <summary><b>Use Camelcase Notation</b></summary>
 
-Use [Camelcase Notation](https://en.wikipedia.org/wiki/Camel_case) for variable and parameter function
+Use [Camelcase Notation](https://en.wikipedia.org/wiki/Camel_case) for variable and method paramaters.
 
 **Bad:**
 
