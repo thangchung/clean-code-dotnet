@@ -1717,7 +1717,7 @@ class UserAuth
 {
     private User User;
 
-    public UserSettings (User user)
+    public UserAuth (User user)
     {
         User = user;
     }
