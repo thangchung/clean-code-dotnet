@@ -1690,7 +1690,7 @@ class UserSettings
 {
     private User User;
 
-    public UserSettings (User user)
+    public UserSettings(User user)
     {
         User = user;
     }
@@ -1717,7 +1717,7 @@ class UserAuth
 {
     private User User;
 
-    public UserSettings (User user)
+    public UserAuth(User user)
     {
         User = user;
     }
