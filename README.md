@@ -931,9 +931,9 @@ class BetterJSAlternative
 </details>
 
 <details>
-  <summary><b>Don't use flags as function parameters</b></summary>
+  <summary><b>Avoid flags in method parameters</b></summary>
 
-Flags tell your user that this function does more than one thing. Functions should do one thing. Split out your functions if they are following different code paths based on a boolean.
+A flag indicates that the method has more than one responsibility. It is best if the method only has a single responsibility. Split the method into two if a boolean parameter adds multiple responsibilities to the method.
 
 **Bad:**
 
