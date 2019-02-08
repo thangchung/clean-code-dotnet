@@ -67,7 +67,7 @@ int daySinceModification;
 
 
 <details>
-  <summary><b>Avoid Disinformation name</b></summary>
+  <summary><b>Avoid disinformation name</b></summary>
 
 Programmers must avoid naming with disinformation name and we should name variable to reflect what we want to do with it.
 
@@ -87,52 +87,8 @@ var listOfEmployee = _employeeService.GetEmployeeListFromDb().ToList();
 
 </details>
 
-
 <details>
-  <summary><b>Use consistent capitalization</b></summary>
-
-Capitalization tells you a lot about your variables,
-functions, etc. These rules are subjective, so your team can choose whatever
-they want. The point is, no matter what you all choose, just be consistent.
-
-**Bad:**
-
-```csharp
-const int DAYS_IN_WEEK = 7;
-const int daysInMonth = 30;
-
-var songs = new List<string> { 'Back In Black', 'Stairway to Heaven', 'Hey Jude' };
-var Artists = new List<string> { 'ACDC', 'Led Zeppelin', 'The Beatles' };
-
-bool EraseDatabase() {}
-bool Restore_database() {}
-
-class animal {}
-class Alpaca {}
-```
-
-**Good:**
-
-```csharp
-const int DaysInWeek = 7;
-const int DaysInMonth = 30;
-
-var songs = new List<string> { 'Back In Black', 'Stairway to Heaven', 'Hey Jude' };
-var artists = new List<string> { 'ACDC', 'Led Zeppelin', 'The Beatles' };
-
-bool EraseDatabase() {}
-bool RestoreDatabase() {}
-
-class Animal {}
-class Alpaca {}
-```
-
-**[⬆ back to top](#table-of-contents)**
-
-</details>
-
-<details>
-  <summary><b>Avoid Hungarian Notation</b></summary>
+  <summary><b>Avoid Hungarian notation</b></summary>
 
 Hungarian Notation restates the type which is already present in the declaration. This is pointless since modern IDEs will identify the type.
 
@@ -178,7 +134,50 @@ public bool IsShopOpen(string day, int amount)
 </details>
 
 <details>
-  <summary><b>Use Pronounceable Names</b></summary>
+  <summary><b>Use consistent capitalization</b></summary>
+
+Capitalization tells you a lot about your variables,
+functions, etc. These rules are subjective, so your team can choose whatever
+they want. The point is, no matter what you all choose, just be consistent.
+
+**Bad:**
+
+```csharp
+const int DAYS_IN_WEEK = 7;
+const int daysInMonth = 30;
+
+var songs = new List<string> { 'Back In Black', 'Stairway to Heaven', 'Hey Jude' };
+var Artists = new List<string> { 'ACDC', 'Led Zeppelin', 'The Beatles' };
+
+bool EraseDatabase() {}
+bool Restore_database() {}
+
+class animal {}
+class Alpaca {}
+```
+
+**Good:**
+
+```csharp
+const int DaysInWeek = 7;
+const int DaysInMonth = 30;
+
+var songs = new List<string> { 'Back In Black', 'Stairway to Heaven', 'Hey Jude' };
+var artists = new List<string> { 'ACDC', 'Led Zeppelin', 'The Beatles' };
+
+bool EraseDatabase() {}
+bool RestoreDatabase() {}
+
+class Animal {}
+class Alpaca {}
+```
+
+**[⬆ back to top](#table-of-contents)**
+
+</details>
+
+<details>
+  <summary><b>Use pronounceable names</b></summary>
 
 It will take time to investigate the meaning of the variables and functions when they are not pronounceable.
 
@@ -207,7 +206,7 @@ public class Employee
 </details>
 
 <details>
-  <summary><b>Use Camelcase Notation</b></summary>
+  <summary><b>Use Camelcase notation</b></summary>
 
 Use [Camelcase Notation](https://en.wikipedia.org/wiki/Camel_case) for variable and parameter function
 
@@ -283,6 +282,227 @@ public static void main(String[] args)
 </details>
 
 ### Variables
+
+<details>
+  <summary><b>Avoid nesting too deeply and return early</b></summary>
+
+Too many if else statements can make the code hard to follow. **Explicit is better than implicit**.
+
+**Bad:**
+
+```csharp
+public bool IsShopOpen(string day)
+{
+    if (!string.IsNullOrEmpty(day))
+    {
+        day = day.ToLower();
+        if (day == "friday")
+        {
+            return true;
+        }
+        else if (day == "saturday")
+        {
+            return true;
+        }
+        else if (day == "sunday")
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    else
+    {
+        return false;
+    }
+
+}
+```
+
+**Good:**
+
+```csharp
+public bool IsShopOpen(string day)
+{
+    if (string.IsNullOrEmpty(day))
+    {
+        return false;
+    }
+
+    var openingDays = new[] { "friday", "saturday", "sunday" };
+    return openingDays.Any(d => d == day.ToLower());
+}
+```
+
+**Bad:**
+
+```csharp
+public long Fibonacci(int n)
+{
+    if (n < 50)
+    {
+        if (n != 0)
+        {
+            if (n != 1)
+            {
+                return Fibonacci(n - 1) + Fibonacci(n - 2);
+            }
+            else
+            {
+                return 1;
+            }
+        }
+        else
+        {
+            return 0;
+        }
+    }
+    else
+    {
+        throw new System.Exception("Not supported");
+    }
+}
+```
+
+**Good:**
+
+```csharp
+public long Fibonacci(int n)
+{
+    if (n == 0)
+    {
+        return 0;
+    }
+
+    if (n == 1)
+    {
+        return 1;
+    }
+
+    if (n > 50)
+    {
+        throw new System.Exception("Not supported");
+    }
+
+    return Fibonacci(n - 1) + Fibonacci(n - 2);
+}
+```
+
+**[⬆ back to top](#table-of-contents)**
+
+</details>
+
+<details>
+  <summary><b>Avoid mental mapping</b></summary>
+
+Don’t force the reader of your code to translate what the variable means. **Explicit is better than implicit**.
+
+**Bad:**
+
+```csharp
+var l = new[] { "Austin", "New York", "San Francisco" };
+
+for (var i = 0; i < l.Count(); i++)
+{
+    var li = l[i];
+    DoStuff();
+    DoSomeOtherStuff();
+
+    // ...
+    // ...
+    // ...
+    // Wait, what is `li` for again?
+    Dispatch(li);
+}
+```
+
+**Good:**
+
+```csharp
+var locations = new[] { "Austin", "New York", "San Francisco" };
+
+foreach (var location in locations)
+{
+    DoStuff();
+    DoSomeOtherStuff();
+
+    // ...
+    // ...
+    // ...
+    Dispatch(location);
+}
+```
+
+**[⬆ back to top](#table-of-contents)**
+
+</details>
+
+<details>
+  <summary><b>Avoid magic string</b></summary>
+
+Magic strings are string values that are specified directly within application code that have an impact on the application’s behavior. Frequently, such strings will end up being duplicated within the system, and since they cannot automatically be updated using refactoring tools, they become a common source of bugs when changes are made to some strings but not others.
+
+**Bad**
+
+```csharp
+if (userRole == "Admin")
+{
+    // logic in here
+}
+```
+
+**Good**
+
+```csharp
+const string ADMIN_ROLE = "Admin"
+if (userRole == ADMIN_ROLE)
+{
+    // logic in here
+}
+```
+
+Using this we only have to change in centralize place and others will adapt it.
+
+**[⬆ back to top](#table-of-contents)**
+
+</details>
+
+<details>
+  <summary><b>Don't add unneeded context</b></summary>
+
+If your class/object name tells you something, don't repeat that in your variable name.
+
+**Bad:**
+
+```csharp
+public class Car
+{
+    public string CarMake { get; set; }
+    public string CarModel { get; set; }
+    public string CarColor { get; set; }
+
+    //...
+}
+```
+
+**Good:**
+
+```csharp
+public class Car
+{
+    public string Make { get; set; }
+    public string Model { get; set; }
+    public string Color { get; set; }
+
+    //...
+}
+```
+
+**[⬆ back to top](#table-of-contents)**
+
+</details>
 
 <details>
   <summary><b>Use meaningful and pronounceable variable names</b></summary>
@@ -447,197 +667,6 @@ if(cityGroup.Success == true && zipCodeGroup.Success == true)
 </details>
 
 <details>
-  <summary><b>Avoid nesting too deeply and return early</b></summary>
-
-Too many if else statements can make the code hard to follow. **Explicit is better than implicit**.
-
-**Bad:**
-
-```csharp
-public bool IsShopOpen(string day)
-{
-    if (!string.IsNullOrEmpty(day))
-    {
-        day = day.ToLower();
-        if (day == "friday")
-        {
-            return true;
-        }
-        else if (day == "saturday")
-        {
-            return true;
-        }
-        else if (day == "sunday")
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
-    else
-    {
-        return false;
-    }
-
-}
-```
-
-**Good:**
-
-```csharp
-public bool IsShopOpen(string day)
-{
-    if (string.IsNullOrEmpty(day))
-    {
-        return false;
-    }
-
-    var openingDays = new[] { "friday", "saturday", "sunday" };
-    return openingDays.Any(d => d == day.ToLower());
-}
-```
-
-**Bad:**
-
-```csharp
-public long Fibonacci(int n)
-{
-    if (n < 50)
-    {
-        if (n != 0)
-        {
-            if (n != 1)
-            {
-                return Fibonacci(n - 1) + Fibonacci(n - 2);
-            }
-            else
-            {
-                return 1;
-            }
-        }
-        else
-        {
-            return 0;
-        }
-    }
-    else
-    {
-        throw new System.Exception("Not supported");
-    }
-}
-```
-
-**Good:**
-
-```csharp
-public long Fibonacci(int n)
-{
-    if (n == 0)
-    {
-        return 0;
-    }
-
-    if (n == 1)
-    {
-        return 1;
-    }
-
-    if (n > 50)
-    {
-        throw new System.Exception("Not supported");
-    }
-
-    return Fibonacci(n - 1) + Fibonacci(n - 2);
-}
-```
-
-**[⬆ back to top](#table-of-contents)**
-
-</details>
-
-<details>
-  <summary><b>Avoid Mental Mapping</b></summary>
-
-Don’t force the reader of your code to translate what the variable means. **Explicit is better than implicit**.
-
-**Bad:**
-
-```csharp
-var l = new[] { "Austin", "New York", "San Francisco" };
-
-for (var i = 0; i < l.Count(); i++)
-{
-    var li = l[i];
-    DoStuff();
-    DoSomeOtherStuff();
-
-    // ...
-    // ...
-    // ...
-    // Wait, what is `li` for again?
-    Dispatch(li);
-}
-```
-
-**Good:**
-
-```csharp
-var locations = new[] { "Austin", "New York", "San Francisco" };
-
-foreach (var location in locations)
-{
-    DoStuff();
-    DoSomeOtherStuff();
-
-    // ...
-    // ...
-    // ...
-    Dispatch(location);
-}
-```
-
-**[⬆ back to top](#table-of-contents)**
-
-</details>
-
-<details>
-  <summary><b>Don't add unneeded context</b></summary>
-
-If your class/object name tells you something, don't repeat that in your variable name.
-
-**Bad:**
-
-```csharp
-public class Car
-{
-    public string CarMake { get; set; }
-    public string CarModel { get; set; }
-    public string CarColor { get; set; }
-
-    //...
-}
-```
-
-**Good:**
-
-```csharp
-public class Car
-{
-    public string Make { get; set; }
-    public string Model { get; set; }
-    public string Color { get; set; }
-
-    //...
-}
-```
-
-**[⬆ back to top](#table-of-contents)**
-
-</details>
-
-<details>
   <summary><b>Use default arguments instead of short circuiting or conditionals</b></summary>
 
 **Not good:**
@@ -667,37 +696,399 @@ public void CreateMicrobrewery(string breweryName = "Hipster Brew Co.")
 
 </details>
 
+### Functions
+
 <details>
-  <summary><b>Avoid magic string</b></summary>
+  <summary><b>Avoid side effects</b></summary>
 
-Magic strings are string values that are specified directly within application code that have an impact on the application’s behavior. Frequently, such strings will end up being duplicated within the system, and since they cannot automatically be updated using refactoring tools, they become a common source of bugs when changes are made to some strings but not others.
+A function produces a side effect if it does anything other than take a value in and return another value or values. A side effect could be writing to a file, modifying some global variable, or accidentally wiring all your money to a stranger.
 
-**Bad**
+Now, you do need to have side effects in a program on occasion. Like the previous example, you might need to write to a file. What you want to do is to centralize where you are doing this. Don't have several functions and classes that write to a particular file. Have one service that does it. One and only one.
 
-```csharp
-if (userRole == "Admin")
-{
-    // logic in here
-}
-```
+The main point is to avoid common pitfalls like sharing state between objects without any structure, using mutable data types that can be written to by anything, and not centralizing where your side effects occur. If you can do this, you will be happier
+than the vast majority of other programmers.
 
-**Good**
+**Bad:**
 
 ```csharp
-const string ADMIN_ROLE = "Admin"
-if (userRole == ADMIN_ROLE)
+// Global variable referenced by following function.
+// If we had another function that used this name, now it'd be an array and it could break it.
+var name = 'Ryan McDermott';
+
+public string SplitIntoFirstAndLastName()
 {
-    // logic in here
+   return name.Split(" ");
 }
+
+SplitIntoFirstAndLastName();
+
+Console.PrintLine(name); // ['Ryan', 'McDermott'];
 ```
 
-Using this we only have to change in centralize place and others will adapt it.
+**Good:**
+
+```csharp
+public string SplitIntoFirstAndLastName(string name)
+{
+    return name.Split(" ");
+}
+
+var name = 'Ryan McDermott';
+var newName = SplitIntoFirstAndLastName(name);
+
+Console.PrintLine(name); // 'Ryan McDermott';
+Console.PrintLine(newName); // ['Ryan', 'McDermott'];
+```
 
 **[⬆ back to top](#table-of-contents)**
 
 </details>
 
-### Functions
+<details>
+  <summary><b>Avoid negative conditionals</b></summary>
+
+**Bad:**
+
+```csharp
+public bool IsDOMNodeNotPresent(string node)
+{
+    // ...
+}
+
+if (!IsDOMNodeNotPresent(node))
+{
+    // ...
+}
+```
+
+**Good:**
+
+```csharp
+public bool IsDOMNodePresent(string node)
+{
+    // ...
+}
+
+if (IsDOMNodePresent(node))
+{
+    // ...
+}
+```
+
+**[⬆ back to top](#table-of-contents)**
+
+</details>
+
+<details>
+  <summary><b>Avoid conditionals</b></summary>
+
+This seems like an impossible task. Upon first hearing this, most people say, "how am I supposed to do anything without an `if` statement?" The answer is that you can use polymorphism to achieve the same task in many cases. The second question is usually, "well that's great but why would I want to do that?" The answer is a previous clean code concept we learned: a function should only do
+one thing. When you have classes and functions that have `if` statements, you are telling your user that your function does more than one thing. Remember, just do one thing.
+
+**Bad:**
+
+```csharp
+class Airplane
+{
+    // ...
+
+    public double GetCruisingAltitude()
+    {
+        switch (_type)
+        {
+            case '777':
+                return GetMaxAltitude() - GetPassengerCount();
+            case 'Air Force One':
+                return GetMaxAltitude();
+            case 'Cessna':
+                return GetMaxAltitude() - GetFuelExpenditure();
+        }
+    }
+}
+```
+
+**Good:**
+
+```csharp
+interface IAirplane
+{
+    // ...
+
+    public double GetCruisingAltitude();
+}
+
+class Boeing777 : IAirplane
+{
+    // ...
+
+    public double GetCruisingAltitude()
+    {
+        return GetMaxAltitude() - GetPassengerCount();
+    }
+}
+
+class AirForceOne : IAirplane
+{
+    // ...
+
+    public double GetCruisingAltitude()
+    {
+        return GetMaxAltitude();
+    }
+}
+
+class Cessna : IAirplane
+{
+    // ...
+
+    public double GetCruisingAltitude()
+    {
+        return GetMaxAltitude() - GetFuelExpenditure();
+    }
+}
+```
+
+**[⬆ back to top](#table-of-contents)**
+
+</details>
+
+<details>
+  <summary><b>Avoid type-checking (part 1)</b></summary>
+
+**Bad:**
+
+```csharp
+public Path TravelToTexas(object vehicle)
+{
+    if (vehicle.GetType() == typeof(Bicycle))
+    {
+        (vehicle as Bicycle).PeddleTo(new Location("texas"));
+    }
+    else if (vehicle.GetType() == typeof(Car))
+    {
+        (vehicle as Car).DriveTo(new Location("texas"));
+    }
+}
+```
+
+**Good:**
+
+```csharp
+public Path TravelToTexas(Traveler vehicle)
+{
+    vehicle.TravelTo(new Location("texas"));
+}
+```
+
+or
+
+```csharp
+// pattern matching
+public Path TravelToTexas(object vehicle)
+{
+    if (vehicle is Bicycle bicycle)
+    {
+        bicycle.PeddleTo(new Location("texas"));
+    }
+    else if (vehicle is Car car)
+    {
+        car.DriveTo(new Location("texas"));
+    }
+}
+```
+
+**[⬆ back to top](#table-of-contents)**
+
+</details>
+
+<details>
+  <summary><b>Avoid type-checking (part 2)</b></summary>
+
+**Bad:**
+
+```csharp
+public int Combine(dynamic val1, dynamic val2)
+{
+    int value;
+    if (!int.TryParse(val1, out value) || !int.TryParse(val2, out value))
+    {
+        throw new Exception('Must be of type Number');
+    }
+
+    return val1 + val2;
+}
+```
+
+**Good:**
+
+```csharp
+public int Combine(int val1, int val2)
+{
+    return val1 + val2;
+}
+```
+
+**[⬆ back to top](#table-of-contents)**
+
+</details>
+
+<details>
+  <summary><b>Don't use flags as function parameters</b></summary>
+
+Flags tell your user that this function does more than one thing. Functions should do one thing. Split out your functions if they are following different code paths based on a boolean.
+
+**Bad:**
+
+```csharp
+public void CreateFile(string name, bool temp = false)
+{
+    if (temp)
+    {
+        Touch("./temp/" + name);
+    }
+    else
+    {
+        Touch(name);
+    }
+}
+```
+
+**Good:**
+
+```csharp
+public void CreateFile(string name)
+{
+    Touch(name);
+}
+
+public void CreateTempFile(string name)
+{
+    Touch("./temp/"  + name);
+}
+```
+
+**[⬆ back to top](#table-of-contents)**
+
+</details>
+
+<details>
+  <summary><b>Don't write to global functions</b></summary>
+
+> Not finished yet
+
+Polluting globals is a bad practice in many languages because you could clash with another library and the user of your API would be none-the-wiser until they get an exception in production. Let's think about an example: what if you wanted to have configuration array.
+You could write global function like `Config()`, but it could clash with another library that tried to do the same thing.
+
+**Bad:**
+
+```csharp
+public string[] Config()
+{
+    return  [
+        "foo" => "bar",
+    ]
+}
+```
+
+**Good:**
+
+```csharp
+class Configuration
+{
+    private string[] _configuration = [];
+
+    public Configuration(string[] configuration)
+    {
+        _configuration = configuration;
+    }
+
+    public string[] Get(string key)
+    {
+        return (_configuration[key]!= null) ? _configuration[key] : null;
+    }
+}
+```
+
+Load configuration and create instance of `Configuration` class
+
+```csharp
+var configuration = new Configuration(new string[] {
+    "foo" => "bar",
+});
+```
+
+And now you must use instance of `Configuration` in your application.
+
+**[⬆ back to top](#table-of-contents)**
+
+</details>
+
+<details>
+  <summary><b>Don't use a Singleton pattern</b></summary>
+
+Singleton is an [anti-pattern](https://en.wikipedia.org/wiki/Singleton_pattern). Paraphrased from Brian Button:
+
+1. They are generally used as a **global instance**, why is that so bad? Because **you hide the dependencies** of your application in your code, instead of exposing them through the interfaces. Making something global to avoid passing it around is a [code smell](https://en.wikipedia.org/wiki/Code_smell).
+2. They violate the [single responsibility principle](#single-responsibility-principle-srp): by virtue of the fact that **they control their own creation and lifecycle**.
+3. They inherently cause code to be tightly [coupled](https://en.wikipedia.org/wiki/Coupling_%28computer_programming%29). This makes faking them out under **test rather difficult** in many cases.
+4. They carry state around for the lifetime of the application. Another hit to testing since **you can end up with a situation where tests need to be ordered** which is a big no for unit tests. Why? Because each unit test should be independent from the other.
+
+There is also very good thoughts by [Misko Hevery](http://misko.hevery.com/about/) about the [root of problem](http://misko.hevery.com/2008/08/25/root-cause-of-singletons/).
+
+**Bad:**
+
+```csharp
+class DBConnection
+{
+    private static DBConnection _instance;
+
+    private DBConnection()
+    {
+        // ...
+    }
+
+    public static GetInstance()
+    {
+        if (_instance == null)
+        {
+            _instance = new DBConnection();
+        }
+
+        return _instance;
+    }
+
+    // ...
+}
+
+var singleton = DBConnection.GetInstance();
+```
+
+**Good:**
+
+```csharp
+class DBConnection
+{
+    public DBConnection(IOptions<DbConnectionOption> options)
+    {
+        // ...
+    }
+
+    // ...
+}
+```
+
+Create instance of `DBConnection` class and configure it with [Option pattern](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/configuration/options?view=aspnetcore-2.1).
+
+```csharp
+var options = <resolve from IOC>;
+var connection = new DBConnection(options);
+```
+
+And now you must use instance of `DBConnection` in your application.
+
+**[⬆ back to top](#table-of-contents)**
+
+</details>
 
 <details>
   <summary><b>Function arguments (2 or fewer ideally)</b></summary>
@@ -1090,213 +1481,6 @@ review.PerfReview();
 
 </details>
 
-
-
-
-<details>
-  <summary><b>Don't use flags as function parameters</b></summary>
-
-Flags tell your user that this function does more than one thing. Functions should do one thing. Split out your functions if they are following different code paths based on a boolean.
-
-**Bad:**
-
-```csharp
-public void CreateFile(string name, bool temp = false)
-{
-    if (temp)
-    {
-        Touch("./temp/" + name);
-    }
-    else
-    {
-        Touch(name);
-    }
-}
-```
-
-**Good:**
-
-```csharp
-public void CreateFile(string name)
-{
-    Touch(name);
-}
-
-public void CreateTempFile(string name)
-{
-    Touch("./temp/"  + name);
-}
-```
-
-**[⬆ back to top](#table-of-contents)**
-
-</details>
-
-<details>
-  <summary><b>Avoid Side Effects</b></summary>
-
-A function produces a side effect if it does anything other than take a value in and return another value or values. A side effect could be writing to a file, modifying some global variable, or accidentally wiring all your money to a stranger.
-
-Now, you do need to have side effects in a program on occasion. Like the previous example, you might need to write to a file. What you want to do is to centralize where you are doing this. Don't have several functions and classes that write to a particular file. Have one service that does it. One and only one.
-
-The main point is to avoid common pitfalls like sharing state between objects without any structure, using mutable data types that can be written to by anything, and not centralizing where your side effects occur. If you can do this, you will be happier
-than the vast majority of other programmers.
-
-**Bad:**
-
-```csharp
-// Global variable referenced by following function.
-// If we had another function that used this name, now it'd be an array and it could break it.
-var name = 'Ryan McDermott';
-
-public string SplitIntoFirstAndLastName()
-{
-   return name.Split(" ");
-}
-
-SplitIntoFirstAndLastName();
-
-Console.PrintLine(name); // ['Ryan', 'McDermott'];
-```
-
-**Good:**
-
-```csharp
-public string SplitIntoFirstAndLastName(string name)
-{
-    return name.Split(" ");
-}
-
-var name = 'Ryan McDermott';
-var newName = SplitIntoFirstAndLastName(name);
-
-Console.PrintLine(name); // 'Ryan McDermott';
-Console.PrintLine(newName); // ['Ryan', 'McDermott'];
-```
-
-**[⬆ back to top](#table-of-contents)**
-
-</details>
-
-<details>
-  <summary><b>Don't write to global functions</b></summary>
-
-> Not finished yet
-
-Polluting globals is a bad practice in many languages because you could clash with another library and the user of your API would be none-the-wiser until they get an exception in production. Let's think about an example: what if you wanted to have configuration array.
-You could write global function like `Config()`, but it could clash with another library that tried to do the same thing.
-
-**Bad:**
-
-```csharp
-public string[] Config()
-{
-    return  [
-        "foo" => "bar",
-    ]
-}
-```
-
-**Good:**
-
-```csharp
-class Configuration
-{
-    private string[] _configuration = [];
-
-    public Configuration(string[] configuration)
-    {
-        _configuration = configuration;
-    }
-
-    public string[] Get(string key)
-    {
-        return (_configuration[key]!= null) ? _configuration[key] : null;
-    }
-}
-```
-
-Load configuration and create instance of `Configuration` class
-
-```csharp
-var configuration = new Configuration(new string[] {
-    "foo" => "bar",
-});
-```
-
-And now you must use instance of `Configuration` in your application.
-
-**[⬆ back to top](#table-of-contents)**
-
-</details>
-
-<details>
-  <summary><b>Don't use a Singleton pattern</b></summary>
-
-Singleton is an [anti-pattern](https://en.wikipedia.org/wiki/Singleton_pattern). Paraphrased from Brian Button:
-
-1. They are generally used as a **global instance**, why is that so bad? Because **you hide the dependencies** of your application in your code, instead of exposing them through the interfaces. Making something global to avoid passing it around is a [code smell](https://en.wikipedia.org/wiki/Code_smell).
-2. They violate the [single responsibility principle](#single-responsibility-principle-srp): by virtue of the fact that **they control their own creation and lifecycle**.
-3. They inherently cause code to be tightly [coupled](https://en.wikipedia.org/wiki/Coupling_%28computer_programming%29). This makes faking them out under **test rather difficult** in many cases.
-4. They carry state around for the lifetime of the application. Another hit to testing since **you can end up with a situation where tests need to be ordered** which is a big no for unit tests. Why? Because each unit test should be independent from the other.
-
-There is also very good thoughts by [Misko Hevery](http://misko.hevery.com/about/) about the [root of problem](http://misko.hevery.com/2008/08/25/root-cause-of-singletons/).
-
-**Bad:**
-
-```csharp
-class DBConnection
-{
-    private static DBConnection _instance;
-
-    private DBConnection()
-    {
-        // ...
-    }
-
-    public static GetInstance()
-    {
-        if (_instance == null)
-        {
-            _instance = new DBConnection();
-        }
-
-        return _instance;
-    }
-
-    // ...
-}
-
-var singleton = DBConnection.GetInstance();
-```
-
-**Good:**
-
-```csharp
-class DBConnection
-{
-    public DBConnection(IOptions<DbConnectionOption> options)
-    {
-        // ...
-    }
-
-    // ...
-}
-```
-
-Create instance of `DBConnection` class and configure it with [Option pattern](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/configuration/options?view=aspnetcore-2.1).
-
-```csharp
-var options = <resolve from IOC>;
-var connection = new DBConnection(options);
-```
-
-And now you must use instance of `DBConnection` in your application.
-
-**[⬆ back to top](#table-of-contents)**
-
-</details>
-
 <details>
   <summary><b>Encapsulate conditionals</b></summary>
 
@@ -1315,194 +1499,6 @@ if (article.state == "published")
 if (article.IsPublished())
 {
     // ...
-}
-```
-
-**[⬆ back to top](#table-of-contents)**
-
-</details>
-
-<details>
-  <summary><b>Avoid negative conditionals</b></summary>
-
-**Bad:**
-
-```csharp
-public bool IsDOMNodeNotPresent(string node)
-{
-    // ...
-}
-
-if (!IsDOMNodeNotPresent(node))
-{
-    // ...
-}
-```
-
-**Good:**
-
-```csharp
-public bool IsDOMNodePresent(string node)
-{
-    // ...
-}
-
-if (IsDOMNodePresent(node))
-{
-    // ...
-}
-```
-
-**[⬆ back to top](#table-of-contents)**
-
-</details>
-
-<details>
-  <summary><b>Avoid conditionals</b></summary>
-
-This seems like an impossible task. Upon first hearing this, most people say, "how am I supposed to do anything without an `if` statement?" The answer is that you can use polymorphism to achieve the same task in many cases. The second question is usually, "well that's great but why would I want to do that?" The answer is a previous clean code concept we learned: a function should only do
-one thing. When you have classes and functions that have `if` statements, you are telling your user that your function does more than one thing. Remember, just do one thing.
-
-**Bad:**
-
-```csharp
-class Airplane
-{
-    // ...
-
-    public double GetCruisingAltitude()
-    {
-        switch (_type)
-        {
-            case '777':
-                return GetMaxAltitude() - GetPassengerCount();
-            case 'Air Force One':
-                return GetMaxAltitude();
-            case 'Cessna':
-                return GetMaxAltitude() - GetFuelExpenditure();
-        }
-    }
-}
-```
-
-**Good:**
-
-```csharp
-interface IAirplane
-{
-    // ...
-
-    public double GetCruisingAltitude();
-}
-
-class Boeing777 : IAirplane
-{
-    // ...
-
-    public double GetCruisingAltitude()
-    {
-        return GetMaxAltitude() - GetPassengerCount();
-    }
-}
-
-class AirForceOne : IAirplane
-{
-    // ...
-
-    public double GetCruisingAltitude()
-    {
-        return GetMaxAltitude();
-    }
-}
-
-class Cessna : IAirplane
-{
-    // ...
-
-    public double GetCruisingAltitude()
-    {
-        return GetMaxAltitude() - GetFuelExpenditure();
-    }
-}
-```
-
-**[⬆ back to top](#table-of-contents)**
-
-</details>
-
-<details>
-  <summary><b>Avoid type-checking (part 1)</b></summary>
-
-**Bad:**
-
-```csharp
-public Path TravelToTexas(object vehicle)
-{
-    if (vehicle.GetType() == typeof(Bicycle))
-    {
-        (vehicle as Bicycle).PeddleTo(new Location("texas"));
-    }
-    else if (vehicle.GetType() == typeof(Car))
-    {
-        (vehicle as Car).DriveTo(new Location("texas"));
-    }
-}
-```
-
-**Good:**
-
-```csharp
-public Path TravelToTexas(Traveler vehicle)
-{
-    vehicle.TravelTo(new Location("texas"));
-}
-```
-
-or
-
-```csharp
-// pattern matching
-public Path TravelToTexas(object vehicle)
-{
-    if (vehicle is Bicycle bicycle)
-    {
-        bicycle.PeddleTo(new Location("texas"));
-    }
-    else if (vehicle is Car car)
-    {
-        car.DriveTo(new Location("texas"));
-    }
-}
-```
-
-**[⬆ back to top](#table-of-contents)**
-
-</details>
-
-<details>
-  <summary><b>Avoid type-checking (part 2)</b></summary>
-
-**Bad:**
-
-```csharp
-public int Combine(dynamic val1, dynamic val2)
-{
-    int value;
-    if (!int.TryParse(val1, out value) || !int.TryParse(val2, out value))
-    {
-        throw new Exception('Must be of type Number');
-    }
-
-    return val1 + val2;
-}
-```
-
-**Good:**
-
-```csharp
-public int Combine(int val1, int val2)
-{
-    return val1 + val2;
 }
 ```
 
@@ -2545,7 +2541,7 @@ public class MakeDotNetGreatAgainTests
 ### Concurrency
 
 <details>
-  <summary><b>Use Async Await</b></summary>
+  <summary><b>Use Async/Await</b></summary>
 
 **Summary of Asynchronous Programming Guidelines**
 
@@ -2642,158 +2638,6 @@ catch (Exception error)
     // Another option
     ReportErrorToService(error);
 }
-```
-
-**[⬆ back to top](#table-of-contents)**
-
-</details>
-
-<details>
-  <summary><b>Use consistent capitalization</b></summary>
-
-Capitalization tells you a lot about your variables, functions, etc. These rules are subjective, so your team can choose whatever
-they want. The point is, no matter what you all choose, just be consistent.
-
-**Bad:**
-
-```csharp
-const int DAYS_IN_WEEK = 7;
-const int daysInMonth = 30;
-
-var songs = new List<string> { 'Back In Black', 'Stairway to Heaven', 'Hey Jude' };
-var Artists = new List<string> { 'ACDC', 'Led Zeppelin', 'The Beatles' };
-
-bool EraseDatabase() {}
-bool Restore_database() {}
-
-class animal {}
-class Alpaca {}
-```
-
-**Good:**
-
-```csharp
-const int DaysInWeek = 7;
-const int DaysInMonth = 30;
-
-var songs = new List<string> { 'Back In Black', 'Stairway to Heaven', 'Hey Jude' };
-var artists = new List<string> { 'ACDC', 'Led Zeppelin', 'The Beatles' };
-
-bool EraseDatabase() {}
-bool RestoreDatabase() {}
-
-class Animal {}
-class Alpaca {}
-```
-
-**[⬆ back to top](#table-of-contents)**
-
-</details>
-
-<details>
-  <summary><b>Function callers and callees should be close</b></summary>
-
-If a function calls another, keep those functions vertically close in the source file. Ideally, keep the caller right above the callee. We tend to read code from top-to-bottom, like a newspaper. Because of this, make your code read that way.
-
-**Bad:**
-
-```csharp
-class PerformanceReview
-{
-    private readonly Employee _employee;
-
-    public PerformanceReview(Employee employee)
-    {
-        _employee = employee;
-    }
-
-    private IEnumerable<PeersData> LookupPeers()
-    {
-        return db.lookup(_employee, 'peers');
-    }
-
-    private ManagerData LookupManager()
-    {
-        return db.lookup(_employee, 'manager');
-    }
-
-    private IEnumerable<PeerReviews> GetPeerReviews()
-    {
-        var peers = LookupPeers();
-        // ...
-    }
-
-    public PerfReviewData PerfReview()
-    {
-        GetPeerReviews();
-        GetManagerReview();
-        GetSelfReview();
-    }
-
-    public ManagerData GetManagerReview()
-    {
-        var manager = LookupManager();
-    }
-
-    public EmployeeData GetSelfReview()
-    {
-        // ...
-    }
-}
-
-var  review = new PerformanceReview(employee);
-review.PerfReview();
-```
-
-**Good:**
-
-```csharp
-class PerformanceReview
-{
-    private readonly Employee _employee;
-
-    public PerformanceReview(Employee employee)
-    {
-        _employee = employee;
-    }
-
-    public PerfReviewData PerfReview()
-    {
-        GetPeerReviews();
-        GetManagerReview();
-        GetSelfReview();
-    }
-
-    private IEnumerable<PeerReviews> GetPeerReviews()
-    {
-        var peers = LookupPeers();
-        // ...
-    }
-
-    private IEnumerable<PeersData> LookupPeers()
-    {
-        return db.lookup(_employee, 'peers');
-    }
-
-    private ManagerData GetManagerReview()
-    {
-        var manager = LookupManager();
-        return manager;
-    }
-
-    private ManagerData LookupManager()
-    {
-        return db.lookup(_employee, 'manager');
-    }
-
-    private EmployeeData GetSelfReview()
-    {
-        // ...
-    }
-}
-
-var review = new PerformanceReview(employee);
-review.PerfReview();
 ```
 
 **[⬆ back to top](#table-of-contents)**
@@ -2973,116 +2817,6 @@ indent_size = 2
 ### Comments
 
 <details>
-  <summary><b>Only comment things that have business logic complexity</b></summary>
-
-Comments are an apology, not a requirement. Good code _mostly_ documents itself.
-
-**Bad:**
-
-```csharp
-public string HashIt(string data)
-{
-    // The hash
-    var hash = 0;
-
-    // Length of string
-    const length = data.length;
-
-    // Loop through every character in data
-    for (var i = 0; i < length; i++)
-    {
-        // Get character code.
-        const char = data.charCodeAt(i);
-        // Make the hash
-        hash = ((hash << 5) - hash) + char;
-        // Convert to 32-bit integer
-        hash &= hash;
-    }
-}
-```
-
-**Good:**
-
-```csharp
-public string hashIt(string data)
-{
-    var hash = 0;
-    const length = data.length;
-
-    for (var i = 0; i < length; i++)
-    {
-        const char = data.charCodeAt(i);
-        hash = ((hash << 5) - hash) + char;
-
-        // Convert to 32-bit integer
-        hash &= hash;
-    }
-}
-```
-
-**[⬆ back to top](#table-of-contents)**
-
-</details>
-
-<details>
-  <summary><b>Don't leave commented out code in your codebase</b></summary>
-
-Version control exists for a reason. Leave old code in your history.
-
-**Bad:**
-
-```csharp
-doStuff();
-// doOtherStuff();
-// doSomeMoreStuff();
-// doSoMuchStuff();
-```
-
-**Good:**
-
-```csharp
-doStuff();
-```
-
-**[⬆ back to top](#table-of-contents)**
-
-</details>
-
-<details>
-  <summary><b>Don't have journal comments</b></summary>
-
-Remember, use version control! There's no need for dead code, commented code,
-and especially journal comments. Use `git log` to get history!
-
-**Bad:**
-
-```csharp
-/**
- * 2018-12-20: Removed monads, didn't understand them (RM)
- * 2017-10-01: Improved using special monads (JP)
- * 2016-02-03: Removed type-checking (LI)
- * 2015-03-14: Added combine with type-checking (JR)
- */
-public int Combine(int a,int b)
-{
-    return a + b;
-}
-```
-
-**Good:**
-
-```csharp
-public int Combine(int a,int b)
-{
-    return a + b;
-}
-```
-
-**[⬆ back to top](#table-of-contents)**
-
-</details>
-
-<details>
   <summary><b>Avoid positional markers</b></summary>
 
 They usually just add noise. Let the functions and variable names along with the proper indentation and formatting give the visual structure to your code.
@@ -3145,6 +2879,115 @@ void Actions()
 {
     // ...
 };
+```
+
+**[⬆ back to top](#table-of-contents)**
+
+</details>
+
+<details>
+  <summary><b>Don't leave commented out code in your codebase</b></summary>
+
+Version control exists for a reason. Leave old code in your history.
+
+**Bad:**
+
+```csharp
+doStuff();
+// doOtherStuff();
+// doSomeMoreStuff();
+// doSoMuchStuff();
+```
+
+**Good:**
+
+```csharp
+doStuff();
+```
+
+**[⬆ back to top](#table-of-contents)**
+
+</details>
+
+<details>
+  <summary><b>Don't have journal comments</b></summary>
+
+Remember, use version control! There's no need for dead code, commented code, and especially journal comments. Use `git log` to get history!
+
+**Bad:**
+
+```csharp
+/**
+ * 2018-12-20: Removed monads, didn't understand them (RM)
+ * 2017-10-01: Improved using special monads (JP)
+ * 2016-02-03: Removed type-checking (LI)
+ * 2015-03-14: Added combine with type-checking (JR)
+ */
+public int Combine(int a,int b)
+{
+    return a + b;
+}
+```
+
+**Good:**
+
+```csharp
+public int Combine(int a,int b)
+{
+    return a + b;
+}
+```
+
+**[⬆ back to top](#table-of-contents)**
+
+</details>
+
+<details>
+  <summary><b>Only comment things that have business logic complexity</b></summary>
+
+Comments are an apology, not a requirement. Good code _mostly_ documents itself.
+
+**Bad:**
+
+```csharp
+public string HashIt(string data)
+{
+    // The hash
+    var hash = 0;
+
+    // Length of string
+    const length = data.length;
+
+    // Loop through every character in data
+    for (var i = 0; i < length; i++)
+    {
+        // Get character code.
+        const char = data.charCodeAt(i);
+        // Make the hash
+        hash = ((hash << 5) - hash) + char;
+        // Convert to 32-bit integer
+        hash &= hash;
+    }
+}
+```
+
+**Good:**
+
+```csharp
+public string hashIt(string data)
+{
+    var hash = 0;
+    const length = data.length;
+
+    for (var i = 0; i < length; i++)
+    {
+        const char = data.charCodeAt(i);
+        hash = ((hash << 5) - hash) + char;
+
+        // Convert to 32-bit integer
+        hash &= hash;
+    }
+}
 ```
 
 **[⬆ back to top](#table-of-contents)**
