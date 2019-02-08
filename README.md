@@ -1,36 +1,30 @@
-# Clean Code .NET and Other Resources
+# Table of Contents
 
-## Give a :star:!
-
-If you liked `clean-code-dotnet` project or if it helped you, please give a star for this repository so that .NET community will know and help them out just like you. Thank you very much :+1:
-
-## Table of Contents
-
-- [Clean Code .NET and Other Resources](#clean-code-net-and-other-resources)
-  - [Give a :star:!](#give-a-star)
-  - [Table of Contents](#table-of-contents)
-  - [1. Introduction](#1-introduction)
-  - [2. Clean Code .NET](#2-clean-code-net)
-    - [Naming](#naming)
-    - [Variables](#variables)
-    - [Functions](#functions)
-    - [Objects and Data Structures](#objects-and-data-structures)
-    - [Classes](#classes)
-    - [SOLID](#solid)
-    - [Testing](#testing)
-    - [Concurrency](#concurrency)
-    - [Error Handling](#error-handling)
-    - [Formatting](#formatting)
-    - [Comments](#comments)
-  - [3. Other Clean Code Resources](#3-other-clean-code-resources)
-    - [Other Clean Code Lists](#other-clean-code-lists)
-    - [Tools](#tools)
-    - [Cheetsheets](#cheetsheets)
-  - [License](#license)
+- [Table of Contents](#table-of-contents)
+- [Introduction](#introduction)
+- [Clean Code .NET](#clean-code-net)
+  - [Naming](#naming)
+  - [Variables](#variables)
+  - [Functions](#functions)
+  - [Objects and Data Structures](#objects-and-data-structures)
+  - [Classes](#classes)
+  - [SOLID](#solid)
+  - [Testing](#testing)
+  - [Concurrency](#concurrency)
+  - [Error Handling](#error-handling)
+  - [Formatting](#formatting)
+  - [Comments](#comments)
+- [Other Clean Code Resources](#other-clean-code-resources)
+  - [Other Clean Code Lists](#other-clean-code-lists)
+  - [Tools](#tools)
+  - [Cheetsheets](#cheetsheets)
+- [License](#license)
 
 ---
 
-## 1. Introduction
+If you liked `clean-code-dotnet` project or if it helped you, please give a star :star: for this repository so that .NET community will know and help them out just like you. Thank you very much :+1:
+
+# Introduction
 
 ![Humorous image of software quality estimation as a count of how many expletives you shout when reading code](http://www.osnews.com/images/comics/wtfm.jpg)
 
@@ -40,9 +34,9 @@ Not every principle herein has to be strictly followed, and even fewer will be u
 
 Inspired from [clean-code-javascript](https://github.com/ryanmcdermott/clean-code-javascript) and [clean-code-php](https://github.com/jupeter/clean-code-php) lists.
 
-## 2. Clean Code .NET
+# Clean Code .NET
 
-### Naming
+## Naming
 
 <details>
   <summary><b>Avoid using bad names</b></summary>
@@ -127,7 +121,6 @@ public bool IsShopOpen(string day, int amount)
     // some logic
 }
 ```
-
 
 **[⬆ Back to top](#table-of-contents)**
 
@@ -281,7 +274,7 @@ public static void main(String[] args)
 
 </details>
 
-### Variables
+## Variables
 
 <details>
   <summary><b>Avoid nesting too deeply and return early</b></summary>
@@ -696,7 +689,7 @@ public void CreateMicrobrewery(string breweryName = "Hipster Brew Co.")
 
 </details>
 
-### Functions
+## Functions
 
 <details>
   <summary><b>Avoid side effects</b></summary>
@@ -1544,7 +1537,7 @@ InventoryTracker("apples", request, "www.inventory-awesome.io");
 
 </details>
 
-### Objects and Data Structures
+## Objects and Data Structures
 
 <details>
   <summary><b>Use getters and setters</b></summary>
@@ -1662,7 +1655,7 @@ Console.WriteLine(employee.GetName());// Employee name: John Doe
 
 </details>
 
-### Classes
+## Classes
 
 <details>
   <summary><b>Use method chaining</b></summary>
@@ -1819,7 +1812,7 @@ class Employee
 
 </details>
 
-### SOLID
+## SOLID
 
 <details>
   <summary><b>What is SOLID?</b></summary>
@@ -2442,7 +2435,7 @@ public List<EmployeeData> ShowList(Employee employees)
 
 </details>
 
-### Testing
+## Testing
 
 <details>
   <summary><b>Basic concept of testing</b></summary>
@@ -2538,7 +2531,7 @@ public class MakeDotNetGreatAgainTests
 
 </details>
 
-### Concurrency
+## Concurrency
 
 <details>
   <summary><b>Use Async/Await</b></summary>
@@ -2597,7 +2590,7 @@ There are many new await-friendly techniques that should be used instead of the 
 
 </details>
 
-### Error Handling
+## Error Handling
 
 <details>
   <summary><b>Basic concept of error handling</b></summary>
@@ -2783,7 +2776,7 @@ catch (Exception error)
 
 </details>
 
-### Formatting
+## Formatting
 
 <details>
   <summary><b>Uses <i>.editorconfig</i> file</b></summary>
@@ -2953,7 +2946,7 @@ indent_size = 2
 
 </details>
 
-### Comments
+## Comments
 
 <details>
   <summary><b>Avoid positional markers</b></summary>
@@ -3133,24 +3126,24 @@ public string hashIt(string data)
 
 </details>
 
-## 3. Other Clean Code Resources
+# Other Clean Code Resources
 
-### Other Clean Code Lists
+## Other Clean Code Lists
 - [clean-code-javascript](https://github.com/ryanmcdermott/clean-code-javascript) - Clean Code concepts adapted for JavaScript.
 - [clean-code-php](https://github.com/jupeter/clean-code-php) - Clean Code concepts adapted for PHP.
 - [clean-code-ruby](https://github.com/uohzxela/clean-code-ruby) - Clean Code concepts adapted for Ruby.
 
-### Tools
+## Tools
 - [codemaid](https://github.com/codecadwallader/codemaid) - open source Visual Studio extension to cleanup and simplify our C#, C++, F#, VB, PHP, PowerShell, JSON, XAML, XML, ASP, HTML, CSS, LESS, SCSS, JavaScript and TypeScript coding.
 - [tslint-clean-code](https://github.com/Glavin001/tslint-clean-code) - TSLint rules for enforcing Clean Code.
 
-### Cheetsheets
+## Cheetsheets
 - [Clean Code](cheetsheets/Clean-Code-V2.4.pdf) - The summary of [Clean Code: A Handbook of Agile Software Craftsmanship](https://www.amazon.com/dp/0132350882) book.
 - [Clean Architecture](cheetsheets/Clean-Architecture-V1.0.pdf) - The summary of [Clean Architecture: A Craftsman's Guide to Software Structure and Design](https://www.amazon.com/dp/0134494164) book.
 
 ---
 
-## License
+# License
 
 [![CC0](http://mirrors.creativecommons.org/presskit/buttons/88x31/svg/cc-zero.svg)](https://creativecommons.org/publicdomain/zero/1.0/)
 
