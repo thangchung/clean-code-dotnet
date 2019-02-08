@@ -2607,6 +2607,45 @@ Thrown errors are a good thing! They mean the runtime has successfully identifie
 </details>
 
 <details>
+  <summary><b>Don't use 'throw ex' in catch block</b></summary>
+
+If you need to re-throw an exception after catching it, use just 'throw'
+By using this, you will save the stack trace. But in the bad option below,
+you will lost the stack trace.
+
+**Bad:**
+
+```csharp
+try
+{
+    // Do something..
+}
+catch (Exception ex)
+{
+    // Any action something like roll-back or logging etc.
+    throw ex;
+}
+```
+
+**Good:**
+
+```csharp
+try
+{
+    // Do something..
+}
+catch (Exception ex)
+{
+    // Any action something like roll-back or logging etc.
+    throw;
+}
+```
+
+**[⬆ back to top](#table-of-contents)**
+
+</details>
+
+<details>
   <summary><b>Don't ignore caught errors</b></summary>
 
 Doing nothing with a caught error doesn't give you the ability to ever fix or react to said error. Throwing the error isn't much better as often times it can get lost in a sea of things printed to the console. If you wrap any bit of code in a `try/catch` it means you think an error may occur there and therefore you should have a plan, or create a code path, for when it occurs.
@@ -2685,45 +2724,6 @@ catch (TaskCanceledException ex)
 catch (TaskSchedulerException ex)
 {
     // Take action for TaskSchedulerException
-}
-```
-
-**[⬆ back to top](#table-of-contents)**
-
-</details>
-
-<details>
-  <summary><b>Don't use 'throw ex' in catch block</b></summary>
-
-If you need to re-throw an exception after catching it, use just 'throw'
-By using this, you will save the stack trace. But in the bad option below,
-you will lost the stack trace.
-
-**Bad:**
-
-```csharp
-try
-{
-    // Do something..
-}
-catch (Exception ex)
-{
-    // Any action something like roll-back or logging etc.
-    throw ex;
-}
-```
-
-**Good:**
-
-```csharp
-try
-{
-    // Do something..
-}
-catch (Exception ex)
-{
-    // Any action something like roll-back or logging etc.
-    throw;
 }
 ```
 
