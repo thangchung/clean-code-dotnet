@@ -2633,10 +2633,97 @@ try
 }
 catch (Exception error)
 {
-    NotifyUserOfError(error);
+  NotifyUserOfError(error);
 
-    // Another option
-    ReportErrorToService(error);
+  // Another option
+  ReportErrorToService(error);
+}
+```
+
+**[⬆ back to top](#table-of-contents)**
+
+</details>
+
+<details>
+  <summary><b>Use multiple catch block instead of if conditions.</b></summary>
+
+If you need to take action according to type of the exception, 
+you better use multiple catch block for exception handling.
+
+**Bad:**
+
+```csharp
+try
+{
+    // Do something..
+}
+catch (Exception ex)
+{
+
+    if (ex is TaskCanceledException)
+    {
+        // Take action for TaskCanceledException
+    }
+    else if (ex is TaskSchedulerException)
+    {
+        // Take action for TaskSchedulerException
+    }
+}
+```
+
+**Good:**
+
+```csharp
+try
+{
+    // Do something..
+}
+catch (TaskCanceledException ex)
+{
+    // Take action for TaskCanceledException
+}
+catch (TaskSchedulerException ex)
+{
+    // Take action for TaskSchedulerException
+}
+```
+
+**[⬆ back to top](#table-of-contents)**
+
+</details>
+
+<details>
+  <summary><b>Don't use 'throw ex' in catch block</b></summary>
+
+If you need to re-throw an exception after catching it, use just 'throw'
+By using this, you will save the stack trace. But in the bad option below,
+you will lost the stack trace.
+
+**Bad:**
+
+```csharp
+try
+{
+    // Do something..
+}
+catch (Exception ex)
+{
+    // Any action something like roll-back or logging etc.
+    throw ex;
+}
+```
+
+**Good:**
+
+```csharp
+try
+{
+    // Do something..
+}
+catch (Exception ex)
+{
+    // Any action something like roll-back or logging etc.
+    throw;
 }
 ```
 
