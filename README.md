@@ -72,13 +72,13 @@ Programmers must avoid naming with disinformation name and we should name variab
 **Bad:**
 
 ```csharp
-var dataFromDb = db.GetFromService().Tolist();
+var dataFromDb = db.GetFromService().ToList();
 ```
 
 **Good:**
 
 ```csharp
-var listOfEmployee = _employeeService.GetEmployeeListFromDb().Tolist();
+var listOfEmployee = _employeeService.GetEmployeeListFromDb().ToList();
 ```
 
 **[⬆ Back to top](#table-of-contents)**
@@ -122,7 +122,7 @@ public bool IsShopOpen(string pDay, int pAmount)
 ```csharp
 public bool IsShopOpen(string day, int amount)
 {
-     // some logic
+    // some logic
 }
 ```
 
@@ -1678,8 +1678,7 @@ class Employee
 <details>
   <summary><b>Single Responsibility Principle (SRP)</b></summary>
 
-As stated in Clean Code, "There should never be more than one reason for a class to change". It's tempting to jam-pack a class with a lot of functionality, like when you can only take one suitcase on your flight. The issue with this is that your class won't be conceptually cohesive and it will give it many reasons
-to change. Minimizing the amount of times you need to change a class is important.
+As stated in Clean Code, "There should never be more than one reason for a class to change". It's tempting to jam-pack a class with a lot of functionality, like when you can only take one suitcase on your flight. The issue with this is that your class won't be conceptually cohesive and it will give it many reasons to change. Minimizing the amount of times you need to change a class is important.
 
 It's important because if too much functionality is in one class and you modify a piece of it, it can be difficult to understand how that will affect other dependent modules in your codebase.
 
@@ -2387,16 +2386,16 @@ public class MakeDotNetGreatAgainTests
 
 **Summary of Asynchronous Programming Guidelines**
 
-|        Name       |                    Description                    |           Exceptions          |
-|-------------------|---------------------------------------------------|-------------------------------|
-| Avoid async void  | Prefer async Task methods over async void methods | Event handlers                |
-| Async all the way | Don't mix blocking and async code                 | Console main method (C# <= 7.0)|
-| Configure context | Use `ConfigureAwait(false)` when you can          | Methods that require con­text  |
+| Name              | Description                                       | Exceptions                      |
+| ----------------- | ------------------------------------------------- | ------------------------------- |
+| Avoid async void  | Prefer async Task methods over async void methods | Event handlers                  |
+| Async all the way | Don't mix blocking and async code                 | Console main method (C# <= 7.0) |
+| Configure context | Use `ConfigureAwait(false)` when you can          | Methods that require con­text   |
 
 **The Async Way of Doing Things**
 
-|              To Do This ...              |    Instead of This ...     |       Use This       |
-|------------------------------------------|----------------------------|----------------------|
+| To Do This ...                           | Instead of This ...        | Use This             |
+| ---------------------------------------- | -------------------------- | -------------------- |
 | Retrieve the result of a background task | `Task.Wait or Task.Result` | `await`              |
 | Wait for any task to complete            | `Task.WaitAny`             | `await Task.WhenAny` |
 | Retrieve the results of multiple tasks   | `Task.WaitAll`             | `await Task.WhenAll` |
@@ -2408,8 +2407,8 @@ There's a lot to learn about async and await, and it's natural to get a little d
 
 **Solutions to Common Async Problems**
 
-|                     Problem                     |                                      Solution                                     |
-|-------------------------------------------------|-----------------------------------------------------------------------------------|
+| Problem                                         | Solution                                                                          |
+| ----------------------------------------------- | --------------------------------------------------------------------------------- |
 | Create a task to execute code                   | `Task.Run` or `TaskFactory.StartNew` (not the `Task` constructor or `Task.Start`) |
 | Create a task wrapper for an operation or event | `TaskFactory.FromAsync` or `TaskCompletionSource<T>`                              |
 | Support cancellation                            | `CancellationTokenSource` and `CancellationToken`                                 |
@@ -2424,8 +2423,8 @@ It is extremely well-written, and includes guidance on API design and the proper
 
 There are many new await-friendly techniques that should be used instead of the old blocking techniques. If you have any of these Old examples in your new async code, you're Doing It Wrong(TM):
 
-|        Old         |                 New                  |                          Description                          |
-|--------------------|--------------------------------------|---------------------------------------------------------------|
+| Old                | New                                  | Description                                                   |
+| ------------------ | ------------------------------------ | ------------------------------------------------------------- |
 | `task.Wait`        | `await task`                         | Wait/await for a task to complete                             |
 | `task.Result`      | `await task`                         | Get the result of a completed task                            |
 | `Task.WaitAny`     | `await Task.WhenAny`                 | Wait/await for one of a collection of tasks to complete       |
