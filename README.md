@@ -64,6 +64,8 @@ int daySinceModification;
 
 </details>
 
+
+
 <details>
   <summary><b>Avoid Disinformation name</b></summary>
 
@@ -82,6 +84,50 @@ var listOfEmployee = _employeeService.GetEmployeeListFromDb().ToList();
 ```
 
 **[⬆ Back to top](#table-of-contents)**
+
+</details>
+
+
+<details>
+  <summary><b>Use consistent capitalization</b></summary>
+
+Capitalization tells you a lot about your variables,
+functions, etc. These rules are subjective, so your team can choose whatever
+they want. The point is, no matter what you all choose, just be consistent.
+
+**Bad:**
+
+```csharp
+const int DAYS_IN_WEEK = 7;
+const int daysInMonth = 30;
+
+var songs = new List<string> { 'Back In Black', 'Stairway to Heaven', 'Hey Jude' };
+var Artists = new List<string> { 'ACDC', 'Led Zeppelin', 'The Beatles' };
+
+bool EraseDatabase() {}
+bool Restore_database() {}
+
+class animal {}
+class Alpaca {}
+```
+
+**Good:**
+
+```csharp
+const int DaysInWeek = 7;
+const int DaysInMonth = 30;
+
+var songs = new List<string> { 'Back In Black', 'Stairway to Heaven', 'Hey Jude' };
+var artists = new List<string> { 'ACDC', 'Led Zeppelin', 'The Beatles' };
+
+bool EraseDatabase() {}
+bool RestoreDatabase() {}
+
+class Animal {}
+class Alpaca {}
+```
+
+**[⬆ back to top](#table-of-contents)**
 
 </details>
 
@@ -929,6 +975,121 @@ class BetterJSAlternative
 **[⬆ back to top](#table-of-contents)**
 
 </details>
+
+<details>
+  <summary><b>Function callers and callees should be close</b></summary>
+
+If a function calls another, keep those functions vertically close in the source
+file. Ideally, keep the caller right above the callee. We tend to read code from
+top-to-bottom, like a newspaper. Because of this, make your code read that way.
+
+**Bad:**
+
+```csharp
+class PerformanceReview 
+{
+  private readonly Employee _employee;
+
+  public PerformanceReview(Employee employee) 
+  {
+    _employee = employee;
+  }
+
+  private IEnumerable<PeersData> LookupPeers() 
+  {
+    return db.lookup(_employee, 'peers');
+  }
+
+  private ManagerData LookupManager() 
+  {
+    return db.lookup(_employee, 'manager');
+  }
+
+  private IEnumerable<PeerReviews> GetPeerReviews() 
+  {
+    var peers = LookupPeers();
+    // ...
+  }
+
+  public PerfReviewData PerfReview() 
+  {
+    GetPeerReviews();
+    GetManagerReview();
+    GetSelfReview();
+  }
+
+  public ManagerData GetManagerReview() 
+  {
+    var manager = LookupManager();
+  }
+
+  public EmployeeData GetSelfReview() 
+  {
+    // ...
+  }
+}
+
+var  review = new PerformanceReview(employee);
+review.PerfReview();
+```
+
+**Good:**
+
+```csharp
+class PerformanceReview 
+{
+  private readonly Employee _employee;
+
+  public PerformanceReview(Employee employee) 
+  {
+    _employee = employee;
+  }
+
+  public PerfReviewData PerfReview() 
+  {
+    GetPeerReviews();
+    GetManagerReview();
+    GetSelfReview();
+  }
+
+  private IEnumerable<PeerReviews> GetPeerReviews() 
+  {
+    var peers = LookupPeers();
+    // ...
+  }
+
+  private IEnumerable<PeersData> LookupPeers() 
+  {
+    return db.lookup(_employee, 'peers');
+  }
+
+  private ManagerData GetManagerReview() 
+  {
+    var manager = LookupManager();
+    return manager;
+  }
+
+  private ManagerData LookupManager() 
+  {
+    return db.lookup(_employee, 'manager');
+  }
+
+  private EmployeeData GetSelfReview() 
+  {
+    // ...
+  }
+}
+
+var review = new PerformanceReview(employee);
+review.PerfReview();
+```
+
+**[⬆ back to top](#table-of-contents)**
+
+</details>
+
+
+
 
 <details>
   <summary><b>Don't use flags as function parameters</b></summary>
@@ -2485,6 +2646,10 @@ catch (Exception error)
 
 </details>
 
+sort-error-handling
+
+
+
 <details>
   <summary><b>Use consistent capitalization</b></summary>
 
@@ -2636,6 +2801,7 @@ review.PerfReview();
 **[⬆ back to top](#table-of-contents)**
 
 </details>
+
 
 ### Formatting
 
