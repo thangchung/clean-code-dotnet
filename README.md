@@ -240,30 +240,29 @@ public double CalculateSalary(int workingDays, int workingHours)
 <details>
   <summary><b>Use domain name</b></summary>
 
-People who read your code are also programmers. Naming things right will help everyone be on the same page. We don’t want to take time to explain to everyone what a variable or function is for.
+People who read your code are also programmers. Naming things right will help everyone be on the same page. We don't want to take time to explain to everyone what a variable or function is for.
 
 **Good**
 
 ```csharp
 public class SingleObject
 {
-   //create an object of SingleObject
-   private static SingleObject _instance = new SingleObject();
+    // create an object of SingleObject
+    private static SingleObject _instance = new SingleObject();
 
-   //make the constructor private so that this class cannot be
-   //instantiated
-   private SingleObject() {}
+    // make the constructor private so that this class cannot be instantiated
+    private SingleObject() {}
 
-   //Get the only object available
-   public static SingleObject GetInstance()
-   {
-      return _instance;
-   }
+    // get the only object available
+    public static SingleObject GetInstance()
+    {
+        return _instance;
+    }
 
-   public string ShowMessage()
-   {
-      return "Hello World!";
-   }
+    public string ShowMessage()
+    {
+        return "Hello World!";
+    }
 }
 
 public static void main(String[] args)
@@ -845,18 +844,22 @@ public string ParseBetterJSAlternative(string code)
 
     var statements = explode(" ", code);
     var tokens = new string[] {};
-    foreach (var regex in regexes) {
-        foreach (var statement in statements) {
+    foreach (var regex in regexes)
+    {
+        foreach (var statement in statements)
+        {
             // ...
         }
     }
 
     var ast = new string[] {};
-    foreach (var token in tokens) {
+    foreach (var token in tokens)
+    {
         // lex...
     }
 
-    foreach (var node in ast) {
+    foreach (var node in ast)
+    {
         // parse...
     }
 }
@@ -869,7 +872,8 @@ We have carried out some of the functionality, but the `ParseBetterJSAlternative
 ```csharp
 public string Tokenize(string code)
 {
-    var regexes = new string[] {
+    var regexes = new string[]
+    {
         // ...
     };
 
@@ -979,54 +983,52 @@ class BetterJSAlternative
 <details>
   <summary><b>Function callers and callees should be close</b></summary>
 
-If a function calls another, keep those functions vertically close in the source
-file. Ideally, keep the caller right above the callee. We tend to read code from
-top-to-bottom, like a newspaper. Because of this, make your code read that way.
+If a function calls another, keep those functions vertically close in the source file. Ideally, keep the caller right above the callee. We tend to read code from top-to-bottom, like a newspaper. Because of this, make your code read that way.
 
 **Bad:**
 
 ```csharp
 class PerformanceReview 
 {
-  private readonly Employee _employee;
+    private readonly Employee _employee;
 
-  public PerformanceReview(Employee employee) 
-  {
-    _employee = employee;
-  }
+    public PerformanceReview(Employee employee) 
+    {
+        _employee = employee;
+    }
 
-  private IEnumerable<PeersData> LookupPeers() 
-  {
-    return db.lookup(_employee, 'peers');
-  }
+    private IEnumerable<PeersData> LookupPeers() 
+    {
+        return db.lookup(_employee, 'peers');
+    }
 
-  private ManagerData LookupManager() 
-  {
-    return db.lookup(_employee, 'manager');
-  }
+    private ManagerData LookupManager() 
+    {
+        return db.lookup(_employee, 'manager');
+    }
 
-  private IEnumerable<PeerReviews> GetPeerReviews() 
-  {
-    var peers = LookupPeers();
-    // ...
-  }
+    private IEnumerable<PeerReviews> GetPeerReviews() 
+    {
+        var peers = LookupPeers();
+        // ...
+    }
 
-  public PerfReviewData PerfReview() 
-  {
-    GetPeerReviews();
-    GetManagerReview();
-    GetSelfReview();
-  }
+    public PerfReviewData PerfReview() 
+    {
+        GetPeerReviews();
+        GetManagerReview();
+        GetSelfReview();
+    }
 
-  public ManagerData GetManagerReview() 
-  {
-    var manager = LookupManager();
-  }
+    public ManagerData GetManagerReview() 
+    {
+        var manager = LookupManager();
+    }
 
-  public EmployeeData GetSelfReview() 
-  {
-    // ...
-  }
+    public EmployeeData GetSelfReview() 
+    {
+        // ...
+    }
 }
 
 var  review = new PerformanceReview(employee);
@@ -1038,46 +1040,46 @@ review.PerfReview();
 ```csharp
 class PerformanceReview 
 {
-  private readonly Employee _employee;
+    private readonly Employee _employee;
 
-  public PerformanceReview(Employee employee) 
-  {
-    _employee = employee;
-  }
+    public PerformanceReview(Employee employee) 
+    {
+        _employee = employee;
+    }
 
-  public PerfReviewData PerfReview() 
-  {
-    GetPeerReviews();
-    GetManagerReview();
-    GetSelfReview();
-  }
+    public PerfReviewData PerfReview() 
+    {
+        GetPeerReviews();
+        GetManagerReview();
+        GetSelfReview();
+    }
 
-  private IEnumerable<PeerReviews> GetPeerReviews() 
-  {
-    var peers = LookupPeers();
-    // ...
-  }
+    private IEnumerable<PeerReviews> GetPeerReviews() 
+    {
+        var peers = LookupPeers();
+        // ...
+    }
 
-  private IEnumerable<PeersData> LookupPeers() 
-  {
-    return db.lookup(_employee, 'peers');
-  }
+    private IEnumerable<PeersData> LookupPeers() 
+    {
+        return db.lookup(_employee, 'peers');
+    }
 
-  private ManagerData GetManagerReview() 
-  {
-    var manager = LookupManager();
-    return manager;
-  }
+    private ManagerData GetManagerReview() 
+    {
+        var manager = LookupManager();
+        return manager;
+    }
 
-  private ManagerData LookupManager() 
-  {
-    return db.lookup(_employee, 'manager');
-  }
+    private ManagerData LookupManager() 
+    {
+        return db.lookup(_employee, 'manager');
+    }
 
-  private EmployeeData GetSelfReview() 
-  {
-    // ...
-  }
+    private EmployeeData GetSelfReview() 
+    {
+        // ...
+    }
 }
 
 var review = new PerformanceReview(employee);
@@ -2646,10 +2648,6 @@ catch (Exception error)
 
 </details>
 
-sort-error-handling
-
-
-
 <details>
   <summary><b>Use consistent capitalization</b></summary>
 
@@ -2801,7 +2799,6 @@ review.PerfReview();
 **[⬆ back to top](#table-of-contents)**
 
 </details>
-
 
 ### Formatting
 
