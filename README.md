@@ -1,5 +1,14 @@
+# Clean Code concepts adapted for .NET/.NET Core
+
+If you liked `clean-code-dotnet` project or if it helped you, please give a star :star: for this repository. That will not only help strengthen our .NET community but also improve skills about the clean code for .NET developers in around the world. Thank you very much : 1:
+
+Follow me for more clean code and clean architecture resources
+
+[![My Blog](https://img.shields.io/badge/medium-blog-blue.svg)](https://medium.com/@thangchung) [![Twitter Follow](https://img.shields.io/twitter/follow/thangchung.svg?label=@thangchung)](https://twitter.com/thangchung)
+
 # Table of Contents
 
+- [Clean Code concepts adapted for .NET/.NET Core](#clean-code-concepts-adapted-for-netnet-core)
 - [Table of Contents](#table-of-contents)
 - [Introduction](#introduction)
 - [Clean Code .NET](#clean-code-net)
@@ -19,10 +28,6 @@
   - [Tools](#tools)
   - [Cheetsheets](#cheetsheets)
 - [License](#license)
-
----
-
-If you liked `clean-code-dotnet` project or if it helped you, please give a star :star: for this repository so that .NET community will know and help them out just like you. Thank you very much :+1:
 
 # Introduction
 
