@@ -2,9 +2,7 @@
 
 If you liked `clean-code-dotnet` project or if it helped you, please give a star :star: for this repository. That will not only help strengthen our .NET community but also improve skills about the clean code for .NET developers in around the world. Thank you very much : 1:
 
-Follow me for more clean code and clean architecture resources
-
-[![My Blog](https://img.shields.io/badge/medium-blog-blue.svg)](https://medium.com/@thangchung) [![Twitter Follow](https://img.shields.io/twitter/follow/thangchung.svg?label=@thangchung)](https://twitter.com/thangchung)
+Check out my [blog](https://medium.com/@thangchung) or say hi on [Twitter](https://twitter.com/thangchung)!
 
 # Table of Contents
 
