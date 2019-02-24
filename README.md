@@ -27,6 +27,9 @@ Follow me for more clean code and clean architecture resources
   - [Other Clean Code Lists](#other-clean-code-lists)
   - [Tools](#tools)
   - [Cheetsheets](#cheetsheets)
+  - [Contributors](#contributors)
+  - [Backers](#backers)
+  - [Sponsors](#sponsors)
 - [License](#license)
 
 # Introduction
@@ -3175,6 +3178,28 @@ private int ConvertTo32BitInt(int value)
 - [Clean Architecture](cheetsheets/Clean-Architecture-V1.0.pdf) - The summary of [Clean Architecture: A Craftsman's Guide to Software Structure and Design](https://www.amazon.com/dp/0134494164) book
 
 ---
+
+## Contributors
+
+This project will not exist if don't have contributors as following
+
+<a href="https://github.com/thangchung/clean-code-dotnet/graphs/contributors"><img src="https://opencollective.com/clean-code-dotnet/contributors.svg?width=890" title="contributors" alt="contributors" /></a>
+
+## Backers
+
+Love our work and help us continue our activities? [[Become a backer](https://opencollective.com/clean-code-dotnet#backer)]
+
+<a href="https://opencollective.com/clean-code-dotnet#backers" target="_blank"><img src="https://opencollective.com/clean-code-dotnet/backers.svg?width=890"></a>
+
+## Sponsors
+
+Become a sponsor and get your logo on our README on Github with a link to your site. [[Become a sponsor](https://opencollective.com/clean-code-dotnet#sponsor)]
+
+<a href="https://opencollective.com/clean-code-dotnet/sponsor/0/website" target="_blank"><img src="https://opencollective.com/clean-code-dotnet/sponsor/0/avatar.svg"></a>
+<a href="https://opencollective.com/clean-code-dotnet/sponsor/1/website" target="_blank"><img src="https://opencollective.com/clean-code-dotnet/sponsor/1/avatar.svg"></a>
+<a href="https://opencollective.com/clean-code-dotnet/sponsor/2/website" target="_blank"><img src="https://opencollective.com/clean-code-dotnet/sponsor/2/avatar.svg"></a>
+<a href="https://opencollective.com/clean-code-dotnet/sponsor/3/website" target="_blank"><img src="https://opencollective.com/clean-code-dotnet/sponsor/3/avatar.svg"></a>
+<a href="https://opencollective.com/clean-code-dotnet/sponsor/4/website" target="_blank"><img src="https://opencollective.com/clean-code-dotnet/sponsor/4/avatar.svg"></a>
 
 # License
 
