@@ -25,9 +25,9 @@ Check out my [blog](https://medium.com/@thangchung) or say hi on [Twitter](https
   - [Other Clean Code Lists](#other-clean-code-lists)
   - [Tools](#tools)
   - [Cheetsheets](#cheetsheets)
-  - [Contributors](#contributors)
-  - [Backers](#backers)
-  - [Sponsors](#sponsors)
+- [Contributors](#contributors)
+- [Backers](#backers)
+- [Sponsors](#sponsors)
 - [License](#license)
 
 # Introduction
@@ -3177,19 +3177,19 @@ private int ConvertTo32BitInt(int value)
 
 ---
 
-## Contributors
+# Contributors
 
 This project will not exist if don't have contributors as following
 
 <a href="https://github.com/thangchung/clean-code-dotnet/graphs/contributors"><img src="https://opencollective.com/clean-code-dotnet/contributors.svg?width=890" title="contributors" alt="contributors" /></a>
 
-## Backers
+# Backers
 
 Love our work and help us continue our activities? [[Become a backer](https://opencollective.com/clean-code-dotnet#backer)]
 
 <a href="https://opencollective.com/clean-code-dotnet#backers" target="_blank"><img src="https://opencollective.com/clean-code-dotnet/backers.svg?width=890"></a>
 
-## Sponsors
+# Sponsors
 
 Become a sponsor and get your logo on our README on Github with a link to your site. [[Become a sponsor](https://opencollective.com/clean-code-dotnet#sponsor)]
 
