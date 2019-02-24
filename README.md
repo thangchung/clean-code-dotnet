@@ -2,9 +2,7 @@
 
 If you liked `clean-code-dotnet` project or if it helped you, please give a star :star: for this repository. That will not only help strengthen our .NET community but also improve skills about the clean code for .NET developers in around the world. Thank you very much : 1:
 
-Follow me for more clean code and clean architecture resources
-
-[![My Blog](https://img.shields.io/badge/medium-blog-blue.svg)](https://medium.com/@thangchung) [![Twitter Follow](https://img.shields.io/twitter/follow/thangchung.svg?label=@thangchung)](https://twitter.com/thangchung)
+Check out my [blog](https://medium.com/@thangchung) or say hi on [Twitter](https://twitter.com/thangchung)!
 
 # Table of Contents
 
@@ -934,9 +932,9 @@ public int Combine(int val1, int val2)
 </details>
 
 <details>
-  <summary><b>Don't use flags as function parameters</b></summary>
+  <summary><b>Avoid flags in method parameters</b></summary>
 
-Flags tell your user that this function does more than one thing. Functions should do one thing. Split out your functions if they are following different code paths based on a boolean.
+A flag indicates that the method has more than one responsibility. It is best if the method only has a single responsibility. Split the method into two if a boolean parameter adds multiple responsibilities to the method.
 
 **Bad:**
 
@@ -2449,7 +2447,7 @@ public List<EmployeeData> ShowList(Employee employees)
   <summary><b>Basic concept of testing</b></summary>
 
 Testing is more important than shipping. If you have no tests or an
-inadequate amount, then every time you ship code you won't be sure that you didn't break anything. Deciding on what constitutes an adequate amount is up to your team, but having 100% coverage (all statements and branches) is how you achieve very high confidence and developer peace of mind. This means that in addition to having a great testing framework, you also need to use a [good coverage tool][https://docs.microsoft.com/en-us/visualstudio/test/using-code-coverage-to-determine-how-much-code-is-being-tested).
+inadequate amount, then every time you ship code you won't be sure that you didn't break anything. Deciding on what constitutes an adequate amount is up to your team, but having 100% coverage (all statements and branches) is how you achieve very high confidence and developer peace of mind. This means that in addition to having a great testing framework, you also need to use a [good coverage tool](https://docs.microsoft.com/en-us/visualstudio/test/using-code-coverage-to-determine-how-much-code-is-being-tested).
 
 There's no excuse to not write tests. There's [plenty of good .NET test frameworks](https://github.com/thangchung/awesome-dotnet-core#testing), so find one that your team prefers. When you find one that works for your team, then aim to always write tests for every new feature/module you introduce. If your preferred method is Test Driven Development (TDD), that is great, but the main point is to just make sure you are reaching your coverage goals before launching any feature, or refactoring an existing one.
 
