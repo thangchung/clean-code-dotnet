@@ -3179,25 +3179,26 @@ private int ConvertTo32BitInt(int value)
 
 ## Contributors
 
-This project will not exist if don't have contributors as following
+Thank you to all the people who have already contributed to `clean-code-dotnet` project
 
-<a href="https://github.com/thangchung/clean-code-dotnet/graphs/contributors"><img src="https://opencollective.com/clean-code-dotnet/contributors.svg?width=890" title="contributors" alt="contributors" /></a>
+
+<a href="https://github.com/thangchung/clean-code-dotnet/graphs/contributors"><img src="https://opencollective.com/cleancodedotnet/contributors.svg?width=890" title="contributors" alt="contributors" /></a>
 
 ## Backers
 
-Love our work and help us continue our activities? [[Become a backer](https://opencollective.com/clean-code-dotnet#backer)]
+Love our work and help us continue our activities? [[Become a backer](https://opencollective.com/cleancodedotnet#backer)]
 
-<a href="https://opencollective.com/clean-code-dotnet#backers" target="_blank"><img src="https://opencollective.com/clean-code-dotnet/backers.svg?width=890"></a>
+<a href="https://opencollective.com/cleancodedotnet#backers" target="_blank"><img src="https://opencollective.com/cleancodedotnet/backers.svg?width=890"></a>
 
 ## Sponsors
 
-Become a sponsor and get your logo on our README on Github with a link to your site. [[Become a sponsor](https://opencollective.com/clean-code-dotnet#sponsor)]
+Become a sponsor and get your logo on our README on Github with a link to your site. [[Become a sponsor](https://opencollective.com/cleancodedotnet#sponsor)]
 
-<a href="https://opencollective.com/clean-code-dotnet/sponsor/0/website" target="_blank"><img src="https://opencollective.com/clean-code-dotnet/sponsor/0/avatar.svg"></a>
-<a href="https://opencollective.com/clean-code-dotnet/sponsor/1/website" target="_blank"><img src="https://opencollective.com/clean-code-dotnet/sponsor/1/avatar.svg"></a>
-<a href="https://opencollective.com/clean-code-dotnet/sponsor/2/website" target="_blank"><img src="https://opencollective.com/clean-code-dotnet/sponsor/2/avatar.svg"></a>
-<a href="https://opencollective.com/clean-code-dotnet/sponsor/3/website" target="_blank"><img src="https://opencollective.com/clean-code-dotnet/sponsor/3/avatar.svg"></a>
-<a href="https://opencollective.com/clean-code-dotnet/sponsor/4/website" target="_blank"><img src="https://opencollective.com/clean-code-dotnet/sponsor/4/avatar.svg"></a>
+<a href="https://opencollective.com/cleancodedotnet/sponsor/0/website" target="_blank"><img src="https://opencollective.com/cleancodedotnet/sponsor/0/avatar.svg"></a>
+<a href="https://opencollective.com/cleancodedotnet/sponsor/1/website" target="_blank"><img src="https://opencollective.com/cleancodedotnet/sponsor/1/avatar.svg"></a>
+<a href="https://opencollective.com/cleancodedotnet/sponsor/2/website" target="_blank"><img src="https://opencollective.com/cleancodedotnet/sponsor/2/avatar.svg"></a>
+<a href="https://opencollective.com/cleancodedotnet/sponsor/3/website" target="_blank"><img src="https://opencollective.com/cleancodedotnet/sponsor/3/avatar.svg"></a>
+<a href="https://opencollective.com/cleancodedotnet/sponsor/4/website" target="_blank"><img src="https://opencollective.com/cleancodedotnet/sponsor/4/avatar.svg"></a>
 
 # License
 
