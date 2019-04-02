@@ -1159,11 +1159,11 @@ public void SendEmailToListOfClients(string[] clients)
 ```csharp
 public void SendEmailToListOfClients(string[] clients)
 {
-    var activeClients = ActiveClients(clients);
+    var activeClients = GetActiveClients(clients);
     // Do some logic
 }
 
-public List<Client> ActiveClients(string[] clients)
+public List<Client> GetActiveClients(string[] clients)
 {
     return db.Find(clients).Where(s => s.Status == "Active");
 }
@@ -1356,7 +1356,7 @@ class BetterJSAlternative
 
     public string Parse(string code)
     {
-        var tokens = _tokenizer->Tokenize(code);
+        var tokens = _tokenizer.Tokenize(code);
         var ast = _lexer.Lexify(tokens);
         foreach (var node in ast)
         {
@@ -1762,7 +1762,7 @@ class Employee
 // Bad because Employees "have" tax data.
 // EmployeeTaxData is not a type of Employee
 
-class EmployeeTaxData extends Employee
+class EmployeeTaxData : Employee
 {
     private string Name { get; }
     private string Email { get; }
@@ -2559,6 +2559,13 @@ public class MakeDotNetGreatAgainTests
 | Retrieve the results of multiple tasks   | `Task.WaitAll`             | `await Task.WhenAll` |
 | Wait a period of time                    | `Thread.Sleep`             | `await Task.Delay`   |
 
+**Note** 
+
+The async/await is the best for IO bound tasks (networking communication, database connection, http request, etc.) but it is not good
+to apply for computational bound task (traverse on the huge list, render a hugge image, etc.). Because it will release the holding thread to the thread pool and CPU will not spend much resources to process those task. Therefore, we avoid using Async/Await for computional bound tasks.
+
+For dealing with computational bound task, prefer to use `Task.Factory.CreateNew` with `TaskCreationOptions` is `LongRunning`. It will start a new background thread to process a heavy computational bound task without release it back to the thread pool until the task being completed.
+
 **Know Your Tools**
 
 There's a lot to learn about async and await, and it's natural to get a little disoriented. Here's a quick reference of solutions to common problems.
@@ -2759,7 +2766,7 @@ try
 }
 catch (Exception error)
 {
-    logger.LogInfo(ex);
+    logger.LogInfo(error);
     throw;
 }
 ```
@@ -2773,8 +2780,8 @@ try
 }
 catch (Exception error)
 {
-    logger.LogInfo(ex);
-    throw new CustomException(ex);
+    logger.LogInfo(error);
+    throw new CustomException(error);
 }
 ```
 
