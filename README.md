@@ -1122,7 +1122,7 @@ var config = new MenuConfig
     Body = "Bar",
     ButtonText = "Baz",
     Cancellable = true
-}
+};
 
 public void CreateMenu(MenuConfig config)
 {
