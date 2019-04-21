@@ -1116,11 +1116,13 @@ pubic class MenuConfig
     public bool Cancellable { get; set; }
 }
 
-var config = new MenuConfig();
-config.Title = "Foo";
-config.Body = "Bar";
-config.ButtonText = "Baz";
-config.Cancellable = true;
+var config = new MenuConfig
+{
+    Title = "Foo",
+    Body = "Bar",
+    ButtonText = "Baz",
+    Cancellable = true
+};
 
 public void CreateMenu(MenuConfig config)
 {
