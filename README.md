@@ -1582,6 +1582,12 @@ bankAccount.Balance -= 100;
 class BankAccount
 {
     private double _balance = 0.0D;
+	
+	pubic double Balance {
+		get {
+				return _balance;
+			}
+	}
 
     public BankAccount(balance = 1000)
     {
@@ -1602,11 +1608,6 @@ class BankAccount
     {
         _balance += amount;
     }
-
-    public double getBalance()
-    {
-        return _balance;
-    }
 }
 
 var bankAccount = new BankAccount();
@@ -1615,7 +1616,7 @@ var bankAccount = new BankAccount();
 bankAccount.WithdrawBalance(price);
 
 // Get balance
-balance = bankAccount.GetBalance();
+balance = bankAccount.Balance;
 ```
 
 **[⬆ back to top](#table-of-contents)**
