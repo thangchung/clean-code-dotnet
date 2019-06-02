@@ -1588,7 +1588,7 @@ class BankAccount
        _balance = balance;
     }
 
-    public double WithdrawBalance(int amount)
+    public void WithdrawBalance(int amount)
     {
         if (amount > _balance)
         {
