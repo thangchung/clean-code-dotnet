@@ -1583,11 +1583,11 @@ class BankAccount
 {
     private double _balance = 0.0D;
 	
-	pubic double Balance {
-		get {
-				return _balance;
-			}
-	}
+    pubic double Balance {
+        get {
+            return _balance;
+        }
+    }
 
     public BankAccount(balance = 1000)
     {
