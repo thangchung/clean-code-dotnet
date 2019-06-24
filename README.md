@@ -2279,7 +2279,7 @@ public abstract class EmployeeBase
     }
 }
 
-public class Robot : EmployeeBase
+public class Human : EmployeeBase
 {
     public void Work()
     {
@@ -2287,18 +2287,30 @@ public class Robot : EmployeeBase
     }
 }
 
+public class Robot : EmployeeBase
+{
+    public void Work()
+    {
+        //.... working much, much more
+    }
+}
+
 public class Manager
 {
-    private readonly Employee _employee;
+    private readonly Robot _robot;
+    private readonly Human _human;
 
-    public Manager(Employee employee)
+    public Manager(Robot robot,
+        Human human)
     {
-        _employee = employee;
+        _robot = robot;
+        _human = human;
     }
 
     public void Manage()
     {
-        _employee.Work();
+        _robot.Work();
+        _human.Work();
     }
 }
 ```
@@ -2329,16 +2341,19 @@ public class Robot : IEmployee
 
 public class Manager
 {
-    private readonly IEmployee _employee;
+    private readonly IEnumerable<IEmployee> _employees;
 
-    public Manager(IEmployee employee)
+    public Manager(IEnumerable<IEmployee> employees)
     {
-        _employee = employee;
+        _employees = employees;
     }
 
     public void Manage()
     {
-        _employee.Work();
+        foreach (IEmployee employee in _employees)
+        {
+            _employee.Work();
+        }
     }
 }
 ```
