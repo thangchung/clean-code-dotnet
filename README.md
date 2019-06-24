@@ -2274,7 +2274,7 @@ It can accomplish this through DI. A huge benefit of this is that it reduces the
 ```csharp
 public abstract class EmployeeBase
 {
-    public void Work()
+    protected virtual void Work()
     {
         // ....working
     }
@@ -2282,7 +2282,7 @@ public abstract class EmployeeBase
 
 public class Human : EmployeeBase
 {
-    public void Work()
+    public override void Work()
     {
         //.... working much more
     }
@@ -2290,7 +2290,7 @@ public class Human : EmployeeBase
 
 public class Robot : EmployeeBase
 {
-    public void Work()
+    public override void Work()
     {
         //.... working much, much more
     }
@@ -2301,8 +2301,7 @@ public class Manager
     private readonly Robot _robot;
     private readonly Human _human;
 
-    public Manager(Robot robot,
-        Human human)
+    public Manager(Robot robot, Human human)
     {
         _robot = robot;
         _human = human;
@@ -2351,7 +2350,7 @@ public class Manager
 
     public void Manage()
     {
-        foreach (IEmployee employee in _employees)
+        foreach (var employee in _employees)
         {
             _employee.Work();
         }
