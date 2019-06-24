@@ -6,29 +6,29 @@ Check out my [blog](https://medium.com/@thangchung) or say hi on [Twitter](https
 
 # Table of Contents
 
-- [Clean Code concepts adapted for .NET/.NET Core](#clean-code-concepts-adapted-for-netnet-core)
-- [Table of Contents](#table-of-contents)
-- [Introduction](#introduction)
-- [Clean Code .NET](#clean-code-net)
-  - [Naming](#naming)
-  - [Variables](#variables)
-  - [Functions](#functions)
-  - [Objects and Data Structures](#objects-and-data-structures)
-  - [Classes](#classes)
-  - [SOLID](#solid)
-  - [Testing](#testing)
-  - [Concurrency](#concurrency)
-  - [Error Handling](#error-handling)
-  - [Formatting](#formatting)
-  - [Comments](#comments)
-- [Other Clean Code Resources](#other-clean-code-resources)
-  - [Other Clean Code Lists](#other-clean-code-lists)
-  - [Tools](#tools)
-  - [Cheetsheets](#cheetsheets)
-- [Contributors](#contributors)
-- [Backers](#backers)
-- [Sponsors](#sponsors)
-- [License](#license)
+- [Clean Code concepts adapted for .NET/.NET Core](#Clean-Code-concepts-adapted-for-NETNET-Core)
+- [Table of Contents](#Table-of-Contents)
+- [Introduction](#Introduction)
+- [Clean Code .NET](#Clean-Code-NET)
+  - [Naming](#Naming)
+  - [Variables](#Variables)
+  - [Functions](#Functions)
+  - [Objects and Data Structures](#Objects-and-Data-Structures)
+  - [Classes](#Classes)
+  - [SOLID](#SOLID)
+  - [Testing](#Testing)
+  - [Concurrency](#Concurrency)
+  - [Error Handling](#Error-Handling)
+  - [Formatting](#Formatting)
+  - [Comments](#Comments)
+- [Other Clean Code Resources](#Other-Clean-Code-Resources)
+  - [Other Clean Code Lists](#Other-Clean-Code-Lists)
+  - [Tools](#Tools)
+  - [Cheetsheets](#Cheetsheets)
+- [Contributors](#Contributors)
+- [Backers](#Backers)
+- [Sponsors](#Sponsors)
+- [License](#License)
 
 # Introduction
 
@@ -67,9 +67,9 @@ int daySinceModification;
 
 
 <details>
-  <summary><b>Avoid disinformation name</b></summary>
+  <summary><b>Avoid Misleading Names</b></summary>
 
-Programmers must avoid naming with disinformation name and we should name variable to reflect what we want to do with it.
+Name the variable to reflect what it is used for.
 
 **Bad:**
 
@@ -80,7 +80,7 @@ var dataFromDb = db.GetFromService().ToList();
 **Good:**
 
 ```csharp
-var listOfEmployee = _employeeService.GetEmployeeListFromDb().ToList();
+var listOfEmployee = _employeeService.GetEmployees().ToList();
 ```
 
 **[⬆ Back to top](#table-of-contents)**
@@ -207,7 +207,7 @@ public class Employee
 <details>
   <summary><b>Use Camelcase notation</b></summary>
 
-Use [Camelcase Notation](https://en.wikipedia.org/wiki/Camel_case) for variable and parameter function
+Use [Camelcase Notation](https://en.wikipedia.org/wiki/Camel_case) for variable and method paramaters.
 
 **Bad:**
 
