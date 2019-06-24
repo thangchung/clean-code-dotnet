@@ -813,7 +813,7 @@ interface IAirplane
 {
     // ...
 
-    public double GetCruisingAltitude();
+    double GetCruisingAltitude();
 }
 
 class Boeing777 : IAirplane
