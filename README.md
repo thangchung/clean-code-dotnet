@@ -1955,7 +1955,7 @@ class HttpRequester : AdapterBase
         Adapter = adapter;
     }
 
-    public void Fetch(string url)
+    public bool Fetch(string url)
     {
         var adapterName = Adapter.GetName();
 
