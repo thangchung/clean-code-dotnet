@@ -1664,6 +1664,98 @@ Console.WriteLine(employee.GetName());// Employee name: John Doe
 
 </details>
 
+<details>
+  <summary><b>Avoid Primitive Obsession</b></summary>
+
+It is important to differentiate a well-defined object from a lot of loose and repeated attributes in various places.
+
+**Bad:**
+
+```csharp
+    class Person
+    {
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string Address { get; set; }
+        public string City { get; set; }
+        public string State { get; set; }
+        public string Country { get; set; }
+        public string ZipCode { get; set; }
+    }
+
+    var badPerson = new Person();
+
+    badPerson.FirstName = "John";
+    badPerson.LastName = "Doe";
+    badPerson.Address = "Buck Drive";
+    badPerson.City = "Montpelier";
+    badPerson.State = "Vermont";
+    badPerson.Country = "USA";
+    badPerson.ZipCode = "99999";
+	    
+    Console.WriteLine($"{badPerson.FirstName} {badPerson.LastName}"); //John Doe
+    Console.WriteLine($"{badPerson.Address}, {badPerson.City}, {badPerson.State}, {badPerson.Country}, {badPerson.ZipCode}"); //Buck Drive, Montpelier, Vermont, USA, 99999
+```
+
+**Good:**
+
+```csharp
+    struct Name
+    {
+        public string FirstName, LastName;
+
+        public Name(string firstName, string lastName)
+        {
+            FirstName = firstName;
+            LastName = lastName;
+        }
+
+        public override string ToString()
+        {
+            return $"{FirstName} {LastName}";
+        }
+    }
+
+    struct Address
+    {
+        public string Street, City, State, Country, ZipCode;
+
+        public Address(string street, string city, string state, string country, string zipCode)
+        {
+            Street = street;
+            City = city;
+            State = state;
+            Country = country;
+            ZipCode = zipCode;
+        }
+
+        public override string ToString()
+        {
+            return $"{Street}, {City}, {State}, {Country}, {ZipCode}";
+        }
+    }
+
+    class Person
+    {
+        public Name Name { get; set; }
+        public Address Address { get; set; }
+    }
+    
+    var goodPerson = new Person();
+    
+    goodPerson.Name = new Name("John","Doe");
+    goodPerson.Address = new Address("Buck Drive", "Montpelier", "Vermont", "USA", "99999");
+    
+    Console.WriteLine($"{goodPerson.Name}"); //John Doe
+    Console.WriteLine($"{goodPerson.Address}"); //Buck Drive, Montpelier, Vermont, USA, 99999
+```
+
+Although we have more code in the second way, we gain from reuse, maintainability and consistency of information.
+
+**[⬆ back to top](#table-of-contents)**
+
+</details>
+
 ## Classes
 
 <details>
