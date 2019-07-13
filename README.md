@@ -64,8 +64,6 @@ int daySinceModification;
 
 </details>
 
-
-
 <details>
   <summary><b>Avoid Misleading Names</b></summary>
 
@@ -583,6 +581,7 @@ var sr2 = new StreamReader(stream2);
 Console.Write("JSON form of Data object: ");
 Console.WriteLine(sr2.ReadToEnd());
 ```
+
 **[⬆ Back to top](#table-of-contents)**
 
 </details>
@@ -1380,44 +1379,44 @@ If a function calls another, keep those functions vertically close in the source
 **Bad:**
 
 ```csharp
-class PerformanceReview 
+class PerformanceReview
 {
     private readonly Employee _employee;
 
-    public PerformanceReview(Employee employee) 
+    public PerformanceReview(Employee employee)
     {
         _employee = employee;
     }
 
-    private IEnumerable<PeersData> LookupPeers() 
+    private IEnumerable<PeersData> LookupPeers()
     {
         return db.lookup(_employee, 'peers');
     }
 
-    private ManagerData LookupManager() 
+    private ManagerData LookupManager()
     {
         return db.lookup(_employee, 'manager');
     }
 
-    private IEnumerable<PeerReviews> GetPeerReviews() 
+    private IEnumerable<PeerReviews> GetPeerReviews()
     {
         var peers = LookupPeers();
         // ...
     }
 
-    public PerfReviewData PerfReview() 
+    public PerfReviewData PerfReview()
     {
         GetPeerReviews();
         GetManagerReview();
         GetSelfReview();
     }
 
-    public ManagerData GetManagerReview() 
+    public ManagerData GetManagerReview()
     {
         var manager = LookupManager();
     }
 
-    public EmployeeData GetSelfReview() 
+    public EmployeeData GetSelfReview()
     {
         // ...
     }
@@ -1430,45 +1429,45 @@ review.PerfReview();
 **Good:**
 
 ```csharp
-class PerformanceReview 
+class PerformanceReview
 {
     private readonly Employee _employee;
 
-    public PerformanceReview(Employee employee) 
+    public PerformanceReview(Employee employee)
     {
         _employee = employee;
     }
 
-    public PerfReviewData PerfReview() 
+    public PerfReviewData PerfReview()
     {
         GetPeerReviews();
         GetManagerReview();
         GetSelfReview();
     }
 
-    private IEnumerable<PeerReviews> GetPeerReviews() 
+    private IEnumerable<PeerReviews> GetPeerReviews()
     {
         var peers = LookupPeers();
         // ...
     }
 
-    private IEnumerable<PeersData> LookupPeers() 
+    private IEnumerable<PeersData> LookupPeers()
     {
         return db.lookup(_employee, 'peers');
     }
 
-    private ManagerData GetManagerReview() 
+    private ManagerData GetManagerReview()
     {
         var manager = LookupManager();
         return manager;
     }
 
-    private ManagerData LookupManager() 
+    private ManagerData LookupManager()
     {
         return db.lookup(_employee, 'manager');
     }
 
-    private EmployeeData GetSelfReview() 
+    private EmployeeData GetSelfReview()
     {
         // ...
     }
@@ -1553,12 +1552,12 @@ InventoryTracker("apples", request, "www.inventory-awesome.io");
 In C# / VB.NET you can set `public`, `protected` and `private` keywords for methods.
 Using it, you can control properties modification on an object.
 
-* When you want to do more beyond getting an object property, you don't have to look up and change every accessor in your codebase.
-* Makes adding validation simple when doing a `set`.
-* Encapsulates the internal representation.
-* Easy to add logging and error handling when getting and setting.
-* Inheriting this class, you can override default functionality.
-* You can lazy load your object's properties, let's say getting it from a server.
+- When you want to do more beyond getting an object property, you don't have to look up and change every accessor in your codebase.
+- Makes adding validation simple when doing a `set`.
+- Encapsulates the internal representation.
+- Easy to add logging and error handling when getting and setting.
+- Inheriting this class, you can override default functionality.
+- You can lazy load your object's properties, let's say getting it from a server.
 
 Additionally, this is part of Open/Closed principle, from object-oriented design principles.
 
@@ -1582,7 +1581,7 @@ bankAccount.Balance -= 100;
 class BankAccount
 {
     private double _balance = 0.0D;
-	
+
     pubic double Balance {
         get {
             return _balance;
@@ -1828,11 +1827,11 @@ class Employee
 
 **SOLID** is the mnemonic acronym introduced by Michael Feathers for the first five principles named by Robert Martin, which meant five basic principles of object-oriented programming and design.
 
-* [S: Single Responsibility Principle (SRP)](#single-responsibility-principle-srp)
-* [O: Open/Closed Principle (OCP)](#openclosed-principle-ocp)
-* [L: Liskov Substitution Principle (LSP)](#liskov-substitution-principle-lsp)
-* [I: Interface Segregation Principle (ISP)](#interface-segregation-principle-isp)
-* [D: Dependency Inversion Principle (DIP)](#dependency-inversion-principle-dip)
+- [S: Single Responsibility Principle (SRP)](#single-responsibility-principle-srp)
+- [O: Open/Closed Principle (OCP)](#openclosed-principle-ocp)
+- [L: Liskov Substitution Principle (LSP)](#liskov-substitution-principle-lsp)
+- [I: Interface Segregation Principle (ISP)](#interface-segregation-principle-isp)
+- [D: Dependency Inversion Principle (DIP)](#dependency-inversion-principle-dip)
 
 </details>
 
@@ -2576,7 +2575,7 @@ public class MakeDotNetGreatAgainTests
 | Retrieve the results of multiple tasks   | `Task.WaitAll`             | `await Task.WhenAll` |
 | Wait a period of time                    | `Thread.Sleep`             | `await Task.Delay`   |
 
-**Best practice** 
+**Best practice**
 
 The async/await is the best for IO bound tasks (networking communication, database communication, http request, etc.) but it is not good to apply on computational bound tasks (traverse on the huge list, render a hugge image, etc.). Because it will release the holding thread to the thread pool and CPU/cores available will not involve to process those tasks. Therefore, we should avoid using Async/Await for computional bound tasks.
 
@@ -2708,7 +2707,7 @@ catch (Exception error)
 <details>
   <summary><b>Use multiple catch block instead of if conditions.</b></summary>
 
-If you need to take action according to type of the exception, 
+If you need to take action according to type of the exception,
 you better use multiple catch block for exception handling.
 
 **Bad:**
@@ -3141,7 +3140,7 @@ public int HashIt(string data)
     {
         const char = data.charCodeAt(i);
         hash = ((hash << 5) - hash) + char;
-        
+
         // Convert to 32-bit integer
         hash &= hash;
     }
@@ -3184,6 +3183,7 @@ private int ConvertTo32BitInt(int value)
 # Other Clean Code Resources
 
 ## Other Clean Code Lists
+
 - [clean-code-javascript](https://github.com/ryanmcdermott/clean-code-javascript) - Clean Code concepts adapted for JavaScript
 - [clean-code-php](https://github.com/jupeter/clean-code-php) - Clean Code concepts adapted for PHP
 - [clean-code-ruby](https://github.com/uohzxela/clean-code-ruby) - Clean Code concepts adapted for Ruby
@@ -3192,20 +3192,22 @@ private int ConvertTo32BitInt(int value)
 - [clean-go-article](https://github.com/Pungyeon/clean-go-article) - Clean Code concepts adapted for Golang and an example how to apply [clean code in Golang](https://github.com/Pungyeon/clean-go)
 
 ## Tools
+
 - [codemaid](https://github.com/codecadwallader/codemaid) - open source Visual Studio extension to cleanup and simplify our C#, C++, F#, VB, PHP, PowerShell, JSON, XAML, XML, ASP, HTML, CSS, LESS, SCSS, JavaScript and TypeScript coding
 - [Sharpen](https://github.com/sharpenrocks/Sharpen) - Visual Studio extension that intelligently introduces new C# features into your existing code base
 - [tslint-clean-code](https://github.com/Glavin001/tslint-clean-code) - TSLint rules for enforcing Clean Code
 
 ## Cheetsheets
+
 - [Clean Code](cheetsheets/Clean-Code-V2.4.pdf) - The summary of [Clean Code: A Handbook of Agile Software Craftsmanship](https://www.amazon.com/dp/0132350882) book
 - [Clean Architecture](cheetsheets/Clean-Architecture-V1.0.pdf) - The summary of [Clean Architecture: A Craftsman's Guide to Software Structure and Design](https://www.amazon.com/dp/0134494164) book
+- [Modern JavaScript Cheatsheet](https://github.com/mbeaudru/modern-js-cheatsheet) - Cheatsheet for the JavaScript knowledge you will frequently encounter in modern projects
 
 ---
 
 # Contributors
 
 Thank you to all the people who have already contributed to `clean-code-dotnet` project
-
 
 <a href="https://github.com/thangchung/clean-code-dotnet/graphs/contributors"><img src="https://opencollective.com/cleancodedotnet/contributors.svg?width=890" title="contributors" alt="contributors" /></a>
 
