@@ -6,7 +6,7 @@ namespace CleanCodeDotNet
     {
         private static void Main(string[] args)
         {
-            Console.WriteLine("This is C Thuy repository.");
+            Console.WriteLine("This is C Thuy2 repository.");
         }
     }
 }
