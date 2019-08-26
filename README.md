@@ -1107,7 +1107,7 @@ public void CreateMenu(string title, string body, string buttonText, bool cancel
 **Good:**
 
 ```csharp
-pubic class MenuConfig
+public class MenuConfig
 {
     public string Title { get; set; }
     public string Body { get; set; }
