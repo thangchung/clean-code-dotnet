@@ -1632,7 +1632,7 @@ class Employee
 {
     public string Name { get; set; }
 
-    public Employee(name)
+    public Employee(string name)
     {
         Name = name;
     }
@@ -1656,7 +1656,7 @@ class Employee
 }
 
 var employee = new Employee('John Doe');
-Console.WriteLine(employee.GetName());// Employee name: John Doe
+Console.WriteLine(employee.Name);// Employee name: John Doe
 ```
 
 **[⬆ back to top](#table-of-contents)**
