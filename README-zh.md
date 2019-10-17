@@ -11,6 +11,8 @@
 - [介绍](#%e4%bb%8b%e7%bb%8d)
 - [.NET 中的整洁代码](#net-%e4%b8%ad%e7%9a%84%e6%95%b4%e6%b4%81%e4%bb%a3%e7%a0%81)
   - [命名](#%e5%91%bd%e5%90%8d)
+  - [变量](#%e5%8f%98%e9%87%8f)
+  - [函数](#%e5%87%bd%e6%95%b0)
 
 # 介绍
 
@@ -261,4 +263,431 @@ public static void main(String[] args)
 **[⬆ Back to top](#目录)**
 
 </details>
+
+## 变量
+
+<details>
+  <summary><b>避免嵌套太深，及时返回</b></summary>
+
+过多的 `if else` 段会让代码变得晦涩难懂，**简洁明了优于暗藏玄机**。
+
+**Bad:**
+
+```csharp
+public bool IsShopOpen(string day)
+{
+    if (!string.IsNullOrEmpty(day))
+    {
+        day = day.ToLower();
+        if (day == "friday")
+        {
+            return true;
+        }
+        else if (day == "saturday")
+        {
+            return true;
+        }
+        else if (day == "sunday")
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    else
+    {
+        return false;
+    }
+
+}
+```
+
+**Good:**
+
+```csharp
+public bool IsShopOpen(string day)
+{
+    if (string.IsNullOrEmpty(day))
+    {
+        return false;
+    }
+
+    var openingDays = new[] { "friday", "saturday", "sunday" };
+    return openingDays.Any(d => d == day.ToLower());
+}
+```
+
+**Bad:**
+
+```csharp
+public long Fibonacci(int n)
+{
+    if (n < 50)
+    {
+        if (n != 0)
+        {
+            if (n != 1)
+            {
+                return Fibonacci(n - 1) + Fibonacci(n - 2);
+            }
+            else
+            {
+                return 1;
+            }
+        }
+        else
+        {
+            return 0;
+        }
+    }
+    else
+    {
+        throw new System.Exception("Not supported");
+    }
+}
+```
+
+**Good:**
+
+```csharp
+public long Fibonacci(int n)
+{
+    if (n == 0)
+    {
+        return 0;
+    }
+
+    if (n == 1)
+    {
+        return 1;
+    }
+
+    if (n > 50)
+    {
+        throw new System.Exception("Not supported");
+    }
+
+    return Fibonacci(n - 1) + Fibonacci(n - 2);
+}
+```
+
+**[⬆ back to top](#目录)**
+
+</details>
+
+<details>
+  <summary><b>避免主管映射</b></summary>
+
+不要迫使编译器强行翻译你的代码含义 **显式优于隐式**.
+
+**Bad:**
+
+```csharp
+var l = new[] { "Austin", "New York", "San Francisco" };
+
+for (var i = 0; i < l.Count(); i++)
+{
+    var li = l[i];
+    DoStuff();
+    DoSomeOtherStuff();
+
+    // ...
+    // ...
+    // ...
+    // Wait, what is `li` for again?
+    Dispatch(li);
+}
+```
+
+**Good:**
+
+```csharp
+var locations = new[] { "Austin", "New York", "San Francisco" };
+
+foreach (var location in locations)
+{
+    DoStuff();
+    DoSomeOtherStuff();
+
+    // ...
+    // ...
+    // ...
+    Dispatch(location);
+}
+```
+
+**[⬆ back to top](#目录)**
+
+</details>
+
+
+<details>
+  <summary><b>避免使用魔法字符串</b></summary>
+
+魔法字符串是指直接在应用程序代码中指定的字符串值，这些字符串对会应用程序的行为有所影响。通常，此类字符串最终会在系统中重复使用，并且由于它们无法使用重构工具自动更新，因此当对某些字符串进行更改时，它们将成为常见的 Bug 来源，而不是其他字符串。
+
+**Bad**
+
+```csharp
+if (userRole == "Admin")
+{
+    // logic in here
+}
+```
+
+**Good**
+
+```csharp
+const string ADMIN_ROLE = "Admin"
+if (userRole == ADMIN_ROLE)
+{
+    // logic in here
+}
+```
+
+使用这种方式的话，我们只需要改变关键的地方，其它地方也就会跟着改变。
+
+**[⬆ back to top](#目录)**
+
+</details>
+
+
+<details>
+  <summary><b>不要引入不必要的上下文</b></summary>
+
+如果你的类/对象名称已经告诉了你一些信息，不要在其内部定义重复定义该变量名称。
+
+**Bad:**
+
+```csharp
+public class Car
+{
+    public string CarMake { get; set; }
+    public string CarModel { get; set; }
+    public string CarColor { get; set; }
+
+    //...
+}
+```
+
+**Good:**
+
+```csharp
+public class Car
+{
+    public string Make { get; set; }
+    public string Model { get; set; }
+    public string Color { get; set; }
+
+    //...
+}
+```
+
+**[⬆ back to top](#目录)**
+
+</details>
+
+
+<details>
+  <summary><b>使用有意义和可读的变量名称</b></summary>
+
+**Bad:**
+
+```csharp
+var ymdstr = DateTime.UtcNow.ToString("MMMM dd, yyyy");
+```
+
+**Good:**
+
+```csharp
+var currentDate = DateTime.UtcNow.ToString("MMMM dd, yyyy");
+```
+
+**[⬆ Back to top](#目录)**
+
+</details>
+
+<details>
+  <summary><b>对相同类型的变量使用相同的名称</b></summary>
+
+**Bad:**
+
+```csharp
+GetUserInfo();
+GetUserData();
+GetUserRecord();
+GetUserProfile();
+```
+
+**Good:**
+
+```csharp
+GetUser();
+```
+
+**[⬆ Back to top](#目录)**
+
+</details>
+
+
+<details>
+  <summary><b>使用可搜索的名称（第 1 部分）</b></summary>
+
+我们阅读的代码比我们的写的代码要多。我们写的代码应该具有可读性和可搜索性，这个很重要。使用不合适的命令方式会影响我们对程序的理解，这会伤害到阅读者，让你的命名可搜索。
+
+**Bad:**
+
+```csharp
+// What the heck is data for?
+var data = new { Name = "John", Age = 42 };
+
+var stream1 = new MemoryStream();
+var ser1 = new DataContractJsonSerializer(typeof(object));
+ser1.WriteObject(stream1, data);
+
+stream1.Position = 0;
+var sr1 = new StreamReader(stream1);
+Console.Write("JSON form of Data object: ");
+Console.WriteLine(sr1.ReadToEnd());
+```
+
+**Good:**
+
+```csharp
+var person = new Person
+{
+    Name = "John",
+    Age = 42
+};
+
+var stream2 = new MemoryStream();
+var ser2 = new DataContractJsonSerializer(typeof(Person));
+ser2.WriteObject(stream2, data);
+
+stream2.Position = 0;
+var sr2 = new StreamReader(stream2);
+Console.Write("JSON form of Data object: ");
+Console.WriteLine(sr2.ReadToEnd());
+```
+
+**[⬆ Back to top](#目录)**
+
+</details>
+
+
+<details>
+  <summary><b>使用可搜索的名称（第 2 部分）</b></summary>
+
+**Bad:**
+
+```csharp
+var data = new { Name = "John", Age = 42, PersonAccess = 4};
+
+// What the heck is 4 for?
+if (data.PersonAccess == 4)
+{
+    // do edit ...
+}
+```
+
+**Good:**
+
+```csharp
+public enum PersonAccess : int
+{
+    ACCESS_READ = 1,
+    ACCESS_CREATE = 2,
+    ACCESS_UPDATE = 4,
+    ACCESS_DELETE = 8
+}
+
+var person = new Person
+{
+    Name = "John",
+    Age = 42,
+    PersonAccess= PersonAccess.ACCESS_CREATE
+};
+
+if (person.PersonAccess == PersonAccess.ACCESS_UPDATE)
+{
+    // do edit ...
+}
+```
+
+**[⬆ Back to top](#目录)**
+
+</details>
+
+
+<details>
+  <summary><b>使用解释型变量</b></summary>
+
+**Bad:**
+
+```csharp
+const string Address = "One Infinite Loop, Cupertino 95014";
+var cityZipCodeRegex = @"/^[^,\]+[,\\s]+(.+?)\s*(\d{5})?$/";
+var matches = Regex.Matches(Address, cityZipCodeRegex);
+if (matches[0].Success == true && matches[1].Success == true)
+{
+    SaveCityZipCode(matches[0].Value, matches[1].Value);
+}
+```
+
+**Good:**
+
+Decrease dependence on regex by naming subpatterns.
+
+```csharp
+const string Address = "One Infinite Loop, Cupertino 95014";
+var cityZipCodeWithGroupRegex = @"/^[^,\]+[,\\s]+(?<city>.+?)\s*(?<zipCode>\d{5})?$/";
+var matchesWithGroup = Regex.Match(Address, cityZipCodeWithGroupRegex);
+var cityGroup = matchesWithGroup.Groups["city"];
+var zipCodeGroup = matchesWithGroup.Groups["zipCode"];
+if(cityGroup.Success == true && zipCodeGroup.Success == true)
+{
+    SaveCityZipCode(cityGroup.Value, zipCodeGroup.Value);
+}
+```
+
+**[⬆ back to top](#目录)**
+
+</details>
+
+
+<details>
+  <summary><b>使用默认参数而不是条件判断</b></summary>
+
+**Not good:**
+
+这样并不好，因为 `breweryName` 可能为 `NULL`。
+
+这种方式在之前的版本更容易理解，它能很好地控制变量的值。
+
+```csharp
+public void CreateMicrobrewery(string name = null)
+{
+    var breweryName = !string.IsNullOrEmpty(name) ? name : "Hipster Brew Co.";
+    // ...
+}
+```
+
+**Good:**
+
+```csharp
+public void CreateMicrobrewery(string breweryName = "Hipster Brew Co.")
+{
+    // ...
+}
+```
+
+**[⬆ back to top](#目录)**
+
+</details>
+
+## 函数
+
+
 
