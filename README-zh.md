@@ -690,4 +690,402 @@ public void CreateMicrobrewery(string breweryName = "Hipster Brew Co.")
 ## 函数
 
 
+<details>
+  <summary><b>避免副作用</b></summary>
+
+如果函数除了获取一个值并且返回另一个值之外执行了一些操作，则会产生副作用。副作用可能是文件写入，修改一些全局变量，或者意外地向外部暴露了数据。
+
+在某些情况下，你的程序确实需要一些副作用，像上述示例一样，你可能需要文件写入，当集中执行这些操作时，并没有多个函数或类来支持写入特定文件，这时可以通过一个服务来执行这个副作用，这是唯一的一种方法。
+
+关键点是要避免一些常见的陷阱。比如没有任何结构关联的对象间的状态共享。使用任何可写入的可变数据类型，以及不确定的副作用发生的位置。如果你能意识到这一点的话，会比周围其他程序员更高兴一些。
+
+**Bad:**
+
+```csharp
+// Global variable referenced by following function.
+// If we had another function that used this name, now it'd be an array and it could break it.
+var name = 'Ryan McDermott';
+
+public string SplitIntoFirstAndLastName()
+{
+   return name.Split(" ");
+}
+
+SplitIntoFirstAndLastName();
+
+Console.PrintLine(name); // ['Ryan', 'McDermott'];
+```
+
+**Good:**
+
+```csharp
+public string SplitIntoFirstAndLastName(string name)
+{
+    return name.Split(" ");
+}
+
+var name = 'Ryan McDermott';
+var newName = SplitIntoFirstAndLastName(name);
+
+Console.PrintLine(name); // 'Ryan McDermott';
+Console.PrintLine(newName); // ['Ryan', 'McDermott'];
+```
+
+**[⬆ back to top](#目录)**
+
+</details>
+
+
+<details>
+  <summary><b>避免非条件</b></summary>
+
+**Bad:**
+
+```csharp
+public bool IsDOMNodeNotPresent(string node)
+{
+    // ...
+}
+
+if (!IsDOMNodeNotPresent(node))
+{
+    // ...
+}
+```
+
+**Good:**
+
+```csharp
+public bool IsDOMNodePresent(string node)
+{
+    // ...
+}
+
+if (IsDOMNodePresent(node))
+{
+    // ...
+}
+```
+
+**[⬆ back to top](#目录)**
+
+</details>
+
+
+<details>
+  <summary><b>避免多条件</b></summary>
+
+This seems like an impossible task. Upon first hearing this, most people say, "how am I supposed to do anything without an `if` statement?" The answer is that you can use polymorphism to achieve the same task in many cases. The second question is usually, "well that's great but why would I want to do that?" The answer is a previous clean code concept we learned: a function should only do
+one thing. When you have classes and functions that have `if` statements, you are telling your user that your function does more than one thing. Remember, just do one thing.
+
+这似乎是一个不现实的要求，第一次听到这个，大多数人说，“如果没有 `if` 语句 我怎么能实现一些功能呢？” 第二个问题通常是，"那很好，但我为什么要这么做呢？" 答案是我们之前学到的整洁代码概念：函数应该只做有一件事，当你的类和函数具有 "if" 语句时，您会告诉用户您的函数执行多个事情。记住，只做一件事。
+
+**Bad:**
+
+```csharp
+class Airplane
+{
+    // ...
+
+    public double GetCruisingAltitude()
+    {
+        switch (_type)
+        {
+            case '777':
+                return GetMaxAltitude() - GetPassengerCount();
+            case 'Air Force One':
+                return GetMaxAltitude();
+            case 'Cessna':
+                return GetMaxAltitude() - GetFuelExpenditure();
+        }
+    }
+}
+```
+
+**Good:**
+
+```csharp
+interface IAirplane
+{
+    // ...
+
+    double GetCruisingAltitude();
+}
+
+class Boeing777 : IAirplane
+{
+    // ...
+
+    public double GetCruisingAltitude()
+    {
+        return GetMaxAltitude() - GetPassengerCount();
+    }
+}
+
+class AirForceOne : IAirplane
+{
+    // ...
+
+    public double GetCruisingAltitude()
+    {
+        return GetMaxAltitude();
+    }
+}
+
+class Cessna : IAirplane
+{
+    // ...
+
+    public double GetCruisingAltitude()
+    {
+        return GetMaxAltitude() - GetFuelExpenditure();
+    }
+}
+```
+
+**[⬆ back to top](#目录)**
+
+</details>
+
+<details>
+  <summary><b>避免类型检查（第 1 部分）</b></summary>
+
+**Bad:**
+
+```csharp
+public Path TravelToTexas(object vehicle)
+{
+    if (vehicle.GetType() == typeof(Bicycle))
+    {
+        (vehicle as Bicycle).PeddleTo(new Location("texas"));
+    }
+    else if (vehicle.GetType() == typeof(Car))
+    {
+        (vehicle as Car).DriveTo(new Location("texas"));
+    }
+}
+```
+
+**Good:**
+
+```csharp
+public Path TravelToTexas(Traveler vehicle)
+{
+    vehicle.TravelTo(new Location("texas"));
+}
+```
+
+or
+
+```csharp
+// pattern matching
+public Path TravelToTexas(object vehicle)
+{
+    if (vehicle is Bicycle bicycle)
+    {
+        bicycle.PeddleTo(new Location("texas"));
+    }
+    else if (vehicle is Car car)
+    {
+        car.DriveTo(new Location("texas"));
+    }
+}
+```
+
+**[⬆ back to top](#目录)**
+
+</details>
+
+
+<details>
+  <summary><b>避免类型检测（第 2 部分）</b></summary>
+
+**Bad:**
+
+```csharp
+public int Combine(dynamic val1, dynamic val2)
+{
+    int value;
+    if (!int.TryParse(val1, out value) || !int.TryParse(val2, out value))
+    {
+        throw new Exception('Must be of type Number');
+    }
+
+    return val1 + val2;
+}
+```
+
+**Good:**
+
+```csharp
+public int Combine(int val1, int val2)
+{
+    return val1 + val2;
+}
+```
+
+**[⬆ back to top](#目录)**
+
+</details>
+
+
+<details>
+  <summary><b>避免在方法参数中设置标志</b></summary>
+
+标志指示着这个方法有更多的职责。最好的办法是单一职责原则，如果布尔参数会往函数中会添加多个职责，那么就将这个函数拆分为两个。
+
+**Bad:**
+
+```csharp
+public void CreateFile(string name, bool temp = false)
+{
+    if (temp)
+    {
+        Touch("./temp/" + name);
+    }
+    else
+    {
+        Touch(name);
+    }
+}
+```
+
+**Good:**
+
+```csharp
+public void CreateFile(string name)
+{
+    Touch(name);
+}
+
+public void CreateTempFile(string name)
+{
+    Touch("./temp/"  + name);
+}
+```
+
+**[⬆ back to top](#目录)**
+
+</details>
+
+
+<details>
+  <summary><b>不要编写全局函数</b></summary>
+
+> 还没完
+
+在很多语言中，污染全局是一种差的实践方式，因为你可能会与其它库发送冲突，并且你的 API 用户在生产环境下获取一个异常将毫不明智。让我们一起思考一个示例：如果想要配置数组该如何处理。你可以编写一个像 `Config()` 的全局函数，但它可能会与另一个尝试执行相同操作的库发生冲突。
+
+**Bad:**
+
+```csharp
+public string[] Config()
+{
+    return  [
+        "foo" => "bar",
+    ]
+}
+```
+
+**Good:**
+
+```csharp
+class Configuration
+{
+    private string[] _configuration = [];
+
+    public Configuration(string[] configuration)
+    {
+        _configuration = configuration;
+    }
+
+    public string[] Get(string key)
+    {
+        return (_configuration[key]!= null) ? _configuration[key] : null;
+    }
+}
+```
+
+加载配置并创建配置实例 `Configuration`
+
+```csharp
+var configuration = new Configuration(new string[] {
+    "foo" => "bar",
+});
+```
+
+你现在在应用程序中必须使用 `Configuration` 的实例
+
+**[⬆ back to top](#目录)**
+
+</details>
+
+<details>
+  <summary><b>不要使用单例模式</b></summary>
+
+单例模式是一种 [反模式](https://en.wikipedia.org/wiki/Singleton_pattern). 根据 from Brian Button 的描述:
+
+1. 它们通常作为一个 **全局实例** 存在，为什么这样不好？因为你在你的程序代码中 **隐藏依赖项**，而不是通过接口来暴露它们，为了避免对象传递而将其设置为全局的方式是一种 [code smell](https://en.wikipedia.org/wiki/Code_smell)。
+3. 它们违反了[单一职责原则](#single-responsibility-principle-srp)：**它们控制了自己的对象创建和生命周期**
+4. 它们本质上会导致代码紧密地 [耦合](https://en.wikipedia.org/wiki/Coupling_%28computer_programming%29)，这使得在许多情况下，在测试环境下模拟它们异常困难。
+5. 它们在应用程序的生存期内会携带状态。另一点需要测试，因为[你最终可能会得到一种情况，即测试需要排序]，这违背了单元测试的原则。为什么？因为每个单元测试相互独立。
+
+这儿也有一些 [Misko Hevery](http://misko.hevery.com/about/)  关于 [root of problem](http://misko.hevery.com/2008/08/25/root-cause-of-singletons/) 很不错的想法。
+
+**Bad:**
+
+```csharp
+class DBConnection
+{
+    private static DBConnection _instance;
+
+    private DBConnection()
+    {
+        // ...
+    }
+
+    public static GetInstance()
+    {
+        if (_instance == null)
+        {
+            _instance = new DBConnection();
+        }
+
+        return _instance;
+    }
+
+    // ...
+}
+
+var singleton = DBConnection.GetInstance();
+```
+
+**Good:**
+
+```csharp
+class DBConnection
+{
+    public DBConnection(IOptions<DbConnectionOption> options)
+    {
+        // ...
+    }
+
+    // ...
+}
+```
+
+创建一个 `DBConnection` 实例，并通过 [Option pattern](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/configuration/options?view=aspnetcore-2.1) 来进行配置
+
+```csharp
+var options = <resolve from IOC>;
+var connection = new DBConnection(options);
+```
+
+现在，你在你的应用程序中必须使用 `DBConnection` 的类型实例
+
+**[⬆ back to top](#目录)**
+
+</details>
+
+
 
