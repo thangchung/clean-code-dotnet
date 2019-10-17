@@ -2076,7 +2076,7 @@ class Square : Rectangle
     }
 }
 
-Drawable RenderLargeRectangles(Rectangle rectangles)
+Drawable RenderLargeRectangles(Rectangle[] rectangles)
 {
     foreach (rectangle in rectangles)
     {
@@ -2094,7 +2094,7 @@ RenderLargeRectangles(rectangles);
 **Good:**
 
 ```csharp
-abstract class ShapeBase
+abstract class RectangleBase
 {
     protected double Width = 0;
     protected double Height = 0;
@@ -2107,7 +2107,7 @@ abstract class ShapeBase
     }
 }
 
-class Rectangle : ShapeBase
+class Rectangle : RectangleBase
 {
     public void SetWidth(double width)
     {
@@ -2125,13 +2125,14 @@ class Rectangle : ShapeBase
     }
 }
 
-class Square : ShapeBase
+class Square : RectangleBase
 {
     private double Length = 0;
 
     public double SetLength(double length)
     {
         Length = length;
+        Width = Height = lenght;
     }
 
     public double GetArea()
@@ -2140,7 +2141,7 @@ class Square : ShapeBase
     }
 }
 
-Drawable RenderLargeRectangles(Rectangle rectangles)
+Drawable RenderLargeRectangles(RectangleBase[] rectangles)
 {
     foreach (rectangle in rectangles)
     {
@@ -2159,8 +2160,8 @@ Drawable RenderLargeRectangles(Rectangle rectangles)
     }
 }
 
-var shapes = new[] { new Rectangle(), new Rectangle(), new Square() };
-RenderLargeRectangles(shapes);
+var rectangles = new[] { new Rectangle(), new Rectangle(), new Square() };
+RenderLargeRectangles(rectangles);
 ```
 
 **[⬆ back to top](#table-of-contents)**
