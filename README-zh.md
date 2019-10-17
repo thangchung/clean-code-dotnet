@@ -1088,4 +1088,51 @@ var connection = new DBConnection(options);
 </details>
 
 
+<details>
+  <summary><b>函数参数（2 或者更少最佳）</b></summary>
+
+限制函数参数的数量非常重要，因为它使测试函数变得更加容易。拥有三个以上会导致组合爆炸，您必须使用每个单独的参数测试大量不同用例。
+
+Zero arguments is the ideal case. One or two arguments is ok, and three should be avoided. Anything more than that should be consolidated. Usually, if you have more than two arguments then your function is trying to do too much. In cases where it's not, most of the time a higher-level object will suffice as an argument.
+
+无参是理想的情况。一个或两个参数是可以的，三个应该避免，超过的话应该合并。通常，如果您有两个以上参数，则函数尝试执行的操作太多。大多数时候，一个更高级别的对象将足以作为一个参数。
+
+**Bad:**
+
+```csharp
+public void CreateMenu(string title, string body, string buttonText, bool cancellable)
+{
+    // ...
+}
+```
+
+**Good:**
+
+```csharp
+public class MenuConfig
+{
+    public string Title { get; set; }
+    public string Body { get; set; }
+    public string ButtonText { get; set; }
+    public bool Cancellable { get; set; }
+}
+
+var config = new MenuConfig
+{
+    Title = "Foo",
+    Body = "Bar",
+    ButtonText = "Baz",
+    Cancellable = true
+};
+
+public void CreateMenu(MenuConfig config)
+{
+    // ...
+}
+```
+
+**[⬆ back to top](#目录)**
+
+</details>
+
 
