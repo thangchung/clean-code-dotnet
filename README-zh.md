@@ -218,7 +218,7 @@ public double CalculateSalary(int workingDays, int workingHours)
 
 
 <details>
-  <summary><b>Use domain name</b></summary>
+  <summary><b>使用概括性命名</b></summary>
 
 那些阅读你代码的人通常也是开发者，合理组织每个页面内容的的命名，让每个人都能轻易理解你想表达式的意思，这样我们就不用花费时间去想每个人解释里面变量、函数的功能。
 
