@@ -114,7 +114,7 @@ public bool IsShopOpen(string day, int amount)
 
 
 <details>
-  <summary><b>使用一致的大写</b></summary>
+  <summary><b>使用一致的大写方式</b></summary>
 
 大写式命名可以向你暴露一些变量、功能等信息。这个规则具有主观性，所以你们团队可以选择你们喜欢的方式，但只要保持一致即可。
 
@@ -153,3 +153,112 @@ class Alpaca {}
 **[⬆ back to top](#目录)**
 
 </details>
+
+
+<details>
+  <summary><b>使用可读的命名方式</b></summary>
+
+当变量和函数的命名不可读时，研究它们的函数是需要花费一些时间的。
+
+**Bad:**
+
+```csharp
+public class Employee
+{
+    public Datetime sWorkDate { get; set; } // what the heck is this
+    public Datetime modTime { get; set; } // same here
+}
+```
+
+**Good:**
+
+```csharp
+public class Employee
+{
+    public Datetime StartWorkingDate { get; set; }
+    public Datetime ModificationTime { get; set; }
+}
+```
+
+**[⬆ Back to top](#目录)**
+
+</details>
+
+
+<details>
+  <summary><b>使用驼峰命名法</b></summary>
+
+针对变量和函数应采用 [驼峰命名法](https://en.wikipedia.org/wiki/Camel_case) 
+
+**Bad:**
+
+```csharp
+var employeephone;
+
+public double CalculateSalary(int workingdays, int workinghours)
+{
+    // some logic
+}
+```
+
+**Good:**
+
+```csharp
+var employeePhone;
+
+public double CalculateSalary(int workingDays, int workingHours)
+{
+    // some logic
+}
+```
+
+**[⬆ Back to top](#目录)**
+
+</details>
+
+
+<details>
+  <summary><b>Use domain name</b></summary>
+
+那些阅读你代码的人通常也是开发者，合理组织每个页面内容的的命名，让每个人都能轻易理解你想表达式的意思，这样我们就不用花费时间去想每个人解释里面变量、函数的功能。
+
+**Good**
+
+```csharp
+public class SingleObject
+{
+    // create an object of SingleObject
+    private static SingleObject _instance = new SingleObject();
+
+    // make the constructor private so that this class cannot be instantiated
+    private SingleObject() {}
+
+    // get the only object available
+    public static SingleObject GetInstance()
+    {
+        return _instance;
+    }
+
+    public string ShowMessage()
+    {
+        return "Hello World!";
+    }
+}
+
+public static void main(String[] args)
+{
+    // illegal construct
+    // var object = new SingleObject();
+
+    // Get the only object available
+    var singletonObject = SingleObject.GetInstance();
+
+    // show the message
+    singletonObject.ShowMessage();
+}
+```
+
+**[⬆ Back to top](#目录)**
+
+</details>
+
