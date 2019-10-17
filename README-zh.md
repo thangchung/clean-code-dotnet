@@ -27,9 +27,9 @@
 ## 命名
 
 <details>
-  <summary><b>避免使用不优雅的命名</b></summary>
+  <summary><b>避免使用随意的命名</b></summary>
 
-代码中采用优雅的命名方式会易于被更多的开发者使用，命名应反映出它的作用及对应的上下文关系
+代码中采用优雅而不随意的命名方式会易于被更多的开发者采用，命名名称应反映出它的作用及对应的上下文关系
 
 **Bad:**
 
@@ -44,5 +44,112 @@ int daySinceModification;
 ```
 
 **[⬆ Back to top](#目录)**
+
+</details>
+
+<details>
+  <summary><b>避免使用误导性名称</b></summary>
+
+给变量定义的名称需要反映出该变量的用途
+
+**Bad:**
+
+```csharp
+var dataFromDb = db.GetFromService().ToList();
+```
+
+**Good:**
+
+```csharp
+var listOfEmployee = _employeeService.GetEmployees().ToList();
+```
+
+**[⬆ Back to top](#目录)**
+
+</details>
+
+<details>
+  <summary><b>避免使用匈牙利命名法</b></summary>
+
+匈牙利命名法会在已定义的变量加上类型前缀，这是毫无意义的，因为现代化的继承开发环境会自动标识变量类型。
+
+**Bad:**
+
+```csharp
+int iCounter;
+string strFullName;
+DateTime dModifiedDate;
+```
+
+**Good:**
+
+```csharp
+int counter;
+string fullName;
+DateTime modifiedDate;
+```
+匈牙利命名发也不应该用于参数命令。
+
+**Bad:**
+
+```csharp
+public bool IsShopOpen(string pDay, int pAmount)
+{
+    // some logic
+}
+```
+
+**Good:**
+
+```csharp
+public bool IsShopOpen(string day, int amount)
+{
+    // some logic
+}
+```
+
+**[⬆ Back to top](#目录)**
+
+</details>
+
+
+<details>
+  <summary><b>使用一致的大写</b></summary>
+
+大写式命名可以向你暴露一些变量、功能等信息。这个规则具有主观性，所以你们团队可以选择你们喜欢的方式，但只要保持一致即可。
+
+**Bad:**
+
+```csharp
+const int DAYS_IN_WEEK = 7;
+const int daysInMonth = 30;
+
+var songs = new List<string> { 'Back In Black', 'Stairway to Heaven', 'Hey Jude' };
+var Artists = new List<string> { 'ACDC', 'Led Zeppelin', 'The Beatles' };
+
+bool EraseDatabase() {}
+bool Restore_database() {}
+
+class animal {}
+class Alpaca {}
+```
+
+**Good:**
+
+```csharp
+const int DaysInWeek = 7;
+const int DaysInMonth = 30;
+
+var songs = new List<string> { 'Back In Black', 'Stairway to Heaven', 'Hey Jude' };
+var artists = new List<string> { 'ACDC', 'Led Zeppelin', 'The Beatles' };
+
+bool EraseDatabase() {}
+bool RestoreDatabase() {}
+
+class Animal {}
+class Alpaca {}
+```
+
+**[⬆ back to top](#目录)**
 
 </details>
