@@ -775,10 +775,7 @@ if (IsDOMNodePresent(node))
 <details>
   <summary><b>避免多条件</b></summary>
 
-This seems like an impossible task. Upon first hearing this, most people say, "how am I supposed to do anything without an `if` statement?" The answer is that you can use polymorphism to achieve the same task in many cases. The second question is usually, "well that's great but why would I want to do that?" The answer is a previous clean code concept we learned: a function should only do
-one thing. When you have classes and functions that have `if` statements, you are telling your user that your function does more than one thing. Remember, just do one thing.
-
-这似乎是一个不现实的要求，第一次听到这个，大多数人说，“如果没有 `if` 语句 我怎么能实现一些功能呢？” 第二个问题通常是，"那很好，但我为什么要这么做呢？" 答案是我们之前学到的整洁代码概念：函数应该只做有一件事，当你的类和函数具有 "if" 语句时，您会告诉用户您的函数执行多个事情。记住，只做一件事。
+这似乎是一个不现实的要求，第一次听到这个的时候，大多数人说，“如果没有 `if` 语句 我怎么能实现一些功能呢？” 第二个问题通常是，"那很好，但我为什么要这么做呢？" 答案是我们之前学到的整洁代码概念：函数应该只做有一件事，当你的类和函数具有 "if" 语句时，您会告诉用户您的函数执行多个事情。记住，只做一件事。
 
 **Bad:**
 
@@ -898,7 +895,7 @@ public Path TravelToTexas(object vehicle)
 
 
 <details>
-  <summary><b>避免类型检测（第 2 部分）</b></summary>
+  <summary><b>避免类型检查（第 2 部分）</b></summary>
 
 **Bad:**
 
@@ -1026,9 +1023,9 @@ var configuration = new Configuration(new string[] {
 单例模式是一种 [反模式](https://en.wikipedia.org/wiki/Singleton_pattern). 根据 from Brian Button 的描述:
 
 1. 它们通常作为一个 **全局实例** 存在，为什么这样不好？因为你在你的程序代码中 **隐藏依赖项**，而不是通过接口来暴露它们，为了避免对象传递而将其设置为全局的方式是一种 [code smell](https://en.wikipedia.org/wiki/Code_smell)。
-3. 它们违反了[单一职责原则](#single-responsibility-principle-srp)：**它们控制了自己的对象创建和生命周期**
-4. 它们本质上会导致代码紧密地 [耦合](https://en.wikipedia.org/wiki/Coupling_%28computer_programming%29)，这使得在许多情况下，在测试环境下模拟它们异常困难。
-5. 它们在应用程序的生存期内会携带状态。另一点需要测试，因为[你最终可能会得到一种情况，即测试需要排序]，这违背了单元测试的原则。为什么？因为每个单元测试相互独立。
+2. 它们违反了[单一职责原则](#single-responsibility-principle-srp)：**它们控制了自己的对象创建和生命周期**
+3. 它们本质上会导致代码紧密地 [耦合](https://en.wikipedia.org/wiki/Coupling_%28computer_programming%29)，这使得在许多情况下，在测试环境下模拟它们异常困难。
+4. 它们在应用程序的生存期内会携带状态。另一点需要测试，因为[你最终可能会得到一种情况，即测试需要排序]，这违背了单元测试的原则。为什么？因为每个单元测试相互独立。
 
 这儿也有一些 [Misko Hevery](http://misko.hevery.com/about/)  关于 [root of problem](http://misko.hevery.com/2008/08/25/root-cause-of-singletons/) 很不错的想法。
 
@@ -1089,11 +1086,9 @@ var connection = new DBConnection(options);
 
 
 <details>
-  <summary><b>函数参数（2 或者更少最佳）</b></summary>
+  <summary><b>函数参数（2个或者更少最佳）</b></summary>
 
 限制函数参数的数量非常重要，因为它使测试函数变得更加容易。拥有三个以上会导致组合爆炸，您必须使用每个单独的参数测试大量不同用例。
-
-Zero arguments is the ideal case. One or two arguments is ok, and three should be avoided. Anything more than that should be consolidated. Usually, if you have more than two arguments then your function is trying to do too much. In cases where it's not, most of the time a higher-level object will suffice as an argument.
 
 无参是理想的情况。一个或两个参数是可以的，三个应该避免，超过的话应该合并。通常，如果您有两个以上参数，则函数尝试执行的操作太多。大多数时候，一个更高级别的对象将足以作为一个参数。
 
@@ -1136,3 +1131,416 @@ public void CreateMenu(MenuConfig config)
 </details>
 
 
+<details>
+  <summary><b>一个函数只应该做一件事情</b></summary>
+
+在软件开发过程中，这是一个很重要的原则。当函数要做的事情超过一件的时候就很难组合到一起进行测试，这是因为，当你可以将一个函数隔离为一个操作时，可以轻松的进行重构，并且能够过得更多清晰明确的信息。如果你在这份指南中只学会到了这一点，那么你将比其他开发者更领先一些。
+
+**Bad:**
+
+```csharp
+public void SendEmailToListOfClients(string[] clients)
+{
+    foreach (var client in clients)
+    {
+        var clientRecord = db.Find(client);
+        if (clientRecord.IsActive())
+        {
+            Email(client);
+        }
+    }
+}
+```
+
+**Good:**
+
+```csharp
+public void SendEmailToListOfClients(string[] clients)
+{
+    var activeClients = GetActiveClients(clients);
+    // Do some logic
+}
+
+public List<Client> GetActiveClients(string[] clients)
+{
+    return db.Find(clients).Where(s => s.Status == "Active");
+}
+```
+
+**[⬆ back to top](#目录)**
+
+</details>
+
+
+<details>
+  <summary><b>函数命名要见名知义</b></summary>
+
+**Bad:**
+
+```csharp
+public class Email
+{
+    //...
+
+    public void Handle()
+    {
+        SendMail(this._to, this._subject, this._body);
+    }
+}
+
+var message = new Email(...);
+// What is this? A handle for the message? Are we writing to a file now?
+message.Handle();
+```
+
+**Good:**
+
+```csharp
+public class Email
+{
+    //...
+
+    public void Send()
+    {
+        SendMail(this._to, this._subject, this._body);
+    }
+}
+
+var message = new Email(...);
+// Clear and obvious
+message.Send();
+```
+
+**[⬆ back to top](#目录)**
+
+</details>
+
+
+<details>
+  <summary><b>函数应该只包含一层抽象</b></summary>
+
+> 还没完
+
+通常情况下，当你的函数中包含超过一层的抽象表明这个函数做的事情太多了，拆分为多个函数可以提高重用性和更易于测试。
+
+**Bad:**
+
+```csharp
+public string ParseBetterJSAlternative(string code)
+{
+    var regexes = [
+        // ...
+    ];
+
+    var statements = explode(" ", code);
+    var tokens = new string[] {};
+    foreach (var regex in regexes)
+    {
+        foreach (var statement in statements)
+        {
+            // ...
+        }
+    }
+
+    var ast = new string[] {};
+    foreach (var token in tokens)
+    {
+        // lex...
+    }
+
+    foreach (var node in ast)
+    {
+        // parse...
+    }
+}
+```
+
+**Bad too:**
+
+我们已经执行了一些操作，但是 `ParseBetterJSAlternative()` 函数依旧很复杂，且不易于测试。
+
+```csharp
+public string Tokenize(string code)
+{
+    var regexes = new string[]
+    {
+        // ...
+    };
+
+    var statements = explode(" ", code);
+    var tokens = new string[] {};
+    foreach (var regex in regexes)
+    {
+        foreach (var statement in statements)
+        {
+            tokens[] = /* ... */;
+        }
+    }
+
+    return tokens;
+}
+
+public string Lexer(string[] tokens)
+{
+    var ast = new string[] {};
+    foreach (var token in tokens)
+    {
+        ast[] = /* ... */;
+    }
+
+    return ast;
+}
+
+public string ParseBetterJSAlternative(string code)
+{
+    var tokens = Tokenize(code);
+    var ast = Lexer(tokens);
+    foreach (var node in ast)
+    {
+        // parse...
+    }
+}
+```
+
+**Good:**
+
+最好的解决方案是分解 `ParseBetterJSAlternative()` 函数内部的所有依赖性。
+
+```csharp
+class Tokenizer
+{
+    public string Tokenize(string code)
+    {
+        var regexes = new string[] {
+            // ...
+        };
+
+        var statements = explode(" ", code);
+        var tokens = new string[] {};
+        foreach (var regex in regexes)
+        {
+            foreach (var statement in statements)
+            {
+                tokens[] = /* ... */;
+            }
+        }
+
+        return tokens;
+    }
+}
+
+class Lexer
+{
+    public string Lexify(string[] tokens)
+    {
+        var ast = new[] {};
+        foreach (var token in tokens)
+        {
+            ast[] = /* ... */;
+        }
+
+        return ast;
+    }
+}
+
+class BetterJSAlternative
+{
+    private string _tokenizer;
+    private string _lexer;
+
+    public BetterJSAlternative(Tokenizer tokenizer, Lexer lexer)
+    {
+        _tokenizer = tokenizer;
+        _lexer = lexer;
+    }
+
+    public string Parse(string code)
+    {
+        var tokens = _tokenizer.Tokenize(code);
+        var ast = _lexer.Lexify(tokens);
+        foreach (var node in ast)
+        {
+            // parse...
+        }
+    }
+}
+```
+
+**[⬆ back to top](#目录)**
+
+</details>
+
+
+
+<details>
+  <summary><b>函数调用方和被调用方应该相邻</b></summary>
+
+如果一个韩式调用了其它函数，请保持这些函数顺序位于同一个源代码文件中。理想情况下，让被调用者位于调用者上方。我们倾向于像读报纸一样从上到下来阅读代码。因此，请以这种阅读方式来布局代码。
+
+**Bad:**
+
+```csharp
+class PerformanceReview
+{
+    private readonly Employee _employee;
+
+    public PerformanceReview(Employee employee)
+    {
+        _employee = employee;
+    }
+
+    private IEnumerable<PeersData> LookupPeers()
+    {
+        return db.lookup(_employee, 'peers');
+    }
+
+    private ManagerData LookupManager()
+    {
+        return db.lookup(_employee, 'manager');
+    }
+
+    private IEnumerable<PeerReviews> GetPeerReviews()
+    {
+        var peers = LookupPeers();
+        // ...
+    }
+
+    public PerfReviewData PerfReview()
+    {
+        GetPeerReviews();
+        GetManagerReview();
+        GetSelfReview();
+    }
+
+    public ManagerData GetManagerReview()
+    {
+        var manager = LookupManager();
+    }
+
+    public EmployeeData GetSelfReview()
+    {
+        // ...
+    }
+}
+
+var  review = new PerformanceReview(employee);
+review.PerfReview();
+```
+
+**Good:**
+
+```csharp
+class PerformanceReview
+{
+    private readonly Employee _employee;
+
+    public PerformanceReview(Employee employee)
+    {
+        _employee = employee;
+    }
+
+    public PerfReviewData PerfReview()
+    {
+        GetPeerReviews();
+        GetManagerReview();
+        GetSelfReview();
+    }
+
+    private IEnumerable<PeerReviews> GetPeerReviews()
+    {
+        var peers = LookupPeers();
+        // ...
+    }
+
+    private IEnumerable<PeersData> LookupPeers()
+    {
+        return db.lookup(_employee, 'peers');
+    }
+
+    private ManagerData GetManagerReview()
+    {
+        var manager = LookupManager();
+        return manager;
+    }
+
+    private ManagerData LookupManager()
+    {
+        return db.lookup(_employee, 'manager');
+    }
+
+    private EmployeeData GetSelfReview()
+    {
+        // ...
+    }
+}
+
+var review = new PerformanceReview(employee);
+review.PerfReview();
+```
+
+**[⬆ back to top](#目录)**
+
+</details>
+
+<details>
+  <summary><b>封装条件</b></summary>
+
+**Bad:**
+
+```csharp
+if (article.state == "published")
+{
+    // ...
+}
+```
+
+**Good:**
+
+```csharp
+if (article.IsPublished())
+{
+    // ...
+}
+```
+
+**[⬆ back to top](#目录)**
+
+</details>
+
+<details>
+  <summary><b>移除废弃代码</b></summary>
+
+废弃代码和重复代码一样糟糕，毫无疑问不应该让其存在于你的代码库中。如果它不会被调用，那就删除它！如果你仍然需要它的话，它可以安全的存在于你的版本控制中。
+
+**Bad:**
+
+```csharp
+public void OldRequestModule(string url)
+{
+    // ...
+}
+
+public void NewRequestModule(string url)
+{
+    // ...
+}
+
+var request = NewRequestModule(requestUrl);
+InventoryTracker("apples", request, "www.inventory-awesome.io");
+```
+
+**Good:**
+
+```csharp
+public void RequestModule(string url)
+{
+    // ...
+}
+
+var request = RequestModule(requestUrl);
+InventoryTracker("apples", request, "www.inventory-awesome.io");
+```
+
+**[⬆ back to top](#目录)**
+
+</details>
