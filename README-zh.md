@@ -14,6 +14,7 @@
   - [变量](#%e5%8f%98%e9%87%8f)
   - [函数](#%e5%87%bd%e6%95%b0)
   - [对象和数据结构](#%e5%af%b9%e8%b1%a1%e5%92%8c%e6%95%b0%e6%8d%ae%e7%bb%93%e6%9e%84)
+  - [类](#%e7%b1%bb)
 
 # 介绍
 
@@ -1659,6 +1660,165 @@ class Employee
 
 var employee = new Employee('John Doe');
 Console.WriteLine(employee.GetName());// Employee name: John Doe
+```
+
+**[⬆ back to top](#目录)**
+
+</details>
+
+
+## 类
+
+<details>
+  <summary><b>使用链式方法</b></summary>
+
+在一些类库中，这种模式是很有用且很常见的操作。它可以让你的代码以一种表达式的方式来呈现，更加简洁。因此，使用链式方法可以让你的代码看上去更加简洁。
+
+**Good:**
+
+```csharp
+public static class ListExtensions
+{
+    public static List<T> FluentAdd<T>(this List<T> list, T item)
+    {
+        list.Add(item);
+        return list;
+    }
+
+    public static List<T> FluentClear<T>(this List<T> list)
+    {
+        list.Clear();
+        return list;
+    }
+
+    public static List<T> FluentForEach<T>(this List<T> list, Action<T> action)
+    {
+        list.ForEach(action);
+        return list;
+    }
+
+    public static List<T> FluentInsert<T>(this List<T> list, int index, T item)
+    {
+        list.Insert(index, item);
+        return list;
+    }
+
+    public static List<T> FluentRemoveAt<T>(this List<T> list, int index)
+    {
+        list.RemoveAt(index);
+        return list;
+    }
+
+    public static List<T> FluentReverse<T>(this List<T> list)
+    {
+        list.Reverse();
+        return list;
+    }
+}
+
+internal static void ListFluentExtensions()
+{
+    var list = new List<int>() { 1, 2, 3, 4, 5 }
+        .FluentAdd(1)
+        .FluentInsert(0, 0)
+        .FluentRemoveAt(1)
+        .FluentReverse()
+        .FluentForEach(value => value.WriteLine())
+        .FluentClear();
+}
+```
+
+**[⬆ back to top](#table-of-contents)**
+
+</details>
+
+<details>
+  <summary><b>组合优于继承</b></summary>
+
+正如由 Gang of Four 编写的著作 [_Design Patterns_](https://en.wikipedia.org/wiki/Design_Patterns) 里面所述。如果可以选择的话，你应该倾向于使用组合而不是继承。这里面有很多不错的原因来论述使用继承和组合。
+
+关于这一论点的主要观点是如果你本能地尝试使用继承，那么考虑一下组合是否能更好的解决你的问题，在某些情况下，它确实可以。
+
+
+You might be wondering then, "when should I use inheritance?" It
+depends on your problem at hand, but this is a decent list of when inheritance makes more sense than composition:
+
+你可能接着会疑惑，"我应该什么时候使用继承？" 这取决你你怎么解决问题，这里有一个不错的列表来指导你在什么情况下使用继承更有意义，而不是组合。
+
+2. 你的继承是为了表达一种 "是 A" 的关系而不是 "有 A" 的关系 (人类->动物 vs. 用户->用户详情).
+4. 你可以从基类重用代码 (人类像所有动物一样可以移动)。
+6. 您希望通过更改基类对派生类进行全局更改 (改变所有动物移动时的热量消耗。)
+
+**Bad:**
+
+```csharp
+class Employee
+{
+    private string Name { get; set; }
+    private string Email { get; set; }
+
+    public Employee(string name, string email)
+    {
+        Name = name;
+        Email = email;
+    }
+
+    // ...
+}
+
+// Bad because Employees "have" tax data.
+// EmployeeTaxData is not a type of Employee
+
+class EmployeeTaxData : Employee
+{
+    private string Name { get; }
+    private string Email { get; }
+
+    public EmployeeTaxData(string name, string email, string ssn, string salary)
+    {
+         // ...
+    }
+
+    // ...
+}
+```
+
+**Good:**
+
+```csharp
+class EmployeeTaxData
+{
+    public string Ssn { get; }
+    public string Salary { get; }
+
+    public EmployeeTaxData(string ssn, string salary)
+    {
+        Ssn = ssn;
+        Salary = salary;
+    }
+
+    // ...
+}
+
+class Employee
+{
+    public string Name { get; }
+    public string Email { get; }
+    public EmployeeTaxData TaxData { get; }
+
+    public Employee(string name, string email)
+    {
+        Name = name;
+        Email = email;
+    }
+
+    public void SetTax(string ssn, double salary)
+    {
+        TaxData = new EmployeeTaxData(ssn, salary);
+    }
+
+    // ...
+}
 ```
 
 **[⬆ back to top](#目录)**
