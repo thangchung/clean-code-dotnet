@@ -13,6 +13,7 @@
   - [命名](#%e5%91%bd%e5%90%8d)
   - [变量](#%e5%8f%98%e9%87%8f)
   - [函数](#%e5%87%bd%e6%95%b0)
+  - [对象和数据结构](#%e5%af%b9%e8%b1%a1%e5%92%8c%e6%95%b0%e6%8d%ae%e7%bb%93%e6%9e%84)
 
 # 介绍
 
@@ -1539,6 +1540,125 @@ public void RequestModule(string url)
 
 var request = RequestModule(requestUrl);
 InventoryTracker("apples", request, "www.inventory-awesome.io");
+```
+
+**[⬆ back to top](#目录)**
+
+</details>
+
+## 对象和数据结构
+
+
+<details>
+  <summary><b>使用 getters 和 setters</b></summary>
+
+在 C# / VB.NET 中，你可以为方法添加 `public`, `protected` 和 `private` 关键字。通过使用这些关键字，你可以控制对象的一些属性更改。
+
+- 当你尝试通过一个对象属性来进行更多的操作，你不得不在你的代码中查找和修改它们的访问权限。
+- 通过使用 `set` 关键字可以让属性验证变得更简单。
+- 封装内部的展现形式。
+- 当进行 getting 和 setting 操作时可以更容易的添加日志和异常处理。
+- 基础基类后，你可以重写默认方法。
+- 如果是从服务器获取一个对象，你可以使用懒加载来处理对象的属性。
+
+此外，在面向对象设计原则中，这也是开闭原则的一部分。
+
+**Bad:**
+
+```csharp
+class BankAccount
+{
+    public double Balance = 1000;
+}
+
+var bankAccount = new BankAccount();
+
+// Fake buy shoes...
+bankAccount.Balance -= 100;
+```
+
+**Good:**
+
+```csharp
+class BankAccount
+{
+    private double _balance = 0.0D;
+
+    pubic double Balance {
+        get {
+            return _balance;
+        }
+    }
+
+    public BankAccount(balance = 1000)
+    {
+       _balance = balance;
+    }
+
+    public void WithdrawBalance(int amount)
+    {
+        if (amount > _balance)
+        {
+            throw new Exception('Amount greater than available balance.');
+        }
+
+        _balance -= amount;
+    }
+
+    public void DepositBalance(int amount)
+    {
+        _balance += amount;
+    }
+}
+
+var bankAccount = new BankAccount();
+
+// Buy shoes...
+bankAccount.WithdrawBalance(price);
+
+// Get balance
+balance = bankAccount.Balance;
+```
+
+**[⬆ back to top](#目录)**
+
+</details>
+
+<details>
+  <summary><b>让对象具有私有/受保护的成员</b></summary>
+
+**Bad:**
+
+```csharp
+class Employee
+{
+    public string Name { get; set; }
+
+    public Employee(name)
+    {
+        Name = name;
+    }
+}
+
+var employee = new Employee('John Doe');
+Console.WriteLine(employee.Name) // Employee name: John Doe
+```
+
+**Good:**
+
+```csharp
+class Employee
+{
+    public string Name { get; }
+
+    public Employee(string name)
+    {
+        Name = name;
+    }
+}
+
+var employee = new Employee('John Doe');
+Console.WriteLine(employee.GetName());// Employee name: John Doe
 ```
 
 **[⬆ back to top](#目录)**
