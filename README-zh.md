@@ -20,6 +20,7 @@
   - [并发](#%e5%b9%b6%e5%8f%91)
   - [异常处理](#%e5%bc%82%e5%b8%b8%e5%a4%84%e7%90%86)
   - [格式化](#%e6%a0%bc%e5%bc%8f%e5%8c%96)
+  - [注释](#%e6%b3%a8%e9%87%8a)
 
 # 介绍
 
@@ -2475,10 +2476,7 @@ public List<EmployeeData> ShowList(Employee employees)
 <details>
   <summary><b>测试的基本概念</b></summary>
 
-Testing is more important than shipping. If you have no tests or an
-inadequate amount, then every time you ship code you won't be sure that you didn't break anything. Deciding on what constitutes an adequate amount is up to your team, but having 100% coverage (all statements and branches) is how you achieve very high confidence and developer peace of mind. This means that in addition to having a great testing framework, you also need to use a [good coverage tool](https://docs.microsoft.com/en-us/visualstudio/test/using-code-coverage-to-determine-how-much-code-is-being-tested).
-
-测试比 shipping 更重要，如果你没有测试或者测试量不够，那么每次 ship code 的时候，你不能确保你没有引入新的 BUG，花费的金额数量取决于你的团队，但拥有 100% 的覆盖率（所有条件和分支）是你实现非常高的可信度和让开发人员安心的方式。这意味着除了拥有一个优秀的测试框架外，你也需要使用 [良好的覆盖工具](https://docs.microsoft.com/en-us/visualstudio/test/using-code-coverage-to-determine-how-much-code-is-being-tested).
+测试比开发更重要，如果你没有测试或者测试量不够，那么每次发布的时候，你不能确保你没有引入新的 BUG，花费的金额数量取决于你的团队，但拥有 100% 的覆盖率（所有条件和分支）是你实现非常高的可信度和让开发人员安心的方式。这意味着除了拥有一个优秀的测试框架外，你也需要使用 [良好的覆盖工具](https://docs.microsoft.com/en-us/visualstudio/test/using-code-coverage-to-determine-how-much-code-is-being-tested).
 
 没有理由不写测试，这里有 [大量的优秀 .NET 测试框架](https://github.com/thangchung/awesome-dotnet-core#testing)，选择一款你所在团队喜欢的框架。当你找到一款适合你团队使用的的测试框架时，其目的是始终为你介绍的每个新功能/模块编写测试。如果你的首选方法是测试驱动开发 （TDD），那很好，但主要目的就是确保在启动任何功能或重构现有功能之前达到覆盖目标。
 
@@ -2979,6 +2977,213 @@ indent_size = 2
 [*.cmd]
 indent_size = 2
 
+```
+
+**[⬆ back to top](#目录)**
+
+</details>
+
+## 注释
+
+<details>
+  <summary><b>避免位置标记</b></summary>
+
+它们通常只会增加噪音。让函数和变量名称以及适当的缩进和格式为代码提供可视化结构。
+
+**Bad:**
+
+```csharp
+////////////////////////////////////////////////////////////////////////////////
+// Scope Model Instantiation
+////////////////////////////////////////////////////////////////////////////////
+var model = new[]
+{
+    menu: 'foo',
+    nav: 'bar'
+};
+
+////////////////////////////////////////////////////////////////////////////////
+// Action setup
+////////////////////////////////////////////////////////////////////////////////
+void Actions()
+{
+    // ...
+};
+```
+
+**Bad:**
+
+```csharp
+
+#region Scope Model Instantiation
+
+var model = {
+    menu: 'foo',
+    nav: 'bar'
+};
+
+#endregion
+
+#region Action setup
+
+void Actions() {
+    // ...
+};
+
+#endregion
+```
+
+**Good:**
+
+```csharp
+var model = new[]
+{
+    menu: 'foo',
+    nav: 'bar'
+};
+
+void Actions()
+{
+    // ...
+};
+```
+
+**[⬆ back to top](#目录)**
+
+</details>
+
+<details>
+  <summary><b>不要在代码库中留下注释代码</b></summary>
+
+版本控制存在是有原因的。只应该在历史记录中保留旧代码。
+
+**Bad:**
+
+```csharp
+doStuff();
+// doOtherStuff();
+// doSomeMoreStuff();
+// doSoMuchStuff();
+```
+
+**Good:**
+
+```csharp
+doStuff();
+```
+
+**[⬆ back to top](#目录)**
+
+</details>
+
+<details>
+  <summary><b>不要有日志注释</b></summary>
+
+记住，使用版本控制！不需要废弃代码、注释代码，尤其是日志注释。使用 "git log" 获取历史记录！
+
+**Bad:**
+
+```csharp
+/**
+ * 2018-12-20: Removed monads, didn't understand them (RM)
+ * 2017-10-01: Improved using special monads (JP)
+ * 2016-02-03: Removed type-checking (LI)
+ * 2015-03-14: Added combine with type-checking (JR)
+ */
+public int Combine(int a,int b)
+{
+    return a + b;
+}
+```
+
+**Good:**
+
+```csharp
+public int Combine(int a,int b)
+{
+    return a + b;
+}
+```
+
+**[⬆ back to top](#目录)**
+
+</details>
+
+<details>
+  <summary><b>只应该在业务逻辑较为复杂的时候才应该添加注释</b></summary>
+
+注释是解释，不是要求，好的代码 _大部分_ 就是文档本身。
+
+**Bad:**
+
+```csharp
+public int HashIt(string data)
+{
+    // The hash
+    var hash = 0;
+
+    // Length of string
+    var length = data.length;
+
+    // Loop through every character in data
+    for (var i = 0; i < length; i++)
+    {
+        // Get character code.
+        const char = data.charCodeAt(i);
+        // Make the hash
+        hash = ((hash << 5) - hash) + char;
+        // Convert to 32-bit integer
+        hash &= hash;
+    }
+}
+```
+
+**Better but still Bad:**
+
+```csharp
+public int HashIt(string data)
+{
+    var hash = 0;
+    var length = data.length;
+    for (var i = 0; i < length; i++)
+    {
+        const char = data.charCodeAt(i);
+        hash = ((hash << 5) - hash) + char;
+
+        // Convert to 32-bit integer
+        hash &= hash;
+    }
+}
+```
+
+如果注释解释了代码正在执行的操作，它可能是一个无用的注释，可以使用一个命名良好的变量或函数来解决。前面的代码中的注释可以替换为名为 "ConvertTo32bitInt" 的函数，因此此注释仍然毫无用处。
+
+但是，开发人员选择 djb2 哈希算法而不是 sha-1 或其他哈希函数的代码就很难表达。在这种情况下，可以添加注释。
+
+**Good:**
+
+```csharp
+public int Hash(string data)
+{
+    var hash = 0;
+    var length = data.length;
+
+    for (var i = 0; i < length; i++)
+    {
+        var character = data[i];
+        // use of djb2 hash algorithm as it has a good compromise
+        // between speed and low collision with a very simple implementation
+        hash = ((hash << 5) - hash) + character;
+
+        hash = ConvertTo32BitInt(hash);
+    }
+    return hash;
+}
+
+private int ConvertTo32BitInt(int value)
+{
+    return value & value;
+}
 ```
 
 **[⬆ back to top](#目录)**
