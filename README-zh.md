@@ -394,7 +394,7 @@ public long Fibonacci(int n)
 </details>
 
 <details>
-  <summary><b>避免主管映射</b></summary>
+  <summary><b>避免主观映射</b></summary>
 
 不要迫使编译器强行翻译你的代码含义 **显式优于隐式**.
 
