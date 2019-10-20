@@ -1753,15 +1753,11 @@ internal static void ListFluentExtensions()
 
 关于这一论点的主要观点是如果你本能地尝试使用继承，那么考虑一下组合是否能更好的解决你的问题，在某些情况下，它确实可以。
 
-
-You might be wondering then, "when should I use inheritance?" It
-depends on your problem at hand, but this is a decent list of when inheritance makes more sense than composition:
-
 你可能接着会疑惑，"我应该什么时候使用继承？" 这取决你你怎么解决问题，这里有一个不错的列表来指导你在什么情况下使用继承更有意义，而不是组合。
 
-2. 你的继承是为了表达一种 "是 A" 的关系而不是 "有 A" 的关系 (人类->动物 vs. 用户->用户详情).
-4. 你可以从基类重用代码 (人类像所有动物一样可以移动)。
-6. 您希望通过更改基类对派生类进行全局更改 (改变所有动物移动时的热量消耗。)
+1. 你的继承是为了表达一种 "是 A" 的关系而不是 "有 A" 的关系 (人类->动物 vs. 用户->用户详情).
+2. 你可以从基类重用代码 (人类像所有动物一样可以移动)。
+3. 您希望通过更改基类对派生类进行全局更改 (改变所有动物移动时的热量消耗。)
 
 **Bad:**
 
