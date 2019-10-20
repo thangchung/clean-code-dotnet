@@ -1567,7 +1567,7 @@ InventoryTracker("apples", request, "www.inventory-awesome.io");
 <details>
   <summary><b>使用 getters 和 setters</b></summary>
 
-在 C# / VB.NET 中，你可以为方法添加 `public`, `protected` 和 `private` 关键字。通过使用这些关键字，你可以控制对象的一些属性更改。
+在 C# / VB.NET 中，你可以为方法添加 `public`, `protected` 和 `private` 关键字。通过使用这些关键字，你可以控制对象的一些成员的访问权限。
 
 - 当你尝试通过一个对象属性来进行更多的操作，你不得不在你的代码中查找和修改它们的访问权限。
 - 通过使用 `set` 关键字可以让属性验证变得更简单。
