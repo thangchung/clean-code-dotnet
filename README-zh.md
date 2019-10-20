@@ -1841,8 +1841,6 @@ class Employee
 <details>
   <summary><b>什么是 SOLID?</b></summary>
 
-**SOLID** is the mnemonic acronym introduced by Michael Feathers for the first five principles named by Robert Martin, which meant five basic principles of object-oriented programming and design.
-
 **SOLID** 是 Michael Feathers 为  Robert Martin 命名的前五个原则引入的首字母简称。它指导者面向对象编程和设计的五个基本原则。
 
 - [S: 单一职责原则 (SRP)](#single-responsibility-principle-srp)
