@@ -15,6 +15,7 @@
   - [函数](#%e5%87%bd%e6%95%b0)
   - [对象和数据结构](#%e5%af%b9%e8%b1%a1%e5%92%8c%e6%95%b0%e6%8d%ae%e7%bb%93%e6%9e%84)
   - [类](#%e7%b1%bb)
+  - [SOLID](#solid)
 
 # 介绍
 
@@ -1824,3 +1825,642 @@ class Employee
 **[⬆ back to top](#目录)**
 
 </details>
+
+## SOLID
+
+
+<details>
+  <summary><b>什么是 SOLID?</b></summary>
+
+**SOLID** is the mnemonic acronym introduced by Michael Feathers for the first five principles named by Robert Martin, which meant five basic principles of object-oriented programming and design.
+
+**SOLID** 是 Michael Feathers 为  Robert Martin 命名的前五个原则引入的首字母简称。它指导者面向对象编程和设计的五个基本原则。
+
+- [S: 单一职责原则 (SRP)](#single-responsibility-principle-srp)
+- [O: 开/闭原则 (OCP)](#openclosed-principle-ocp)
+- [L: 里氏替换原则 (LSP)](#liskov-substitution-principle-lsp)
+- [I: 接口隔离原则 (ISP)](#interface-segregation-principle-isp)
+- [D: 依赖倒置原则 (DIP)](#dependency-inversion-principle-dip)
+
+</details>
+
+
+<details>
+  <summary><b>单一职责原则 (SRP)</b></summary>
+
+如代码整洁之道中所述的那样，"类更改的原因永远不应该超过一个"。一个功能繁多的类似乎很有诱惑力，像你登机时只能携带一个手提箱，但问题在于你的类不会具有凝聚力，它会被赋予许多可以改变的理由。尽量减少更改类所需要的时间很重要。
+
+这很重要，因为如果一个类中包含太多功能，并且更改了部分，这会导致很难理解这些更改会怎样影响到代码库中其它的依赖项。
+
+**Bad:**
+
+```csharp
+class UserSettings
+{
+    private User User;
+
+    public UserSettings(User user)
+    {
+        User = user;
+    }
+
+    public void ChangeSettings(Settings settings)
+    {
+        if (verifyCredentials())
+        {
+            // ...
+        }
+    }
+
+    private bool VerifyCredentials()
+    {
+        // ...
+    }
+}
+```
+
+**Good:**
+
+```csharp
+class UserAuth
+{
+    private User User;
+
+    public UserAuth(User user)
+    {
+        User = user;
+    }
+
+    public bool VerifyCredentials()
+    {
+        // ...
+    }
+}
+
+class UserSettings
+{
+    private User User;
+    private UserAuth Auth;
+
+    public UserSettings(User user)
+    {
+        User = user;
+        Auth = new UserAuth(user);
+    }
+
+    public void ChangeSettings(Settings settings)
+    {
+        if (Auth.VerifyCredentials())
+        {
+            // ...
+        }
+    }
+}
+```
+
+**[⬆ back to top](#目录)**
+
+</details>
+
+<details>
+  <summary><b>开/闭原则 (OCP)</b></summary>
+
+正如 Bertrand Meyer 所述的那样，"软件实体 (类，模块，函数等) 应该对扩展开放，对修改关闭。" 这想表达什么呢？这个原则最基本的要求是你应该允许用户在不更改现有代码的前提下可以添加新功能。
+
+**Bad:**
+
+```csharp
+abstract class AdapterBase
+{
+    protected string Name;
+
+    public string GetName()
+    {
+        return Name;
+    }
+}
+
+class AjaxAdapter : AdapterBase
+{
+    public AjaxAdapter()
+    {
+        Name = "ajaxAdapter";
+    }
+}
+
+class NodeAdapter : AdapterBase
+{
+    public NodeAdapter()
+    {
+        Name = "nodeAdapter";
+    }
+}
+
+class HttpRequester : AdapterBase
+{
+    private readonly AdapterBase Adapter;
+
+    public HttpRequester(AdapterBase adapter)
+    {
+        Adapter = adapter;
+    }
+
+    public bool Fetch(string url)
+    {
+        var adapterName = Adapter.GetName();
+
+        if (adapterName == "ajaxAdapter")
+        {
+            return MakeAjaxCall(url);
+        }
+        else if (adapterName == "httpNodeAdapter")
+        {
+            return MakeHttpCall(url);
+        }
+    }
+
+    private bool MakeAjaxCall(string url)
+    {
+        // request and return promise
+    }
+
+    private bool MakeHttpCall(string url)
+    {
+        // request and return promise
+    }
+}
+```
+
+**Good:**
+
+```csharp
+interface IAdapter
+{
+    bool Request(string url);
+}
+
+class AjaxAdapter : IAdapter
+{
+    public bool Request(string url)
+    {
+        // request and return promise
+    }
+}
+
+class NodeAdapter : IAdapter
+{
+    public bool Request(string url)
+    {
+        // request and return promise
+    }
+}
+
+class HttpRequester
+{
+    private readonly IAdapter Adapter;
+
+    public HttpRequester(IAdapter adapter)
+    {
+        Adapter = adapter;
+    }
+
+    public bool Fetch(string url)
+    {
+        return Adapter.Request(url);
+    }
+}
+```
+
+**[⬆ back to top](#目录)**
+
+</details>
+
+
+<details>
+  <summary><b>里氏替换原则 (LSP)</b></summary>
+
+对于一个很简单的概念来说，这是很抽象的。它的准确表述是 "如果 S 是 T 的子类，那么类型 T 的对象可以转化为类型 S 的对象，即在无需修改程序（正确性，任务执行等）的情况下 在类型为 S 的对象可以替换类型为 T 的对象。" 这是一个相对可怕的定义。
+
+对这一原则最好的解释是如果你有一个父类和一个子类，那么基类和子类可以相互使用，而不会得到错误答案，这可能仍然令人困惑。在数学上，正方形是一个矩形，但是使用 "is-a" 关系通过继承对它建模，你很快就会陷入麻烦。
+
+**Bad:**
+
+```csharp
+class Rectangle
+{
+    protected double Width = 0;
+    protected double Height = 0;
+
+    public Drawable Render(double area)
+    {
+        // ...
+    }
+
+    public void SetWidth(double width)
+    {
+        Width = width;
+    }
+
+    public void SetHeight(double height)
+    {
+        Height = height;
+    }
+
+    public double GetArea()
+    {
+        return Width * Height;
+    }
+}
+
+class Square : Rectangle
+{
+    public double SetWidth(double width)
+    {
+        Width = Height = width;
+    }
+
+    public double SetHeight(double height)
+    {
+        Width = Height = height;
+    }
+}
+
+Drawable RenderLargeRectangles(Rectangle rectangles)
+{
+    foreach (rectangle in rectangles)
+    {
+        rectangle.SetWidth(4);
+        rectangle.SetHeight(5);
+        var area = rectangle.GetArea(); // BAD: Will return 25 for Square. Should be 20.
+        rectangle.Render(area);
+    }
+}
+
+var rectangles = new[] { new Rectangle(), new Rectangle(), new Square() };
+RenderLargeRectangles(rectangles);
+```
+
+**Good:**
+
+```csharp
+abstract class ShapeBase
+{
+    protected double Width = 0;
+    protected double Height = 0;
+
+    abstract public double GetArea();
+
+    public Drawable Render(double area)
+    {
+        // ...
+    }
+}
+
+class Rectangle : ShapeBase
+{
+    public void SetWidth(double width)
+    {
+        Width = width;
+    }
+
+    public void SetHeight(double height)
+    {
+        Height = height;
+    }
+
+    public double GetArea()
+    {
+        return Width * Height;
+    }
+}
+
+class Square : ShapeBase
+{
+    private double Length = 0;
+
+    public double SetLength(double length)
+    {
+        Length = length;
+    }
+
+    public double GetArea()
+    {
+        return Math.Pow(Length, 2);
+    }
+}
+
+Drawable RenderLargeRectangles(Rectangle rectangles)
+{
+    foreach (rectangle in rectangles)
+    {
+        if (rectangle is Square)
+        {
+            rectangle.SetLength(5);
+        }
+        else if (rectangle is Rectangle)
+        {
+            rectangle.SetWidth(4);
+            rectangle.SetHeight(5);
+        }
+
+        var area = rectangle.GetArea();
+        rectangle.Render(area);
+    }
+}
+
+var shapes = new[] { new Rectangle(), new Rectangle(), new Square() };
+RenderLargeRectangles(shapes);
+```
+
+**[⬆ back to top](#目录)**
+
+</details>
+
+<details>
+  <summary><b>接口隔离原则 (ISP)</b></summary>
+
+ISP 指出 "不应该强迫客户端依赖于它不使用的接口。"
+
+一个很好的例子可以很好地证明这一点。比如需要大量的设置对象，不需要客户端创建很多的设置项是正确的，因为大多数情况下，它们并不需要所有的设置项，使它们作为可选项有助于防止出现 "胖接口"。
+
+**Bad:**
+
+```csharp
+public interface IEmployee
+{
+    void Work();
+    void Eat();
+}
+
+public class Human : IEmployee
+{
+    public void Work()
+    {
+        // ....working
+    }
+
+    public void Eat()
+    {
+        // ...... eating in lunch break
+    }
+}
+
+public class Robot : IEmployee
+{
+    public void Work()
+    {
+        //.... working much more
+    }
+
+    public void Eat()
+    {
+        //.... robot can't eat, but it must implement this method
+    }
+}
+```
+
+**Good:**
+
+Not every worker is an employee, but every employee is an worker.
+
+```csharp
+public interface IWorkable
+{
+    void Work();
+}
+
+public interface IFeedable
+{
+    void Eat();
+}
+
+public interface IEmployee : IFeedable, IWorkable
+{
+}
+
+public class Human : IEmployee
+{
+    public void Work()
+    {
+        // ....working
+    }
+
+    public void Eat()
+    {
+        //.... eating in lunch break
+    }
+}
+
+// robot can only work
+public class Robot : IWorkable
+{
+    public void Work()
+    {
+        // ....working
+    }
+}
+```
+
+**[⬆ back to top](#目录)**
+
+</details>
+
+<details>
+  <summary><b>依赖倒置原则 (DIP)</b></summary>
+
+这一原则指出两个基本点：
+
+1. 高级别模块不应该依赖于低级别模块，它们都应该依赖于抽象层。
+2. 抽象不应该依赖于细节，细节应该依赖于抽象。
+
+这一点最初很难理解。但如果你已经使用 .NET/.NET Core framework，你应该已经看过 [Dependency Injection](https://martinfowler.com/articles/injection.html) (DI) 对这一原则的实现。虽然它们不是相同的概念，但 DIP 使高级模块无法了解低级模块的详细信息，也无法设置。这可以通过 DI 来实现，这样做的最大好处是减少了模块间的耦合，耦合是一种非常非常糟糕的开发模式，它会导致代码难以重构。
+
+**Bad:**
+
+```csharp
+public abstract class EmployeeBase
+{
+    protected virtual void Work()
+    {
+        // ....working
+    }
+}
+
+public class Human : EmployeeBase
+{
+    public override void Work()
+    {
+        //.... working much more
+    }
+}
+
+public class Robot : EmployeeBase
+{
+    public override void Work()
+    {
+        //.... working much, much more
+    }
+}
+
+public class Manager
+{
+    private readonly Robot _robot;
+    private readonly Human _human;
+
+    public Manager(Robot robot, Human human)
+    {
+        _robot = robot;
+        _human = human;
+    }
+
+    public void Manage()
+    {
+        _robot.Work();
+        _human.Work();
+    }
+}
+```
+
+**Good:**
+
+```csharp
+public interface IEmployee
+{
+    void Work();
+}
+
+public class Human : IEmployee
+{
+    public void Work()
+    {
+        // ....working
+    }
+}
+
+public class Robot : IEmployee
+{
+    public void Work()
+    {
+        //.... working much more
+    }
+}
+
+public class Manager
+{
+    private readonly IEnumerable<IEmployee> _employees;
+
+    public Manager(IEnumerable<IEmployee> employees)
+    {
+        _employees = employees;
+    }
+
+    public void Manage()
+    {
+        foreach (var employee in _employees)
+        {
+            _employee.Work();
+        }
+    }
+}
+```
+
+**[⬆ back to top](#目录)**
+
+</details>
+
+<details>
+  <summary><b>不要重复你自己 (DRY)</b></summary>
+
+尝试了解  [DRY](https://en.wikipedia.org/wiki/Don%27t_repeat_yourself) 原则
+
+尽你所能去避免重复的代码，重复代码不好，因为这意味着如果你修改某些逻辑，那么你需要在很多地方修改这些逻辑。
+
+想象一下，如果你经营一家餐馆，并跟踪你的库存：所有的西红柿，洋葱，大蒜，香料等。如果您有多份列表，当你使用了菜与西红柿，你更新了这份列表，那么其它列表都需要更新。如果您只有一份列表，则只需要更新一个位置即可！
+
+通常，你有重复的代码是由于你有两个或者更多略有差异的地方，它们有很多共同点，但它们的不同点迫使你不得不视图两个或多个单独的函数，这些函数也会执行许多相同的操作。删除重复的代码意味着创建一个抽象，只需一个函数/模块/类即可处理这组不同的东西。
+
+正确抽象至关重要，这就是为什么你应该遵循 [Classes]（#classes） 一节中阐述的 SOLID 原则的原因。错误的抽象可能比重复的代码更糟糕，所以要小心！话虽如此，如果你能做出一个良好的抽象，做到这一点！不要重复自己，否则你当你想做一处修改的时候会发现自己需要更新多个地方。
+
+**Bad:**
+
+```csharp
+public List<EmployeeData> ShowDeveloperList(Developers developers)
+{
+    foreach (var developers in developer)
+    {
+        var expectedSalary = developer.CalculateExpectedSalary();
+        var experience = developer.GetExperience();
+        var githubLink = developer.GetGithubLink();
+        var data = new[] {
+            expectedSalary,
+            experience,
+            githubLink
+        };
+
+        Render(data);
+    }
+}
+
+public List<ManagerData> ShowManagerList(Manager managers)
+{
+    foreach (var manager in managers)
+    {
+        var expectedSalary = manager.CalculateExpectedSalary();
+        var experience = manager.GetExperience();
+        var githubLink = manager.GetGithubLink();
+        var data =
+        new[] {
+            expectedSalary,
+            experience,
+            githubLink
+        };
+
+        render(data);
+    }
+}
+```
+
+**Good:**
+
+```csharp
+public List<EmployeeData> ShowList(Employee employees)
+{
+    foreach (var employee in employees)
+    {
+        var expectedSalary = employees.CalculateExpectedSalary();
+        var experience = employees.GetExperience();
+        var githubLink = employees.GetGithubLink();
+        var data =
+        new[] {
+            expectedSalary,
+            experience,
+            githubLink
+        };
+
+        render(data);
+    }
+}
+```
+
+**Very good:**
+
+It is better to use a compact version of the code.
+
+```csharp
+public List<EmployeeData> ShowList(Employee employees)
+{
+    foreach (var employee in employees)
+    {
+        render(new[] {
+            employee.CalculateExpectedSalary(),
+            employee.GetExperience(),
+            employee.GetGithubLink()
+        });
+    }
+}
+```
+
+**[⬆ back to top](#目录)**
+
+</details>
+
