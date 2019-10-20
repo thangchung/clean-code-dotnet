@@ -2611,8 +2611,7 @@ async/await 最适用于 IO 型任务（网络通信，数据库通信，http �
 | Asynchronously initialize a resource            | `AsyncLazy<T>`                                                                    |
 | Async-ready producer/consumer structures        | TPL Dataflow or `AsyncCollection<T>`                                              |
 
-阅读 [Task-based Asynchronous Pattern (TAP) document](http://www.microsoft.com/download/en/details.aspx?id=19957).
-它编写得非常好，包括有关 API 设计和正确使用异步/等待（包括取消和进度报告）的指导。
+阅读 [Task-based Asynchronous Pattern (TAP) document](http://www.microsoft.com/download/en/details.aspx?id=19957)。它编写得非常好，包括有关 API 设计和正确使用异步/等待（包括取消和进度报告）的指导。
 
 应该使用新的 await-friendly 方法来替代旧的方法。如果你新的异步代码中有旧的示例，这说明你写错了。
 
