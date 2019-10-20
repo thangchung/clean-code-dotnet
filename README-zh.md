@@ -17,6 +17,7 @@
   - [类](#%e7%b1%bb)
   - [SOLID](#solid)
   - [测试](#%e6%b5%8b%e8%af%95)
+  - [并发](#%e5%b9%b6%e5%8f%91)
 
 # 介绍
 
@@ -2564,3 +2565,70 @@ public class MakeDotNetGreatAgainTests
 **[⬆ back to top](#目录)**
 
 </details>
+
+## 并发
+
+<details>
+  <summary><b>使用 Async/Await</b></summary>
+
+**异步编程指南摘要**
+
+| Name              | Description                                       | Exceptions                      |
+| ----------------- | ------------------------------------------------- | ------------------------------- |
+| Avoid async void  | Prefer async Task methods over async void methods | Event handlers                  |
+| Async all the way | Don't mix blocking and async code                 | Console main method (C# <= 7.0) |
+| Configure context | Use `ConfigureAwait(false)` when you can          | Methods that require con­text   |
+
+**异步方式处理**
+
+| To Do This ...                           | Instead of This ...        | Use This             |
+| ---------------------------------------- | -------------------------- | -------------------- |
+| Retrieve the result of a background task | `Task.Wait or Task.Result` | `await`              |
+| Wait for any task to complete            | `Task.WaitAny`             | `await Task.WhenAny` |
+| Retrieve the results of multiple tasks   | `Task.WaitAll`             | `await Task.WhenAll` |
+| Wait a period of time                    | `Thread.Sleep`             | `await Task.Delay`   |
+
+**最佳实践**
+
+async/await 最适用于 IO 型任务（网络通信，数据库通信，http 请求等），但它不适用于计算型任务（遍历巨型列表，渲染处理图片等）。因为它会将保留线程释放到线程池，可用的 CPU/内核 将不涉及处理这些任务。因此，我们应该避免使用 Async/Await 进行计算型任务。
+
+对于处理计算型任务，倾向于结合 `TaskCreationOptions` 和 `LongRunning` 来使用 `Task.Factory.CreateNew`，它将启动一个新的后台线程来处理繁重的计算型任务，而不会将其释放回线程池，直到任务完成。
+
+**了解你的工具**
+
+关于 async 和 await 有太多地方需要学习， 有些困惑是很自然的。以下是一些常见问题的快速解决指南。
+
+**常见异步问题的解决方法**
+
+| Problem                                         | Solution                                                                          |
+| ----------------------------------------------- | --------------------------------------------------------------------------------- |
+| Create a task to execute code                   | `Task.Run` or `TaskFactory.StartNew` (not the `Task` constructor or `Task.Start`) |
+| Create a task wrapper for an operation or event | `TaskFactory.FromAsync` or `TaskCompletionSource<T>`                              |
+| Support cancellation                            | `CancellationTokenSource` and `CancellationToken`                                 |
+| Report progress                                 | `IProgress<T>` and `Progress<T>`                                                  |
+| Handle streams of data                          | TPL Dataflow or Reactive Extensions                                               |
+| Synchronize access to a shared resource         | `SemaphoreSlim`                                                                   |
+| Asynchronously initialize a resource            | `AsyncLazy<T>`                                                                    |
+| Async-ready producer/consumer structures        | TPL Dataflow or `AsyncCollection<T>`                                              |
+
+阅读 [Task-based Asynchronous Pattern (TAP) document](http://www.microsoft.com/download/en/details.aspx?id=19957).
+它编写得非常好，包括有关 API 设计和正确使用异步/等待（包括取消和进度报告）的指导。
+
+应该使用新的 await-friendly 方法来替代旧的方法。如果你新的异步代码中有旧的示例，这说明你写错了。
+
+| Old                | New                                  | Description                                                   |
+| ------------------ | ------------------------------------ | ------------------------------------------------------------- |
+| `task.Wait`        | `await task`                         | Wait/await for a task to complete                             |
+| `task.Result`      | `await task`                         | Get the result of a completed task                            |
+| `Task.WaitAny`     | `await Task.WhenAny`                 | Wait/await for one of a collection of tasks to complete       |
+| `Task.WaitAll`     | `await Task.WhenAll`                 | Wait/await for every one of a collection of tasks to complete |
+| `Thread.Sleep`     | `await Task.Delay`                   | Wait/await for a period of time                               |
+| `Task` constructor | `Task.Run` or `TaskFactory.StartNew` | Create a code-based task                                      |
+
+> Source https://gist.github.com/jonlabelle/841146854b23b305b50fa5542f84b20c
+
+**[⬆ back to top](#目录)**
+
+</details>
+
+
