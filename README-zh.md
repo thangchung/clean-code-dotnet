@@ -16,6 +16,7 @@
   - [对象和数据结构](#%e5%af%b9%e8%b1%a1%e5%92%8c%e6%95%b0%e6%8d%ae%e7%bb%93%e6%9e%84)
   - [类](#%e7%b1%bb)
   - [SOLID](#solid)
+  - [测试](#%e6%b5%8b%e8%af%95)
 
 # 介绍
 
@@ -2464,3 +2465,102 @@ public List<EmployeeData> ShowList(Employee employees)
 
 </details>
 
+</details>
+
+## 测试
+
+<details>
+  <summary><b>测试的基本概念</b></summary>
+
+Testing is more important than shipping. If you have no tests or an
+inadequate amount, then every time you ship code you won't be sure that you didn't break anything. Deciding on what constitutes an adequate amount is up to your team, but having 100% coverage (all statements and branches) is how you achieve very high confidence and developer peace of mind. This means that in addition to having a great testing framework, you also need to use a [good coverage tool](https://docs.microsoft.com/en-us/visualstudio/test/using-code-coverage-to-determine-how-much-code-is-being-tested).
+
+测试比 shipping 更重要，如果你没有测试或者测试量不够，那么每次 ship code 的时候，你不能确保你没有引入新的 BUG，花费的金额数量取决于你的团队，但拥有 100% 的覆盖率（所有条件和分支）是你实现非常高的可信度和让开发人员安心的方式。这意味着除了拥有一个优秀的测试框架外，你也需要使用 [良好的覆盖工具](https://docs.microsoft.com/en-us/visualstudio/test/using-code-coverage-to-determine-how-much-code-is-being-tested).
+
+没有理由不写测试，这里有 [大量的优秀 .NET 测试框架](https://github.com/thangchung/awesome-dotnet-core#testing)，选择一款你所在团队喜欢的框架。当你找到一款适合你团队使用的的测试框架时，其目的是始终为你介绍的每个新功能/模块编写测试。如果你的首选方法是测试驱动开发 （TDD），那很好，但主要目的就是确保在启动任何功能或重构现有功能之前达到覆盖目标。
+
+</details>
+
+<details>
+  <summary><b>每个测试的单一概念</b></summary>
+
+确保你的测试以点为中心，而不是杂乱（不相关）内容，强制使用 [AAA 模式](http://wiki.c2.com/?ArrangeActAssert) 可以然你的代码更加整洁和易读。
+
+**Bad:**
+
+```csharp
+
+public class MakeDotNetGreatAgainTests
+{
+    [Fact]
+    public void HandleDateBoundaries()
+    {
+        var date = new MyDateTime("1/1/2015");
+        date.AddDays(30);
+        Assert.Equal("1/31/2015", date);
+
+        date = new MyDateTime("2/1/2016");
+        date.AddDays(28);
+        Assert.Equal("02/29/2016", date);
+
+        date = new MyDateTime("2/1/2015");
+        date.AddDays(28);
+        Assert.Equal("03/01/2015", date);
+    }
+}
+
+```
+
+**Good:**
+
+```csharp
+
+public class MakeDotNetGreatAgainTests
+{
+    [Fact]
+    public void Handle30DayMonths()
+    {
+        // Arrange
+        var date = new MyDateTime("1/1/2015");
+
+        // Act
+        date.AddDays(30);
+
+        // Assert
+        Assert.Equal("1/31/2015", date);
+    }
+
+    [Fact]
+    public void HandleLeapYear()
+    {
+        // Arrange
+        var date = new MyDateTime("2/1/2016");
+
+        // Act
+        date.AddDays(28);
+
+        // Assert
+        Assert.Equal("02/29/2016", date);
+    }
+
+    [Fact]
+    public void HandleNonLeapYear()
+    {
+        // Arrange
+        var date = new MyDateTime("2/1/2015");
+
+        // Act
+        date.AddDays(28);
+
+        // Assert
+        Assert.Equal("03/01/2015", date);
+    }
+}
+
+```
+
+> Soure https://www.codingblocks.net/podcast/how-to-write-amazing-unit-tests
+
+**[⬆ back to top](#目录)**
+
+</details>
