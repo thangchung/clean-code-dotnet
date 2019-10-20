@@ -21,6 +21,14 @@
   - [异常处理](#%e5%bc%82%e5%b8%b8%e5%a4%84%e7%90%86)
   - [格式化](#%e6%a0%bc%e5%bc%8f%e5%8c%96)
   - [注释](#%e6%b3%a8%e9%87%8a)
+- [其它关于代码整洁之道的资源](#%e5%85%b6%e5%ae%83%e5%85%b3%e4%ba%8e%e4%bb%a3%e7%a0%81%e6%95%b4%e6%b4%81%e4%b9%8b%e9%81%93%e7%9a%84%e8%b5%84%e6%ba%90)
+  - [其它代码整洁之道列表](#%e5%85%b6%e5%ae%83%e4%bb%a3%e7%a0%81%e6%95%b4%e6%b4%81%e4%b9%8b%e9%81%93%e5%88%97%e8%a1%a8)
+  - [工具](#%e5%b7%a5%e5%85%b7)
+  - [表格](#%e8%a1%a8%e6%a0%bc)
+- [贡献者](#%e8%b4%a1%e7%8c%ae%e8%80%85)
+- [支持者](#%e6%94%af%e6%8c%81%e8%80%85)
+- [赞助商](#%e8%b5%9e%e5%8a%a9%e5%95%86)
+- [许可证](#%e8%ae%b8%e5%8f%af%e8%af%81)
 
 # 介绍
 
@@ -3189,3 +3197,58 @@ private int ConvertTo32BitInt(int value)
 **[⬆ back to top](#目录)**
 
 </details>
+
+# 其它关于代码整洁之道的资源
+
+## 其它代码整洁之道列表
+
+- [clean-code-javascript](https://github.com/ryanmcdermott/clean-code-javascript) - Clean Code concepts adapted for JavaScript
+- [clean-code-php](https://github.com/jupeter/clean-code-php) - Clean Code concepts adapted for PHP
+- [clean-code-ruby](https://github.com/uohzxela/clean-code-ruby) - Clean Code concepts adapted for Ruby
+- [clean-code-python](https://github.com/zedr/clean-code-python) - Clean Code concepts adapted for Python
+- [clean-code-typescript](https://github.com/labs42io/clean-code-typescript) - Clean Code concepts adapted for TypeScript
+- [clean-go-article](https://github.com/Pungyeon/clean-go-article) - Clean Code concepts adapted for Golang and an example how to apply [clean code in Golang](https://github.com/Pungyeon/clean-go)
+
+## 工具
+
+- [codemaid](https://github.com/codecadwallader/codemaid) - open source Visual Studio extension to cleanup and simplify our C#, C++, F#, VB, PHP, PowerShell, JSON, XAML, XML, ASP, HTML, CSS, LESS, SCSS, JavaScript and TypeScript coding
+- [Sharpen](https://github.com/sharpenrocks/Sharpen) - Visual Studio extension that intelligently introduces new C# features into your existing code base
+- [tslint-clean-code](https://github.com/Glavin001/tslint-clean-code) - TSLint rules for enforcing Clean Code
+
+## 表格
+
+- [Clean Code](cheetsheets/Clean-Code-V2.4.pdf) - The summary of [Clean Code: A Handbook of Agile Software Craftsmanship](https://www.amazon.com/dp/0132350882) book
+- [Clean Architecture](cheetsheets/Clean-Architecture-V1.0.pdf) - The summary of [Clean Architecture: A Craftsman's Guide to Software Structure and Design](https://www.amazon.com/dp/0134494164) book
+- [Modern JavaScript Cheatsheet](https://github.com/mbeaudru/modern-js-cheatsheet) - Cheatsheet for the JavaScript knowledge you will frequently encounter in modern projects
+- [OWASP Cheat Sheet Series](https://cheatsheetseries.owasp.org) - Cheatsheet was created to provide a concise collection of high value information on specific application security topics
+
+---
+
+# 贡献者
+
+感谢每位参与 `clean-code-dotnet` 项目贡献的朋友。
+
+<a href="https://github.com/thangchung/clean-code-dotnet/graphs/contributors"><img src="https://opencollective.com/cleancodedotnet/contributors.svg?width=890" title="contributors" alt="contributors" /></a>
+
+# 支持者
+
+热爱我们的工作，帮助我们继续我们的活动？[[成为支持者](https://opencollective.com/cleancodedotnet#backer)]
+
+<a href="https://opencollective.com/cleancodedotnet#backers" target="_blank"><img src="https://opencollective.com/cleancodedotnet/backers.svg?width=890"></a>
+
+# 赞助商
+
+成为赞助商，并在 Github 上的 README 上获取您的徽标，并链接到您的网站。[[成为赞助商](https://opencollective.com/cleancodedotnet#sponsor)]
+
+<a href="https://opencollective.com/cleancodedotnet/sponsor/0/website" target="_blank"><img src="https://opencollective.com/cleancodedotnet/sponsor/0/avatar.svg"></a>
+<a href="https://opencollective.com/cleancodedotnet/sponsor/1/website" target="_blank"><img src="https://opencollective.com/cleancodedotnet/sponsor/1/avatar.svg"></a>
+<a href="https://opencollective.com/cleancodedotnet/sponsor/2/website" target="_blank"><img src="https://opencollective.com/cleancodedotnet/sponsor/2/avatar.svg"></a>
+<a href="https://opencollective.com/cleancodedotnet/sponsor/3/website" target="_blank"><img src="https://opencollective.com/cleancodedotnet/sponsor/3/avatar.svg"></a>
+<a href="https://opencollective.com/cleancodedotnet/sponsor/4/website" target="_blank"><img src="https://opencollective.com/cleancodedotnet/sponsor/4/avatar.svg"></a>
+
+# 许可证
+
+[![CC0](http://mirrors.creativecommons.org/presskit/buttons/88x31/svg/cc-zero.svg)](https://creativecommons.org/publicdomain/zero/1.0/)
+
+To the extent possible under law, [thangchung](https://github.com/thangchung) has waived all copyright and related or neighboring rights to this work.
+
