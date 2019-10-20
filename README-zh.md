@@ -18,6 +18,7 @@
   - [SOLID](#solid)
   - [测试](#%e6%b5%8b%e8%af%95)
   - [并发](#%e5%b9%b6%e5%8f%91)
+  - [异常处理](#%e5%bc%82%e5%b8%b8%e5%a4%84%e7%90%86)
 
 # 介绍
 
@@ -2630,4 +2631,186 @@ async/await 最适用于 IO 型任务（网络通信，数据库通信，http �
 
 </details>
 
+## 异常处理
+
+<details>
+  <summary><b>异常处理的基本概念</b></summary>
+
+抛出异常是一件好事！这意味了程序在运行时成功识别程序中出现的问题，通过停止当前堆栈上的函数执行，终止进程 (在 .NET/.NET Core 里)，并在控制台中通过堆栈跟踪来通知你。
+
+</details>
+
+<details>
+  <summary><b>在 catch 块中不要使用 'throw ex'</b></summary>
+
+如果你在捕获一个异常之后需要重新抛出一个异常，仅仅使用 'throw' ，你将会保存堆栈跟踪，但在坏的情况下，你将丢失堆栈跟踪。
+
+**Bad:**
+
+```csharp
+try
+{
+    // Do something..
+}
+catch (Exception ex)
+{
+    // Any action something like roll-back or logging etc.
+    throw ex;
+}
+```
+
+**Good:**
+
+```csharp
+try
+{
+    // Do something..
+}
+catch (Exception ex)
+{
+    // Any action something like roll-back or logging etc.
+    throw;
+}
+```
+
+**[⬆ back to top](#目录)**
+
+</details>
+
+<details>
+  <summary><b>不要忽略捕获的异常</b></summary>
+
+对捕获到的错误置之不理并不能解决问题，抛出异常也好不了哪儿去，因为它们常常无法准确在控制台中显示出来。如果将一些代码放到 `try/catch` 中就意味着你认为这里可能会发生异常。因此你应该制定计划，创建代码分支，为异常发生做准备。
+
+**Bad:**
+
+```csharp
+try
+{
+    FunctionThatMightThrow();
+}
+catch (Exception ex)
+{
+    // silent exception
+}
+```
+
+**Good:**
+
+```csharp
+try
+{
+    FunctionThatMightThrow();
+}
+catch (Exception error)
+{
+    NotifyUserOfError(error);
+
+    // Another option
+    ReportErrorToService(error);
+}
+```
+
+**[⬆ back to top](#目录)**
+
+</details>
+
+
+<details>
+  <summary><b>使用多个 catch 块而不是 if 条件。</b></summary>
+
+如果你需要对不同类型的异常做不同操作，你最好使用多个 catch 块来处理它们。
+
+**Bad:**
+
+```csharp
+try
+{
+    // Do something..
+}
+catch (Exception ex)
+{
+
+    if (ex is TaskCanceledException)
+    {
+        // Take action for TaskCanceledException
+    }
+    else if (ex is TaskSchedulerException)
+    {
+        // Take action for TaskSchedulerException
+    }
+}
+```
+
+**Good:**
+
+```csharp
+try
+{
+    // Do something..
+}
+catch (TaskCanceledException ex)
+{
+    // Take action for TaskCanceledException
+}
+catch (TaskSchedulerException ex)
+{
+    // Take action for TaskSchedulerException
+}
+```
+
+**[⬆ back to top](#目录)**
+
+</details>
+
+<details>
+  <summary><b>在重新引发异常时保留异常堆栈跟踪</b></summary>
+
+C# 允许使用 "throw" 关键字在 catch 块中重新引发异常。使用 "throw e;" 抛出捕获的异常是一种不好的做法。此语句会重置堆栈跟踪。而使用 "throw;"，这将保持堆栈跟踪，并提供有关异常的更深入的信息。另一个选项是使用自定义异常。只需实例化新异常，并将其内部异常属性设置为捕获的异常，并引发 `new CustomException("some info", e);` 。向异常添加信息是一种好的做法，因为它有助于调试。但是，如果目标是记录异常，则使用 "throw;" 将降级传递给调用方。
+
+**Bad:**
+
+```csharp
+try
+{
+    FunctionThatMightThrow();
+}
+catch (Exception ex)
+{
+    logger.LogInfo(ex);
+    throw ex;
+}
+```
+
+**Good:**
+
+```csharp
+try
+{
+    FunctionThatMightThrow();
+}
+catch (Exception error)
+{
+    logger.LogInfo(error);
+    throw;
+}
+```
+
+**Good:**
+
+```csharp
+try
+{
+    FunctionThatMightThrow();
+}
+catch (Exception error)
+{
+    logger.LogInfo(error);
+    throw new CustomException(error);
+}
+```
+
+**[⬆ back to top](#目录)**
+
+</details>
 
