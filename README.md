@@ -255,7 +255,7 @@ public class SingleObject
         return _instance;
     }
 
-    public string ShowMessage()
+    public string GetMessage()
     {
         return "Hello World!";
     }
