@@ -3190,6 +3190,7 @@ private int ConvertTo32BitInt(int value)
 - [clean-code-python](https://github.com/zedr/clean-code-python) - Clean Code concepts adapted for Python
 - [clean-code-typescript](https://github.com/labs42io/clean-code-typescript) - Clean Code concepts adapted for TypeScript
 - [clean-go-article](https://github.com/Pungyeon/clean-go-article) - Clean Code concepts adapted for Golang and an example how to apply [clean code in Golang](https://github.com/Pungyeon/clean-go)
+- [clean-abap](https://github.com/SAP/styleguides) - Clean Code concepts adapted for ABAP
 
 ## Tools
 
