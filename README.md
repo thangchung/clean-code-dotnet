@@ -24,7 +24,7 @@ Check out my [blog](https://medium.com/@thangchung) or say hi on [Twitter](https
 - [Other Clean Code Resources](#Other-Clean-Code-Resources)
   - [Other Clean Code Lists](#Other-Clean-Code-Lists)
   - [Tools](#Tools)
-  - [Cheetsheets](#Cheetsheets)
+  - [Cheatsheets](#Cheatsheets)
 - [Contributors](#Contributors)
 - [Backers](#Backers)
 - [Sponsors](#Sponsors)
@@ -3198,10 +3198,10 @@ private int ConvertTo32BitInt(int value)
 - [Sharpen](https://github.com/sharpenrocks/Sharpen) - Visual Studio extension that intelligently introduces new C# features into your existing code base
 - [tslint-clean-code](https://github.com/Glavin001/tslint-clean-code) - TSLint rules for enforcing Clean Code
 
-## Cheetsheets
+## Cheatsheets
 
-- [Clean Code](cheetsheets/Clean-Code-V2.4.pdf) - The summary of [Clean Code: A Handbook of Agile Software Craftsmanship](https://www.amazon.com/dp/0132350882) book
-- [Clean Architecture](cheetsheets/Clean-Architecture-V1.0.pdf) - The summary of [Clean Architecture: A Craftsman's Guide to Software Structure and Design](https://www.amazon.com/dp/0134494164) book
+- [Clean Code](cheatsheets/Clean-Code-V2.4.pdf) - The summary of [Clean Code: A Handbook of Agile Software Craftsmanship](https://www.amazon.com/dp/0132350882) book
+- [Clean Architecture](cheatsheets/Clean-Architecture-V1.0.pdf) - The summary of [Clean Architecture: A Craftsman's Guide to Software Structure and Design](https://www.amazon.com/dp/0134494164) book
 - [Modern JavaScript Cheatsheet](https://github.com/mbeaudru/modern-js-cheatsheet) - Cheatsheet for the JavaScript knowledge you will frequently encounter in modern projects
 - [OWASP Cheat Sheet Series](https://cheatsheetseries.owasp.org) - Cheatsheet was created to provide a concise collection of high value information on specific application security topics
 
