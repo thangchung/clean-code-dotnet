@@ -2094,21 +2094,24 @@ RenderLargeRectangles(rectangles);
 **Good:**
 
 ```csharp
+using System;
+using System.Collections.Generic;
+
 abstract class ShapeBase
 {
-    protected double Width = 0;
-    protected double Height = 0;
+    public abstract double GetArea();
 
-    abstract public double GetArea();
-
-    public Drawable Render(double area)
+    public void Render(double area)
     {
-        // ...
+		//...
     }
 }
 
 class Rectangle : ShapeBase
 {
+    private double Width = 0;
+    private double Height = 0;
+	
     public void SetWidth(double width)
     {
         Width = width;
@@ -2119,7 +2122,7 @@ class Rectangle : ShapeBase
         Height = height;
     }
 
-    public double GetArea()
+    public override double GetArea()
     {
         return Width * Height;
     }
@@ -2129,38 +2132,43 @@ class Square : ShapeBase
 {
     private double Length = 0;
 
-    public double SetLength(double length)
+    public void SetLength(double length)
     {
         Length = length;
     }
 
-    public double GetArea()
+    public override double GetArea()
     {
         return Math.Pow(Length, 2);
     }
 }
 
-Drawable RenderLargeRectangles(Rectangle rectangles)
-{
-    foreach (rectangle in rectangles)
-    {
-        if (rectangle is Square)
-        {
-            rectangle.SetLength(5);
-        }
-        else if (rectangle is Rectangle)
-        {
-            rectangle.SetWidth(4);
-            rectangle.SetHeight(5);
-        }
 
-        var area = rectangle.GetArea();
-        rectangle.Render(area);
-    }
+public class Program
+{	
+	public static void Main() {
+		IList<ShapeBase> list = new List<ShapeBase>(){
+			new Square(),
+			new Rectangle(),
+			new Rectangle()
+		};
+		
+		foreach (ShapeBase sb in list) {
+			if (sb is Square) {
+				((Square)sb).SetLength(5); //a
+			}
+			
+			if (sb is Rectangle) {
+				((Rectangle)sb).SetHeight(4);//a
+				((Rectangle)sb).SetWidth(5);//b
+			}
+			
+			double area = sb.GetArea();
+			
+			Console.WriteLine(area.ToString());
+		}
+	}
 }
-
-var shapes = new[] { new Rectangle(), new Rectangle(), new Square() };
-RenderLargeRectangles(shapes);
 ```
 
 **[⬆ back to top](#table-of-contents)**
