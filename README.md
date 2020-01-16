@@ -2421,8 +2421,8 @@ public List<EmployeeData> ShowList(Employee employees)
     foreach (var employee in employees)
     {
         var expectedSalary = employees.CalculateExpectedSalary();
-        var experience = employees.GetExperience();
-        var githubLink = employees.GetGithubLink();
+        var experience = employee.GetExperience();
+        var githubLink = employee.GetGithubLink();
         var data =
         new[] {
             expectedSalary,
