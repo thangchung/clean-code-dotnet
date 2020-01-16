@@ -2420,7 +2420,7 @@ public List<EmployeeData> ShowList(Employee employees)
 {
     foreach (var employee in employees)
     {
-        var expectedSalary = employees.CalculateExpectedSalary();
+        var expectedSalary = employee.CalculateExpectedSalary();
         var experience = employee.GetExperience();
         var githubLink = employee.GetGithubLink();
         var data =
