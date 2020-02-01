@@ -711,31 +711,33 @@ than the vast majority of other programmers.
 ```csharp
 // Global variable referenced by following function.
 // If we had another function that used this name, now it'd be an array and it could break it.
-var name = 'Ryan McDermott';
+var name = "Ryan McDermott";
 
-public string SplitIntoFirstAndLastName()
+public void SplitAndEnrichFullName()
 {
-   return name.Split(" ");
+    var temp = name.Split(" ");
+    name = $"His first name is {temp[0]}, and his last name is {temp[1]}"; // side effect
 }
 
-SplitIntoFirstAndLastName();
+SplitAndEnrichFullName();
 
-Console.PrintLine(name); // ['Ryan', 'McDermott'];
+Console.WriteLine(name); // His first name is Ryan, and his last name is McDermott
 ```
 
 **Good:**
 
 ```csharp
-public string SplitIntoFirstAndLastName(string name)
+public string SplitAndEnrichFullName(string name)
 {
-    return name.Split(" ");
+    var temp = name.Split(" ");
+    return $"His first name is {temp[0]}, and his last name is {temp[1]}";
 }
 
-var name = 'Ryan McDermott';
-var newName = SplitIntoFirstAndLastName(name);
+var name = "Ryan McDermott";
+var fullName = SplitAndEnrichFullName(name);
 
-Console.PrintLine(name); // 'Ryan McDermott';
-Console.PrintLine(newName); // ['Ryan', 'McDermott'];
+Console.WriteLine(name); // Ryan McDermott
+Console.WriteLine(fullName); // His first name is Ryan, and his last name is McDermott
 ```
 
 **[⬆ back to top](#table-of-contents)**
