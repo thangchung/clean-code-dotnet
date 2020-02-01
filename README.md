@@ -980,11 +980,11 @@ You could write global function like `Config()`, but it could clash with another
 **Bad:**
 
 ```csharp
-public string[] Config()
+public Dictionary<string, string> Config()
 {
-    return  [
-        "foo" => "bar",
-    ]
+    return new Dictionary<string,string>(){
+        ["foo"] = "bar"
+    };
 }
 ```
 
@@ -993,16 +993,16 @@ public string[] Config()
 ```csharp
 class Configuration
 {
-    private string[] _configuration = [];
+    private Dictionary<string, string> _configuration;
 
-    public Configuration(string[] configuration)
+    public Configuration(Dictionary<string, string> configuration)
     {
         _configuration = configuration;
     }
 
     public string[] Get(string key)
     {
-        return (_configuration[key]!= null) ? _configuration[key] : null;
+        return _configuration.ContainsKey(key) ? _configuration[key] : null;
     }
 }
 ```
@@ -1010,8 +1010,8 @@ class Configuration
 Load configuration and create instance of `Configuration` class
 
 ```csharp
-var configuration = new Configuration(new string[] {
-    "foo" => "bar",
+var configuration = new Configuration(new Dictionary<string, string>() {
+    ["foo"] = "bar"
 });
 ```
 
