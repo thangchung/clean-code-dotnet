@@ -23,6 +23,7 @@ Check out my [blog](https://medium.com/@thangchung) or say hi on [Twitter](https
   - [Comments](#comments)
 - [Other Clean Code Resources](#other-clean-code-resources)
   - [Other Clean Code Lists](#other-clean-code-lists)
+  - [Style Guides](#style-guides)
   - [Tools](#tools)
   - [Cheatsheets](#cheatsheets)
 - [Contributors](#contributors)
@@ -3191,6 +3192,9 @@ private int ConvertTo32BitInt(int value)
 - [clean-code-typescript](https://github.com/labs42io/clean-code-typescript) - Clean Code concepts adapted for TypeScript
 - [clean-go-article](https://github.com/Pungyeon/clean-go-article) - Clean Code concepts adapted for Golang and an example how to apply [clean code in Golang](https://github.com/Pungyeon/clean-go)
 - [clean-abap](https://github.com/SAP/styleguides) - Clean Code concepts adapted for ABAP
+
+## Style Guides
+- [Google Styleguides](https://github.com/google/styleguide) - This project holds the C++ Style Guide, Swift Style Guide, Objective-C Style Guide, Java Style Guide, Python Style Guide, R Style Guide, Shell Style Guide, HTML/CSS Style Guide, JavaScript Style Guide, AngularJS Style Guide, Common Lisp Style Guide, and Vimscript Style Guide
 
 ## Tools
 
