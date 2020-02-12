@@ -1639,8 +1639,8 @@ class Employee
     }
 }
 
-var employee = new Employee('John Doe');
-Console.WriteLine(employee.Name) // Employee name: John Doe
+var employee = new Employee("John Doe");
+Console.WriteLine(employee.Name); // Employee name: John Doe
 ```
 
 **Good:**
@@ -1656,8 +1656,8 @@ class Employee
     }
 }
 
-var employee = new Employee('John Doe');
-Console.WriteLine(employee.Name);// Employee name: John Doe
+var employee = new Employee("John Doe");
+Console.WriteLine(employee.Name); // Employee name: John Doe
 ```
 
 **[⬆ back to top](#table-of-contents)**
