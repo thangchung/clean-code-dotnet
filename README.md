@@ -1583,7 +1583,7 @@ class BankAccount
 {
     private double _balance = 0.0D;
 
-    pubic double Balance {
+    public double Balance {
         get {
             return _balance;
         }
