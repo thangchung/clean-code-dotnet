@@ -438,6 +438,28 @@ foreach (var location in locations)
 </details>
 
 <details>
+  <summary><b>Avoid var type when you use method for variable definition</b></summary>
+
+The var type should only be used when defining a new object. When defining a variable with any method call, specifying the type of the variable will make it easier for software developers who read the code. In this way, you can know which type of value is returned without taking your mouse over the method you call.
+
+**Bad:**
+
+```csharp
+var address = _customerService.GetCustomerAddress();
+```
+
+**Good:**
+
+```csharp
+CustomerAddress address = _customerService.GetCustomerAddress();
+
+```
+
+**[⬆ back to top](#table-of-contents)**
+
+</details>
+
+<details>
   <summary><b>Avoid magic string</b></summary>
 
 Magic strings are string values that are specified directly within application code that have an impact on the application’s behavior. Frequently, such strings will end up being duplicated within the system, and since they cannot automatically be updated using refactoring tools, they become a common source of bugs when changes are made to some strings but not others.
