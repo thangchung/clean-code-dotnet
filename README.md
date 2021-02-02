@@ -2141,15 +2141,15 @@ class Square : ShapeBase
     }
 }
 
-Drawable RenderLargeRectangles(Rectangle rectangles)
+Drawable RenderLargeRectangles(ShapeBase[] shapes)
 {
-    foreach (rectangle in rectangles)
+    foreach (shape in shapes)
     {
-        if (rectangle is Square)
+        if (shape is Square)
         {
             rectangle.SetLength(5);
         }
-        else if (rectangle is Rectangle)
+        else if (shape is Rectangle)
         {
             rectangle.SetWidth(4);
             rectangle.SetHeight(5);
