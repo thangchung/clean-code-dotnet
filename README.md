@@ -668,7 +668,7 @@ if(cityGroup.Success == true && zipCodeGroup.Success == true)
 <details>
   <summary><b>Use default arguments instead of short circuiting or conditionals</b></summary>
 
-**Not good:**
+**Bad:**
 
 This is not good because `breweryName` can be `NULL`.
 
