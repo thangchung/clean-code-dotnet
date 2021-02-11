@@ -2594,7 +2594,7 @@ There's a lot to learn about async and await, and it's natural to get a little d
 | Create a task wrapper for an operation or event | `TaskFactory.FromAsync` or `TaskCompletionSource<T>`                              |
 | Support cancellation                            | `CancellationTokenSource` and `CancellationToken`                                 |
 | Report progress                                 | `IProgress<T>` and `Progress<T>`                                                  |
-| Handle streams of data                          | TPL Dataflow or Reactive Extensions                                               |
+| Handle streams of data                          | TPL Dataflow, Reactive Extensions or Async streams (IAsyncEnumerable, C# 8.0)     |
 | Synchronize access to a shared resource         | `SemaphoreSlim`                                                                   |
 | Asynchronously initialize a resource            | `AsyncLazy<T>`                                                                    |
 | Async-ready producer/consumer structures        | TPL Dataflow or `AsyncCollection<T>`                                              |
