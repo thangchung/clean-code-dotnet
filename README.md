@@ -2141,7 +2141,7 @@ class Square : ShapeBase
     }
 }
 
-Drawable RenderLargeRectangles(Rectangle rectangles)
+Drawable RenderLargeRectangles(Rectangle[] rectangles)
 {
     foreach (rectangle in rectangles)
     {
