@@ -1830,8 +1830,7 @@ class Employee
 
 - [S: Single Responsibility Principle (SRP)](#single-responsibility-principle-srp)
 - [O: Open/Closed Principle (OCP)](#openclosed-principle-ocp)
-- [L: 
-  v Substitution Principle (LSP)](#liskov-substitution-principle-lsp)
+- [L: Liskov Substitution Principle (LSP)](#liskov-substitution-principle-lsp)
 - [I: Interface Segregation Principle (ISP)](#interface-segregation-principle-isp)
 - [D: Dependency Inversion Principle (DIP)](#dependency-inversion-principle-dip)
 
