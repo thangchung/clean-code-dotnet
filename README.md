@@ -2380,7 +2380,7 @@ Getting the abstraction right is critical, that's why you should follow the SOLI
 ```csharp
 public List<EmployeeData> ShowDeveloperList(Developers developers)
 {
-    foreach (var developers in developer)
+    foreach (var developer in developers)
     {
         var expectedSalary = developer.CalculateExpectedSalary();
         var experience = developer.GetExperience();
