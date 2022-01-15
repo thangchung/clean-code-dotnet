@@ -2083,7 +2083,7 @@ Drawable RenderLargeRectangles(Rectangle rectangles)
     {
         rectangle.SetWidth(4);
         rectangle.SetHeight(5);
-        var area = rectangle.GetArea(); // BAD: Will return 20 for Square. Should be 25.
+        var area = rectangle.GetArea(); // BAD: Will return 25 for Square. Should be 20.
         rectangle.Render(area);
     }
 }
