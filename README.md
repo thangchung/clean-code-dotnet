@@ -3193,6 +3193,7 @@ private int ConvertTo32BitInt(int value)
 - [clean-go-article](https://github.com/Pungyeon/clean-go-article) - Clean Code concepts adapted for Golang and an example how to apply [clean code in Golang](https://github.com/Pungyeon/clean-go)
 - [clean-abap](https://github.com/SAP/styleguides) - Clean Code concepts adapted for ABAP
 - [programming-principles](https://github.com/webpro/programming-principles) - Categorized overview of Programming Principles & Patterns
+- [Elixir-Code-Smells](https://github.com/lucasvegi/Elixir-Code-Smells) - Catalog of Elixir-specific code smells
 
 ## Style Guides
 - [Google Styleguides](https://github.com/google/styleguide) - This project holds the C++ Style Guide, Swift Style Guide, Objective-C Style Guide, Java Style Guide, Python Style Guide, R Style Guide, Shell Style Guide, HTML/CSS Style Guide, JavaScript Style Guide, AngularJS Style Guide, Common Lisp Style Guide, and Vimscript Style Guide
