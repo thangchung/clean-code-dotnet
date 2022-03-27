@@ -127,6 +127,19 @@ public bool IsShopOpen(string day, int amount)
 }
 ```
 
+---
+
+**ⓘ Note**
+
+The recommendation covered above and in the following section do not
+apply when interoperating with unmanaged code. For such scenarios it
+is strongly recommended that you use the same naming and capitalization
+for your methods and parameters as the native method you want to call,
+as well for using the same naming and capitalization for constant values.
+For more information, see [Native interoperability best practices](https://docs.microsoft.com/en-us/dotnet/standard/native-interop/best-practices).
+
+---
+
 **[⬆ Back to top](#table-of-contents)**
 
 </details>
