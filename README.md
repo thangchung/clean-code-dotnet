@@ -3214,6 +3214,7 @@ private int ConvertTo32BitInt(int value)
 - [.NET Memory Performance Analysis](https://github.com/Maoni0/mem-doc/blob/master/doc/.NETMemoryPerformanceAnalysis.md) - This document aims to help folks who develop applications in .NET with how to think about memory performance analysis and finding the right approaches to perform such analysis if they need to. In this context .NET includes .NET Framework and .NET Core. In order to get the latest memory improvements in both the garbage collector and the rest of the framework I strongly encourage you to be on .NET Core if you are not already, because that’s where the active development happens
 - [naming-cheatsheet](https://github.com/kettanaito/naming-cheatsheet) - Comprehensive language-agnostic guidelines on variables naming
 - [101 Design Patterns & Tips for Developers](https://sourcemaking.com/design-patterns-and-tips)
+- [Go Concurrency Guide](https://github.com/luk4z7/go-concurrency-guide)
 
 ---
 
