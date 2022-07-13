@@ -1589,7 +1589,7 @@ class BankAccount
         }
     }
 
-    public BankAccount(balance = 1000)
+    public BankAccount(decimal balance = 1000)
     {
        _balance = balance;
     }
