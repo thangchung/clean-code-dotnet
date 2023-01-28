@@ -1567,7 +1567,7 @@ Additionally, this is part of Open/Closed principle, from object-oriented design
 ```csharp
 class BankAccount
 {
-    public double Balance = 1000;
+    public decimal Balance = 1000;
 }
 
 var bankAccount = new BankAccount();
@@ -1581,30 +1581,30 @@ bankAccount.Balance -= 100;
 ```csharp
 class BankAccount
 {
-    private double _balance = 0.0D;
+    private decimal _balance;
 
-    pubic double Balance {
+    public decimal Balance {
         get {
             return _balance;
         }
     }
 
-    public BankAccount(balance = 1000)
+    public BankAccount(decimal balance = 1000)
     {
        _balance = balance;
     }
 
-    public void WithdrawBalance(int amount)
+    public void WithdrawBalance(decimal amount)
     {
         if (amount > _balance)
         {
-            throw new Exception('Amount greater than available balance.');
+            throw new Exception("Amount greater than available balance.");
         }
 
         _balance -= amount;
     }
 
-    public void DepositBalance(int amount)
+    public void DepositBalance(decimal amount)
     {
         _balance += amount;
     }
