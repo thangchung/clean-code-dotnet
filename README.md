@@ -2471,6 +2471,20 @@ There's no excuse to not write tests. There's [plenty of good .NET test framewor
 </details>
 
 <details>
+    <summary><b>FIRST</b></summary>
+A good and clean unit test should follow the FIRST principles.
+
+- <b>Fast</b>: it should take little time to run, preferred milliseconds.
+- <b>Isolated</b>: it should be isolated from each other and isolated from "external world" (such as HTTP calls, databases, files etc).
+- <b>Repeatable</b>: it should always return the same result, unless the system under test changed..
+- <b>Self-Checking</b>: it should be able automatically detect if their passed or failed.
+- <b>Timely</b>: it should not take too much time to be written when compared to their system under test code.
+
+> Source https://learn.microsoft.com/en-us/dotnet/core/testing/unit-testing-best-practices#characteristics-of-a-good-unit-test
+
+</details>
+
+<details>
   <summary><b>Single concept per test</b></summary>
 
 Ensures that your tests are laser focused and not testing miscellaenous (non-related) things, forces [AAA patern](http://wiki.c2.com/?ArrangeActAssert) used to make your codes more clean and readable.
