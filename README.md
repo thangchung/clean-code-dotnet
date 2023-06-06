@@ -3121,9 +3121,9 @@ public int HashIt(string data)
     for (var i = 0; i < length; i++)
     {
         // Get character code.
-        const charCode = data.charCodeAt(i);
+        const char character = data.charCodeAt(i);
         // Make the hash
-        hash = ((hash << 5) - hash) + charCode;
+        hash = ((hash << 5) - hash) + character;
         // Convert to 32-bit integer
         hash &= hash;
     }
@@ -3139,8 +3139,8 @@ public int HashIt(string data)
     var length = data.length;
     for (var i = 0; i < length; i++)
     {
-        const charCode = data.charCodeAt(i);
-        hash = ((hash << 5) - hash) + charCode;
+        const char character = data.charCodeAt(i);
+        hash = ((hash << 5) - hash) + character;
 
         // Convert to 32-bit integer
         hash &= hash;
