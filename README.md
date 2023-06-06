@@ -1857,7 +1857,7 @@ class UserSettings
 
     public void ChangeSettings(Settings settings)
     {
-        if (verifyCredentials())
+        if (VerifyCredentials())
         {
             // ...
         }
