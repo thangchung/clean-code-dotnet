@@ -3217,6 +3217,7 @@ private int ConvertTo32BitInt(int value)
 - [naming-cheatsheet](https://github.com/kettanaito/naming-cheatsheet) - Comprehensive language-agnostic guidelines on variables naming
 - [101 Design Patterns & Tips for Developers](https://sourcemaking.com/design-patterns-and-tips)
 - [Go Concurrency Guide](https://github.com/luk4z7/go-concurrency-guide)
+- [Cognitive Load In Software Development](https://github.com/zakirullin/cognitive-load)
 
 ---
 
