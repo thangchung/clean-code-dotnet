@@ -2214,7 +2214,7 @@ public class Robot : IEmployee
 
 **Good:**
 
-Not every worker is an employee, but every employee is an worker.
+Not every worker is an employee, but every employee is a worker.
 
 ```csharp
 public interface IWorkable
