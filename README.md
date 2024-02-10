@@ -2038,58 +2038,63 @@ get into trouble.
 **Bad:**
 
 ```csharp
+using System;
+using System.Collections.Generic;
+
 class Rectangle
 {
-    protected double Width = 0;
-    protected double Height = 0;
+	protected double Width = 0;
+	protected double Height = 0;
+  
+	public void SetWidth(double width)
+	{
+		Width = width;
+	}
 
-    public Drawable Render(double area)
-    {
-        // ...
-    }
+	public void SetHeight(double height)
+	{
+		Height = height;
+	}
 
-    public void SetWidth(double width)
-    {
-        Width = width;
-    }
-
-    public void SetHeight(double height)
-    {
-        Height = height;
-    }
-
-    public double GetArea()
-    {
-        return Width * Height;
-    }
+	public double GetArea()
+	{
+		return Width * Height;
+	}
 }
 
 class Square : Rectangle
 {
-    public double SetWidth(double width)
-    {
-        Width = Height = width;
-    }
-
-    public double SetHeight(double height)
-    {
-        Width = Height = height;
-    }
+	public void SetLength(double length)
+	{
+		Width = length;
+		Height = length;
+	}
 }
 
-Drawable RenderLargeRectangles(Rectangle rectangles)
+public class Program
 {
-    foreach (rectangle in rectangles)
-    {
-        rectangle.SetWidth(4);
-        rectangle.SetHeight(5);
-        var area = rectangle.GetArea(); // BAD: Will return 25 for Square. Should be 20.
-        rectangle.Render(area);
-    }
-}
+	public static void Main()
+	{
+		IList<Rectangle> list = new List<Rectangle>()
+		{new Square(), new Rectangle(), new Rectangle()};
+		foreach (Rectangle rectangle in list)
+		{
+			if (rectangle is Rectangle)
+			{
+				rectangle.SetHeight(4);
+				rectangle.SetWidth(5);
+			}
 
-var rectangles = new[] { new Rectangle(), new Rectangle(), new Square() };
-RenderLargeRectangles(rectangles);
+			if (rectangle is Square)
+			{
+				((Square)rectangle).SetLength(5);
+			}
+
+			double area = rectangle.GetArea();
+			Console.WriteLine(area.ToString());
+		}
+	}
+}
 ```
 
 **Good:**
