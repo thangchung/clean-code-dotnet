@@ -1001,7 +1001,7 @@ class Configuration
         _configuration = configuration;
     }
 
-    public string[] Get(string key)
+    public string Get(string key)
     {
         return _configuration.ContainsKey(key) ? _configuration[key] : null;
     }
