@@ -454,8 +454,8 @@ if (userRole == "Admin")
 **Good**
 
 ```csharp
-const string ADMIN_ROLE = "Admin"
-if (userRole == ADMIN_ROLE)
+const string AdminRole = "Admin"
+if (userRole == AdminRole)
 {
     // logic in here
 }
