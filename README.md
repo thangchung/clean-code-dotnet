@@ -1857,7 +1857,7 @@ class UserSettings
 
     public void ChangeSettings(Settings settings)
     {
-        if (verifyCredentials())
+        if (VerifyCredentials())
         {
             // ...
         }
@@ -2633,7 +2633,7 @@ Thrown errors are a good thing! They mean the runtime has successfully identifie
 
 If you need to re-throw an exception after catching it, use just 'throw'
 By using this, you will save the stack trace. But in the bad option below,
-you will lost the stack trace.
+you will lose the stack trace.
 
 **Bad:**
 
@@ -3121,9 +3121,9 @@ public int HashIt(string data)
     for (var i = 0; i < length; i++)
     {
         // Get character code.
-        const char = data.charCodeAt(i);
+        const char character = data.charCodeAt(i);
         // Make the hash
-        hash = ((hash << 5) - hash) + char;
+        hash = ((hash << 5) - hash) + character;
         // Convert to 32-bit integer
         hash &= hash;
     }
@@ -3139,8 +3139,8 @@ public int HashIt(string data)
     var length = data.length;
     for (var i = 0; i < length; i++)
     {
-        const char = data.charCodeAt(i);
-        hash = ((hash << 5) - hash) + char;
+        const char character = data.charCodeAt(i);
+        hash = ((hash << 5) - hash) + character;
 
         // Convert to 32-bit integer
         hash &= hash;
