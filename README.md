@@ -1347,8 +1347,8 @@ class Lexer
 
 class BetterJSAlternative
 {
-    private string _tokenizer;
-    private string _lexer;
+    private Tokenizer _tokenizer;
+    private Lexer _lexer;
 
     public BetterJSAlternative(Tokenizer tokenizer, Lexer lexer)
     {
