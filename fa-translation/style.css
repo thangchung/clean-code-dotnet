@@ -1,0 +1,98 @@
+body {
+    font-family: Vazirmatn, sans-serif;
+}
+
+/* style.css */
+
+/* متغیرهای CSS برای تم روشن (Light Mode) */
+:root {
+    --primary-color: #007bff; /* آبی برای لینک‌ها و دکمه‌ها */
+    --secondary-color: #6c757d; /* خاکستری برای متن‌های فرعی */
+    --text-color: #333; /* رنگ اصلی متن */
+    --bg-color: #f8f9fa; /* رنگ پس‌زمینه کلی */
+    --card-bg-color: #ffffff; /* رنگ پس‌زمینه کارت‌ها/باکس‌ها */
+    --border-color: #dee2e6; /* رنگ خطوط جداکننده */
+    --light-grey: #e9ecef; /* خاکستری روشن */
+    --heading-color: var(--primary-color); /* رنگ عنوان‌ها */
+    --code-bg-color: #f0f0f0; /* پس زمینه کد */
+    --code-text-color: #c7254e; /* رنگ متن کد */
+}
+
+/* متغیرهای CSS برای تم تاریک (Dark Mode) */
+body.dark-mode {
+    --primary-color: #8ab4f8; /* آبی روشن‌تر برای لینک‌ها و دکمه‌ها */
+    --secondary-color: #bdc1c6; /* خاکستری روشن برای متن‌های فرعی */
+    --text-color: #e8eaed; /* رنگ اصلی متن (سفید روشن) */
+    --bg-color: #202124; /* رنگ پس‌زمینه کلی (مشکی تیره) */
+    --card-bg-color: #2b2c2f; /* رنگ پس‌زمینه کارت‌ها/باکس‌ها */
+    --border-color: #3c4043; /* رنگ خطوط جداکننده */
+    --light-grey: #444; /* خاکستری تیره */
+    --heading-color: #8ab4f8; /* رنگ عنوان‌ها */
+    --code-bg-color: #3c4043; /* پس زمینه کد */
+    --code-text-color: #e06c75; /* رنگ متن کد */
+}
+
+/* بقیه استایل‌ها بدون تغییر، فقط از این متغیرها استفاده کنند */
+
+/* مثال: */
+body {
+    font-family: var(--font-family-primary);
+    font-size: var(--font-size-base);
+    line-height: var(--line-height-base);
+    color: var(--text-color); /* از متغیر استفاده کنید */
+    background-color: var(--bg-color); /* از متغیر استفاده کنید */
+    direction: rtl;
+    text-align: right;
+    transition: background-color 0.3s ease, color 0.3s ease; /* اضافه کردن ترنزیشن برای تغییر تم */
+}
+
+header {
+    background-color: var(--card-bg-color); /* از متغیر استفاده کنید */
+    padding: 1.5rem 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    border-bottom: 1px solid var(--border-color); /* از متغیر استفاده کنید */
+    transition: background-color 0.3s ease, border-color 0.3s ease; /* اضافه کردن ترنزیشن */
+}
+
+section {
+    background-color: var(--card-bg-color); /* از متغیر استفاده کنید */
+    padding: 2.5rem;
+    margin-bottom: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    transition: background-color 0.3s ease, box-shadow 0.3s ease; /* اضافه کردن ترنزیشن */
+}
+
+section h2 {
+    color: var(--heading-color); /* استفاده از متغیر جدید */
+    border-bottom: 2px solid var(--border-color);
+}
+
+.btn {
+    background-color: var(
+        --primary-color
+    ); /* دکمه ها هم از متغیر اصلی استفاده کنند */
+    color: var(
+        --card-bg-color
+    ); /* رنگ متن دکمه در تم روشن سفید، در تم تاریک مشکی (یا رنگ تم تاریک) */
+    /* ... بقیه استایل های btn ... */
+}
+
+/* برای هایلایت کردن کدها */
+pre {
+    background-color: var(--code-bg-color);
+    color: var(--code-text-color);
+    padding: 1rem;
+    border-radius: 5px;
+    overflow-x: auto; /* برای کدهای طولانی */
+    direction: ltr; /* کدها معمولا از چپ به راست هستند */
+    text-align: left; /* کدها معمولا از چپ به راست هستند */
+    font-family: "Fira Code", "Vazirmatn", monospace; /* یک فونت مناسب برای کد */
+    font-size: 0.95rem;
+}
+code {
+    color: var(--code-text-color);
+    background-color: var(--code-bg-color);
+    padding: 0.2em 0.4em;
+    border-radius: 3px;
+}
