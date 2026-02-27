@@ -329,7 +329,7 @@ public bool IsShopOpen(string day)
         return false;
     }
 
-    var openingDays = new[] { "friday", "saturday", "sunday" };
+    string[] openingDays = ["friday", "saturday", "sunday"];
     return openingDays.Any(d => d == day.ToLower());
 }
 ```
@@ -419,7 +419,7 @@ for (var i = 0; i < l.Count(); i++)
 **Good:**
 
 ```csharp
-var locations = new[] { "Austin", "New York", "San Francisco" };
+var locations = ["Austin", "New York", "San Francisco"];
 
 foreach (var location in locations)
 {
@@ -1108,21 +1108,17 @@ public void CreateMenu(string title, string body, string buttonText, bool cancel
 **Good:**
 
 ```csharp
-public class MenuConfig
-{
-    public string Title { get; set; }
-    public string Body { get; set; }
-    public string ButtonText { get; set; }
-    public bool Cancellable { get; set; }
-}
+public record MenuConfig(
+    string Title,
+    string Body,
+    string ButtonText,
+    bool Cancellable);
 
-var config = new MenuConfig
-{
-    Title = "Foo",
-    Body = "Bar",
-    ButtonText = "Baz",
-    Cancellable = true
-};
+var config = new MenuConfig(
+    Title: "Foo",
+    Body: "Bar",
+    ButtonText: "Baz",
+    Cancellable: true);
 
 public void CreateMenu(MenuConfig config)
 {
@@ -1345,21 +1341,12 @@ class Lexer
     }
 }
 
-class BetterJSAlternative
+class BetterJSAlternative(Tokenizer tokenizer, Lexer lexer)
 {
-    private string _tokenizer;
-    private string _lexer;
-
-    public BetterJSAlternative(Tokenizer tokenizer, Lexer lexer)
-    {
-        _tokenizer = tokenizer;
-        _lexer = lexer;
-    }
-
     public string Parse(string code)
     {
-        var tokens = _tokenizer.Tokenize(code);
-        var ast = _lexer.Lexify(tokens);
+        var tokens = tokenizer.Tokenize(code);
+        var ast = lexer.Lexify(tokens);
         foreach (var node in ast)
         {
             // parse...
@@ -1430,15 +1417,8 @@ review.PerfReview();
 **Good:**
 
 ```csharp
-class PerformanceReview
+class PerformanceReview(Employee employee)
 {
-    private readonly Employee _employee;
-
-    public PerformanceReview(Employee employee)
-    {
-        _employee = employee;
-    }
-
     public PerfReviewData PerfReview()
     {
         GetPeerReviews();
@@ -1454,7 +1434,7 @@ class PerformanceReview
 
     private IEnumerable<PeersData> LookupPeers()
     {
-        return db.lookup(_employee, 'peers');
+        return db.lookup(employee, 'peers');
     }
 
     private ManagerData GetManagerReview()
@@ -1465,7 +1445,7 @@ class PerformanceReview
 
     private ManagerData LookupManager()
     {
-        return db.lookup(_employee, 'manager');
+        return db.lookup(employee, 'manager');
     }
 
     private EmployeeData GetSelfReview()
@@ -1646,14 +1626,9 @@ Console.WriteLine(employee.Name); // Employee name: John Doe
 **Good:**
 
 ```csharp
-class Employee
+class Employee(string name)
 {
-    public string Name { get; }
-
-    public Employee(string name)
-    {
-        Name = name;
-    }
+    public string Name { get; } = name;
 }
 
 var employee = new Employee("John Doe");
@@ -1716,7 +1691,8 @@ public static class ListExtensions
 
 internal static void ListFluentExtensions()
 {
-    var list = new List<int>() { 1, 2, 3, 4, 5 }
+    List<int> list = [1, 2, 3, 4, 5];
+    list = list
         .FluentAdd(1)
         .FluentInsert(0, 0)
         .FluentRemoveAt(1)
@@ -1782,31 +1758,13 @@ class EmployeeTaxData : Employee
 **Good:**
 
 ```csharp
-class EmployeeTaxData
+record EmployeeTaxData(string Ssn, string Salary);
+
+class Employee(string name, string email)
 {
-    public string Ssn { get; }
-    public string Salary { get; }
-
-    public EmployeeTaxData(string ssn, string salary)
-    {
-        Ssn = ssn;
-        Salary = salary;
-    }
-
-    // ...
-}
-
-class Employee
-{
-    public string Name { get; }
-    public string Email { get; }
-    public EmployeeTaxData TaxData { get; }
-
-    public Employee(string name, string email)
-    {
-        Name = name;
-        Email = email;
-    }
+    public string Name { get; } = name;
+    public string Email { get; } = email;
+    public EmployeeTaxData? TaxData { get; private set; }
 
     public void SetTax(string ssn, double salary)
     {
@@ -1873,35 +1831,21 @@ class UserSettings
 **Good:**
 
 ```csharp
-class UserAuth
+class UserAuth(User user)
 {
-    private User User;
-
-    public UserAuth(User user)
-    {
-        User = user;
-    }
-
     public bool VerifyCredentials()
     {
         // ...
     }
 }
 
-class UserSettings
+class UserSettings(User user)
 {
-    private User User;
-    private UserAuth Auth;
-
-    public UserSettings(User user)
-    {
-        User = user;
-        Auth = new UserAuth(user);
-    }
+    private readonly UserAuth _auth = new(user);
 
     public void ChangeSettings(Settings settings)
     {
-        if (Auth.VerifyCredentials())
+        if (_auth.VerifyCredentials())
         {
             // ...
         }
@@ -2160,7 +2104,7 @@ Drawable RenderLargeRectangles(Rectangle rectangles)
     }
 }
 
-var shapes = new[] { new Rectangle(), new Rectangle(), new Square() };
+var shapes = [new Rectangle(), new Rectangle(), new Square()];
 RenderLargeRectangles(shapes);
 ```
 
@@ -2339,20 +2283,13 @@ public class Robot : IEmployee
     }
 }
 
-public class Manager
+public class Manager(IEnumerable<IEmployee> employees)
 {
-    private readonly IEnumerable<IEmployee> _employees;
-
-    public Manager(IEnumerable<IEmployee> employees)
-    {
-        _employees = employees;
-    }
-
     public void Manage()
     {
-        foreach (var employee in _employees)
+        foreach (var employee in employees)
         {
-            _employee.Work();
+            employee.Work();
         }
     }
 }
@@ -2425,11 +2362,11 @@ public List<EmployeeData> ShowList(Employee employees)
         var experience = employees.GetExperience();
         var githubLink = employees.GetGithubLink();
         var data =
-        new[] {
+        [
             expectedSalary,
             experience,
             githubLink
-        };
+        ];
 
         render(data);
     }
@@ -2445,11 +2382,11 @@ public List<EmployeeData> ShowList(Employee employees)
 {
     foreach (var employee in employees)
     {
-        render(new[] {
+        render([
             employee.CalculateExpectedSalary(),
             employee.GetExperience(),
             employee.GetGithubLink()
-        });
+        ]);
     }
 }
 ```
@@ -2564,7 +2501,7 @@ public class MakeDotNetGreatAgainTests
 | Name              | Description                                       | Exceptions                      |
 | ----------------- | ------------------------------------------------- | ------------------------------- |
 | Avoid async void  | Prefer async Task methods over async void methods | Event handlers                  |
-| Async all the way | Don't mix blocking and async code                 | Console main method (C# <= 7.0) |
+| Async all the way | Don't mix blocking and async code                 | Console main method             |
 | Configure context | Use `ConfigureAwait(false)` when you can          | Methods that require con­text   |
 
 **The Async Way of Doing Things**
