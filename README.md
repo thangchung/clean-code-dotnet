@@ -107,7 +107,7 @@ string fullName;
 DateTime modifiedDate;
 ```
 
-Hungarian Notation should also not be used in paramaters.
+Hungarian Notation should also not be used in parameters.
 
 **Bad:**
 
