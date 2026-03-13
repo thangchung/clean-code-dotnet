@@ -575,7 +575,7 @@ var person = new Person
 
 var stream2 = new MemoryStream();
 var ser2 = new DataContractJsonSerializer(typeof(Person));
-ser2.WriteObject(stream2, data);
+ser2.WriteObject(stream2, person);
 
 stream2.Position = 0;
 var sr2 = new StreamReader(stream2);
